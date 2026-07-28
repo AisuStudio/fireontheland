@@ -62,16 +62,17 @@ body{
   margin:0;background:var(--bg);color:var(--ink);
   font-family:var(--font-serif);font-size:1rem;line-height:1.55;
   -webkit-font-smoothing:antialiased;
-  padding-bottom:calc(var(--tabbar-h) + env(safe-area-inset-bottom));
+  padding-bottom:env(safe-area-inset-bottom);
 }
 h1,h2{font-family:var(--font-sans);letter-spacing:-.01em;text-wrap:balance}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:var(--r-s)}
 
 /* ============================================================
-   APP BAR
+   TOP BAR (app bar + tab nav, stuck together at the top)
    ============================================================ */
+.topbar{position:sticky;top:0;z-index:6}
 .appbar{
-  position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;
+  display:flex;align-items:center;justify-content:space-between;
   gap:var(--sp-2);padding:calc(env(safe-area-inset-top) + .7rem) var(--sp-3) .7rem;
   background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(8px);
   border-bottom:1px solid var(--line);
@@ -177,11 +178,9 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
    TAB BAR
    ============================================================ */
 .tabbar{
-  position:fixed;left:0;right:0;bottom:0;z-index:6;display:flex;
-  height:calc(var(--tabbar-h) + env(safe-area-inset-bottom));
-  padding-bottom:env(safe-area-inset-bottom);
+  display:flex;height:var(--tabbar-h);
   background:color-mix(in srgb,var(--surface) 92%, transparent);backdrop-filter:blur(10px);
-  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
 }
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;
   background:none;border:0;color:var(--muted);font-family:var(--font-sans);cursor:pointer;padding:.4rem;min-height:44px}
