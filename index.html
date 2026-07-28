@@ -14,21 +14,24 @@
         <span class="brand-mark" aria-hidden="true"></span>
         <span class="brand-name">Noveco</span>
       </div>
-      <span class="appbar-site">Jüterbog · Brandenburg</span>
+      <div class="appbar-end">
+        <span class="appbar-site">Jüterbog · Brandenburg</span>
+        <div id="langsw" class="langsw" role="group" data-i18n-aria="lang.aria" aria-label="Sprache"></div>
+      </div>
     </header>
 
-    <nav class="tabbar" role="tablist" aria-label="Ansichten">
+    <nav class="tabbar" role="tablist" aria-label="Ansichten" data-i18n-aria="nav.aria">
       <button class="tab is-active" role="tab" aria-selected="true" aria-controls="view-composite" data-target="composite">
-        <span class="tab-ico" aria-hidden="true">▚</span><span class="tab-lbl">Komposit</span>
+        <span class="tab-ico" aria-hidden="true">▚</span><span class="tab-lbl" data-i18n="tab.composite">Komposit</span>
       </button>
       <button class="tab" role="tab" aria-selected="false" aria-controls="view-scorecard" data-target="scorecard">
-        <span class="tab-ico" aria-hidden="true">▤</span><span class="tab-lbl">Scorecard</span>
+        <span class="tab-ico" aria-hidden="true">▤</span><span class="tab-lbl" data-i18n="tab.scorecard">Scorecard</span>
       </button>
       <button class="tab" role="tab" aria-selected="false" aria-controls="view-measures" data-target="measures">
-        <span class="tab-ico" aria-hidden="true">⚒</span><span class="tab-lbl">Maßnahmen</span>
+        <span class="tab-ico" aria-hidden="true">⚒</span><span class="tab-lbl" data-i18n="tab.measures">Maßnahmen</span>
       </button>
       <button class="tab" role="tab" aria-selected="false" aria-controls="view-concept" data-target="concept">
-        <span class="tab-ico" aria-hidden="true">◆</span><span class="tab-lbl">Konzept</span>
+        <span class="tab-ico" aria-hidden="true">◆</span><span class="tab-lbl" data-i18n="tab.concept">Konzept</span>
       </button>
     </nav>
   </div>
@@ -36,101 +39,102 @@
   <main id="main">
     <!-- VIEW: Komposit -->
     <section id="view-composite" class="view" data-view="composite" aria-labelledby="t-composite">
-      <h1 id="t-composite" class="view-title">Erholung in einem Bild</h1>
-      <p class="view-sub">Drei Jahre nach dem Brand, auf Rot · Grün · Blau gelegt. Die Farbe erzählt den Erholungspfad jedes Pixels — grau = unverändert, Farbe = zeitversetztes Ergrünen.</p>
+      <h1 id="t-composite" class="view-title" data-i18n="composite.title">Erholung in einem Bild</h1>
+      <p class="view-sub" data-i18n="composite.sub">Drei Jahre nach dem Brand, auf Rot · Grün · Blau gelegt. Die Farbe erzählt den Erholungspfad jedes Pixels — grau = unverändert, Farbe = zeitversetztes Ergrünen.</p>
 
       <figure class="composite">
         <canvas id="composite-canvas" width="640" height="440" role="img"
+          data-i18n-aria="composite.canvasAria"
           aria-label="Sentinel-2-NBR-Erholungskomposit der Brandfläche Jüterbog"></canvas>
-        <figcaption class="badge-placeholder">Sentinel-2 L2A · NBR · Copernicus Data Space Ecosystem</figcaption>
+        <figcaption class="badge-placeholder" data-i18n="composite.badge">Sentinel-2 L2A · NBR · Copernicus Data Space Ecosystem</figcaption>
       </figure>
 
-      <div class="channels" role="group" aria-label="Jahre den Farbkanälen zuordnen">
+      <div class="channels" role="group" data-i18n-aria="composite.channelsAria" aria-label="Jahre den Farbkanälen zuordnen">
         <label class="channel c-r">
-          <span class="channel-key">Rot</span>
+          <span class="channel-key" data-i18n="channel.r">Rot</span>
           <select id="year-r" class="channel-select"></select>
         </label>
         <label class="channel c-g">
-          <span class="channel-key">Grün</span>
+          <span class="channel-key" data-i18n="channel.g">Grün</span>
           <select id="year-g" class="channel-select"></select>
         </label>
         <label class="channel c-b">
-          <span class="channel-key">Blau</span>
+          <span class="channel-key" data-i18n="channel.b">Blau</span>
           <select id="year-b" class="channel-select"></select>
         </label>
       </div>
 
-      <ul class="readout" aria-label="Legende">
-        <li><span class="swatch" style="background:#8d8d86"></span> Grau — unverändert / unverbrannt</li>
-        <li><span class="swatch" style="background:var(--accent)"></span> Warm — frühe Erholung</li>
-        <li><span class="swatch" style="background:var(--neo)"></span> Grün — mittlere Erholung</li>
-        <li><span class="swatch" style="background:var(--pine)"></span> Kühl — späte Erholung</li>
+      <ul class="readout" data-i18n-aria="legend.aria" aria-label="Legende">
+        <li><span class="swatch" style="background:#8d8d86"></span> <span data-i18n="legend.grey">Grau — unverändert / unverbrannt</span></li>
+        <li><span class="swatch" style="background:var(--accent)"></span> <span data-i18n="legend.warm">Warm — frühe Erholung</span></li>
+        <li><span class="swatch" style="background:var(--neo)"></span> <span data-i18n="legend.green">Grün — mittlere Erholung</span></li>
+        <li><span class="swatch" style="background:var(--pine)"></span> <span data-i18n="legend.cool">Kühl — späte Erholung</span></li>
       </ul>
     </section>
 
     <!-- VIEW: Scorecard -->
     <section id="view-scorecard" class="view" data-view="scorecard" hidden aria-labelledby="t-scorecard">
-      <h1 id="t-scorecard" class="view-title">Novel vs. Novel</h1>
-      <p class="view-sub">Kein Sieger-Loblied — ein Raster, auf dem jede Seite Achsen gewinnt und verliert.</p>
+      <h1 id="t-scorecard" class="view-title" data-i18n="scorecard.title">Novel vs. Novel</h1>
+      <p class="view-sub" data-i18n="scorecard.sub">Kein Sieger-Loblied — ein Raster, auf dem jede Seite Achsen gewinnt und verliert.</p>
       <div class="cols-key">
-        <span class="tag-pine">Kulturkiefernforst</span>
-        <span class="tag-neo">Neophyten-Sukzession</span>
+        <span class="tag-pine" data-i18n="scorecard.pine">Kulturkiefernforst</span>
+        <span class="tag-neo" data-i18n="scorecard.neo">Neophyten-Sukzession</span>
       </div>
       <ol id="scorecard-list" class="scorelist"></ol>
-      <p class="note">Die Achse <strong>Biodiversität</strong> kippt je nach Fläche — der Angelpunkt, den das Werkzeug sichtbar macht.</p>
+      <p class="note" data-i18n-html="scorecard.note">Die Achse <strong>Biodiversität</strong> kippt je nach Fläche — der Angelpunkt, den das Werkzeug sichtbar macht.</p>
     </section>
 
     <!-- VIEW: Maßnahmen -->
     <section id="view-measures" class="view" data-view="measures" hidden aria-labelledby="t-measures">
-      <h1 id="t-measures" class="view-title">Maßnahmen</h1>
-      <p class="view-sub">Struktur, nicht Art, ist die billigste Maßnahme: Wind bremsen, Schatten und Tau schaffen, Samen fangen — und weil Stein und Totholz nicht brennen, ist es reburn-resilient.</p>
-      <div class="segmented" role="group" aria-label="Nach Akteur filtern">
-        <button class="seg-btn is-on" data-actor="all">Alle</button>
-        <button class="seg-btn" data-actor="ind">Einzelperson</button>
-        <button class="seg-btn" data-actor="kom">Kommune</button>
-        <button class="seg-btn" data-actor="forst">Forstbetrieb</button>
+      <h1 id="t-measures" class="view-title" data-i18n="measures.title">Maßnahmen</h1>
+      <p class="view-sub" data-i18n="measures.sub">Struktur, nicht Art, ist die billigste Maßnahme: Wind bremsen, Schatten und Tau schaffen, Samen fangen — und weil Stein und Totholz nicht brennen, ist es reburn-resilient.</p>
+      <div class="segmented" role="group" data-i18n-aria="measures.filterAria" aria-label="Nach Akteur filtern">
+        <button class="seg-btn is-on" data-actor="all" data-i18n="actor.all">Alle</button>
+        <button class="seg-btn" data-actor="ind" data-i18n="actor.ind">Einzelperson</button>
+        <button class="seg-btn" data-actor="kom" data-i18n="actor.kom">Kommune</button>
+        <button class="seg-btn" data-actor="forst" data-i18n="actor.forst">Forstbetrieb</button>
       </div>
       <ol id="measures-list" class="measures"></ol>
-      <p class="note">Prinzip: <span class="mtag p">Wind</span> <span class="mtag p">Schatten</span> <span class="mtag n">Tau</span> <span class="mtag n">Streu</span> <span class="mtag a">Feuer</span> <span class="mtag a">Kohlenstoff</span></p>
+      <p class="note"><span data-i18n="measures.principle">Prinzip:</span> <span class="mtag p" data-i18n="tag.Wind">Wind</span> <span class="mtag p" data-i18n="tag.Schatten">Schatten</span> <span class="mtag n" data-i18n="tag.Tau">Tau</span> <span class="mtag n" data-i18n="tag.Streu">Streu</span> <span class="mtag a" data-i18n="tag.Feuer">Feuer</span> <span class="mtag a" data-i18n="tag.Kohlenstoff">Kohlenstoff</span></p>
     </section>
 
     <!-- VIEW: Konzept -->
     <section id="view-concept" class="view" data-view="concept" hidden aria-labelledby="t-concept">
-      <h1 id="t-concept" class="view-title">Das Konzept</h1>
+      <h1 id="t-concept" class="view-title" data-i18n="concept.title">Das Konzept</h1>
 
       <div class="define">
-        <span class="kicker">Was es ist</span>
-        <p>Ein offenes Werkzeug, das eine Waldbrandfläche danach lesbar macht, welche Wiederbewaldung dort zugleich <strong>klimaangepasst, wirtschaftlich zukunftsfähig und kohlenstoff-wirksam</strong> ist.</p>
+        <span class="kicker" data-i18n="concept.kicker">Was es ist</span>
+        <p data-i18n-html="concept.define">Ein offenes Werkzeug, das eine Waldbrandfläche danach lesbar macht, welche Wiederbewaldung dort zugleich <strong>klimaangepasst, wirtschaftlich zukunftsfähig und kohlenstoff-wirksam</strong> ist.</p>
       </div>
 
-      <p class="thesis-line">Der Wert einer Sukzession ist keine Eigenschaft der <em>Pflanze</em> — sondern der <em>Fläche</em>.</p>
+      <p class="thesis-line" data-i18n-html="concept.thesis">Der Wert einer Sukzession ist keine Eigenschaft der <em>Pflanze</em> — sondern der <em>Fläche</em>.</p>
 
-      <h2 class="h-sec">Robuster Kern, optionale Verstärkung</h2>
+      <h2 class="h-sec" data-i18n="concept.hsec1">Robuster Kern, optionale Verstärkung</h2>
       <div class="duo">
         <div class="duo-card c-core">
-          <span class="duo-h">Kern — garantiert</span>
+          <span class="duo-h" data-i18n="concept.core.h">Kern — garantiert</span>
           <ul>
-            <li>Sentinel-2 (offen)</li>
-            <li>Eigene Bodenwahrheit (Bestensee)</li>
-            <li>GALK — Funktion statt Herkunft</li>
+            <li data-i18n="concept.core.1">Sentinel-2 (offen)</li>
+            <li data-i18n="concept.core.2">Eigene Bodenwahrheit (Bestensee)</li>
+            <li data-i18n="concept.core.3">GALK — Funktion statt Herkunft</li>
           </ul>
         </div>
         <div class="duo-card c-amp">
-          <span class="duo-h">Verstärkung — optional</span>
+          <span class="duo-h" data-i18n="concept.amp.h">Verstärkung — optional</span>
           <ul>
-            <li>Eddy-Covariance-Flüsse (Sonnentag)</li>
-            <li>Bezahl-Fernerkundung (AWI)</li>
-            <li>Kohlenstoff nach GHG-Protocol-LSR</li>
+            <li data-i18n="concept.amp.1">Eddy-Covariance-Flüsse (Sonnentag)</li>
+            <li data-i18n="concept.amp.2">Bezahl-Fernerkundung (AWI)</li>
+            <li data-i18n="concept.amp.3">Kohlenstoff nach GHG-Protocol-LSR</li>
           </ul>
         </div>
       </div>
 
-      <h2 class="h-sec">Wertekanon</h2>
+      <h2 class="h-sec" data-i18n="concept.hsec2">Wertekanon</h2>
       <ul class="canon">
-        <li><strong>Vorurteilsfrei.</strong> Bewertet wird Funktion, nicht Herkunft.</li>
-        <li><strong>Kontext vor Dogma.</strong> Derselbe Baum ist Retter oder Verdränger — je nach Fläche.</li>
-        <li><strong>Ehrlich über Grenzen.</strong> Permanenz, Homogenisierung, schwächster Datenpunkt offen.</li>
-        <li><strong>Bewerten, nicht entscheiden.</strong> Das Werkzeug zeigt den Zielkonflikt; entscheiden Mensch und Fläche.</li>
+        <li data-i18n-html="concept.canon.1"><strong>Vorurteilsfrei.</strong> Bewertet wird Funktion, nicht Herkunft.</li>
+        <li data-i18n-html="concept.canon.2"><strong>Kontext vor Dogma.</strong> Derselbe Baum ist Retter oder Verdränger — je nach Fläche.</li>
+        <li data-i18n-html="concept.canon.3"><strong>Ehrlich über Grenzen.</strong> Permanenz, Homogenisierung, schwächster Datenpunkt offen.</li>
+        <li data-i18n-html="concept.canon.4"><strong>Bewerten, nicht entscheiden.</strong> Das Werkzeug zeigt den Zielkonflikt; entscheiden Mensch und Fläche.</li>
       </ul>
     </section>
   </main>
