@@ -79,18 +79,18 @@
   }
 
   /* ---------------------------------------------------------
-     Recovery composite (procedural placeholder)
-     Three years mapped to R/G/B. Unburned pixels stay grey;
-     burn scar shows recovery-timing as false colour.
+     Recovery composite — real Sentinel-2 NBR tiles (Jüterbog)
+     Three years mapped to R/G/B. Tiles are pre-fetched PNGs
+     (scripts/fetch-sentinel.mjs, recipe in BRIEFING.md Anhang A) —
+     only years with an actual tile in assets/ are selectable.
      --------------------------------------------------------- */
-  var FIRE_YEAR = 2019;
-  var YEARS = [2019, 2020, 2021, 2022, 2023, 2024, 2025];
+  var TILE_YEARS = [2020, 2022, 2024];
   var selR = document.getElementById('year-r');
   var selG = document.getElementById('year-g');
   var selB = document.getElementById('year-b');
 
   function fillYears(sel, val) {
-    YEARS.forEach(function (y) {
+    TILE_YEARS.forEach(function (y) {
       var o = document.createElement('option');
       o.value = String(y); o.textContent = String(y);
       if (y === val) o.selected = true;
@@ -102,59 +102,48 @@
   fillYears(selG, 2022);
   fillYears(selB, 2024);
 
-  function hash(x, y) {
-    var n = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
-    return n - Math.floor(n);
-  }
-  function smooth(x, y) {
-    var xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi;
-    var u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf);
-    var a = hash(xi, yi), b = hash(xi + 1, yi), c = hash(xi, yi + 1), d = hash(xi + 1, yi + 1);
-    return (a * (1 - u) + b * u) * (1 - v) + (c * (1 - u) + d * u) * v;
-  }
-  function fbm(x, y) {
-    var t = 0, amp = 0.5, f = 1;
-    for (var i = 0; i < 4; i++) { t += amp * smooth(x * f, y * f); f *= 2; amp *= 0.5; }
-    return t;
-  }
-  function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
-
-  function nbr(nx, ny, year) {
-    var t = Math.max(0, year - FIRE_YEAR);
-    var scar = fbm(nx * 3 + 10, ny * 3 + 4);
-    if (scar <= 0.52) return 0.72 + (fbm(nx * 8, ny * 8) - 0.5) * 0.12; // unburned, stable
-    var interior = clamp((scar - 0.52) / 0.35, 0, 1);      // 0 edge .. 1 core
-    var neo = fbm(nx * 6 - 3, ny * 6 + 7);                 // neophyte patchiness
-    var rate = 0.35 + (1 - interior) * 0.6 + (neo > 0.62 ? 0.6 : 0);
-    return clamp((1 - Math.exp(-rate * t * 0.55)) * 0.85 + 0.05, 0, 1);
-  }
-
   var canvas = document.getElementById('composite-canvas');
-  var off = document.createElement('canvas');
-  var RW = 200, RH = Math.round(RW * canvas.height / canvas.width);
-  off.width = RW; off.height = RH;
+  var tileCache = {};   // year -> ImageData (grayscale NBR, canvas-sized)
+  var tilesReady = false;
+
+  function loadTile(year) {
+    return new Promise(function (resolve, reject) {
+      var img = new Image();
+      img.onload = function () {
+        var off = document.createElement('canvas');
+        off.width = canvas.width; off.height = canvas.height;
+        var octx = off.getContext('2d');
+        octx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        tileCache[year] = octx.getImageData(0, 0, canvas.width, canvas.height);
+        resolve();
+      };
+      img.onerror = reject;
+      img.src = './assets/nbr-' + year + '.png';
+    });
+  }
 
   function renderComposite() {
-    if (!canvas || views.composite.hidden) return;
+    if (!canvas || views.composite.hidden || !tilesReady) return;
     var yr = +selR.value, yg = +selG.value, yb = +selB.value;
-    var octx = off.getContext('2d');
-    var img = octx.createImageData(RW, RH);
-    var px = img.data;
-    for (var y = 0; y < RH; y++) {
-      for (var x = 0; x < RW; x++) {
-        var nx = x / RW, ny = y / RH, i = (y * RW + x) * 4;
-        px[i]     = Math.round(Math.pow(nbr(nx, ny, yr), 0.85) * 255);
-        px[i + 1] = Math.round(Math.pow(nbr(nx, ny, yg), 0.85) * 255);
-        px[i + 2] = Math.round(Math.pow(nbr(nx, ny, yb), 0.85) * 255);
-        px[i + 3] = 255;
-      }
-    }
-    octx.putImageData(img, 0, 0);
+    var r = tileCache[yr].data, g = tileCache[yg].data, b = tileCache[yb].data;
     var ctx = canvas.getContext('2d');
-    ctx.imageSmoothingEnabled = true;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(off, 0, 0, canvas.width, canvas.height);
+    var out = ctx.createImageData(canvas.width, canvas.height);
+    var px = out.data;
+    for (var i = 0; i < px.length; i += 4) {
+      px[i]     = r[i];   // grayscale NBR PNG → R=G=B=value at index i
+      px[i + 1] = g[i];
+      px[i + 2] = b[i];
+      px[i + 3] = 255;
+    }
+    ctx.putImageData(out, 0, 0);
   }
+
+  Promise.all(TILE_YEARS.map(loadTile)).then(function () {
+    tilesReady = true;
+    renderComposite();
+  }).catch(function (err) {
+    console.error('Sentinel-Kacheln konnten nicht geladen werden', err);
+  });
 
   /* ---------------------------------------------------------
      Measures (Maßnahmen) — filterable by actor
