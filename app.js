@@ -42,8 +42,9 @@
       'legend.green': 'Grün — mittlere Erholung',
       'legend.cool': 'Kühl — späte Erholung',
 
-      'scorecard.title': 'Novel vs. Novel',
-      'scorecard.sub': 'Kein Sieger-Loblied — ein Raster, auf dem jede Seite Achsen gewinnt und verliert.',
+      'scorecard.title': 'Kiefern-Kulturwald oder Neophyten?',
+      'scorecard.sub': 'Zwei neue Ökosysteme im Vergleich',
+      'scorecard.history': 'Brandenburgs Kiefernwälder sind selbst eine menschengemachte Kultur: nach Übernutzung im 19. Jahrhundert auf kargem Sand angepflanzt, weil dort kaum etwas anderes wuchs. Genau diese Monokultur brennt heute leicht — wie 2019 bei Jüterbog oder 2018 und erneut 2022 bei Treuenbrietzen. Auf den Brandflächen etabliert sich oft ein zweites, ebenso neues Ökosystem schneller: Neophyten wie die Robinie. Im Klimawandel stehen beide unter Druck — und die Scorecard unten vergleicht sie ehrlich: kein Sieger-Loblied, sondern ein Raster, auf dem jede Seite Achsen gewinnt und verliert.',
       'scorecard.pine': 'Kulturkiefernforst',
       'scorecard.neo': 'Neophyten-Sukzession',
       'scorecard.note': 'Die Achse <strong>Biodiversität</strong> kippt je nach Fläche — der Angelpunkt, den das Werkzeug sichtbar macht.',
@@ -103,8 +104,9 @@
       'legend.green': 'Green — mid recovery',
       'legend.cool': 'Cool — late recovery',
 
-      'scorecard.title': 'Novel vs. Novel',
-      'scorecard.sub': 'No winner’s anthem — a grid where each side wins and loses axes.',
+      'scorecard.title': 'Cultivated pine forest or neophytes?',
+      'scorecard.sub': 'Two novel ecosystems compared',
+      'scorecard.history': 'Brandenburg’s pine forests are themselves a human-made culture: planted on poor sand in the 19th century after overuse, because little else would grow there. That same monoculture now burns easily — as it did in 2019 near Jüterbog, and in 2018 and again in 2022 near Treuenbrietzen. On the burn scars, a second, equally new ecosystem often establishes itself faster: neophytes like the black locust. Both are under pressure from climate change — and the scorecard below compares them honestly: no winner’s anthem, just a grid where each side wins and loses axes.',
       'scorecard.pine': 'Cultivated pine forest',
       'scorecard.neo': 'Neophyte succession',
       'scorecard.note': 'The <strong>biodiversity</strong> axis flips depending on the site — the pivot the tool makes visible.',
