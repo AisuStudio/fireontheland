@@ -25,6 +25,7 @@
       'tab.composite': 'Komposit',
       'tab.scorecard': 'Scorecard',
       'tab.measures': 'Maßnahmen',
+      'tab.species': 'Arten',
       'tab.concept': 'Konzept',
 
       'composite.kicker': 'Was Noveco ist',
@@ -69,6 +70,28 @@
       'tag.Streu': 'Streu',
       'tag.Feuer': 'Feuer',
       'tag.Kohlenstoff': 'Kohlenstoff',
+      'tag.Trockenheit': 'Trockenheit',
+      'tag.Sandboden': 'Sandboden',
+      'tag.Pionier': 'Pionier',
+      'tag.Stickstoff': 'Stickstoff',
+      'tag.Bestaeuber': 'Bestäuber',
+
+      'species.title': 'Arten',
+      'species.sub': 'Stresstolerante Pionierarten für Sand, Trockenheit und die Zeit nach dem Brand.',
+      'crit.aria': 'Kriterium wählen',
+      'crit.Wind': 'Wind stabilisieren',
+      'crit.Stickstoff': 'Stickstoff aufbauen',
+      'crit.Bestaeuber': 'Bestäuber fördern',
+      'crit.Pionier': 'Schnelle Pionierbesiedlung',
+      'origin.native': 'Einheimisch',
+      'origin.neo': 'Neophyten',
+      'mix.rationale': 'Für {criteria} empfiehlt Noveco diese Mischung: {n} {nUnit}, {p} {pUnit}.',
+      'mix.baseline': 'Standardmischung für die gesamte Fläche',
+      'unit.native.one': 'einheimischer Pionier',
+      'unit.native.many': 'einheimische Pioniere',
+      'unit.neo.one': 'Neophyt',
+      'unit.neo.many': 'Neophyten',
+      'list.allTitle': 'Alle Arten',
 
       'concept.title': 'Das Konzept',
       'concept.kicker': 'Was es ist',
@@ -87,6 +110,7 @@
       'tab.composite': 'Composite',
       'tab.scorecard': 'Scorecard',
       'tab.measures': 'Measures',
+      'tab.species': 'Species',
       'tab.concept': 'Concept',
 
       'composite.kicker': 'What Noveco is',
@@ -131,6 +155,28 @@
       'tag.Streu': 'Litter',
       'tag.Feuer': 'Fire',
       'tag.Kohlenstoff': 'Carbon',
+      'tag.Trockenheit': 'Drought',
+      'tag.Sandboden': 'Sandy soil',
+      'tag.Pionier': 'Pioneer',
+      'tag.Stickstoff': 'Nitrogen',
+      'tag.Bestaeuber': 'Pollinator',
+
+      'species.title': 'Species',
+      'species.sub': 'Stress-tolerant pioneer species for sand, drought and the time after the fire.',
+      'crit.aria': 'Choose a criterion',
+      'crit.Wind': 'Stabilize wind',
+      'crit.Stickstoff': 'Build nitrogen',
+      'crit.Bestaeuber': 'Support pollinators',
+      'crit.Pionier': 'Fast pioneer colonization',
+      'origin.native': 'Native',
+      'origin.neo': 'Neophytes',
+      'mix.rationale': 'For {criteria}, Noveco suggests this mix: {n} {nUnit}, {p} {pUnit}.',
+      'mix.baseline': 'Default mix for the whole site',
+      'unit.native.one': 'native pioneer',
+      'unit.native.many': 'native pioneers',
+      'unit.neo.one': 'neophyte',
+      'unit.neo.many': 'neophytes',
+      'list.allTitle': 'All species',
 
       'concept.title': 'The concept',
       'concept.kicker': 'What it is',
@@ -212,6 +258,8 @@
     applyI18n();
     renderScorecard();
     renderMeasures(curActor);
+    renderSpecies();
+    renderSpeciesMix();
   }
 
   /* ---------------------------------------------------------
@@ -222,6 +270,7 @@
     composite: document.getElementById('view-composite'),
     scorecard: document.getElementById('view-scorecard'),
     measures: document.getElementById('view-measures'),
+    species: document.getElementById('view-species'),
     concept: document.getElementById('view-concept')
   };
 
@@ -236,6 +285,7 @@
     });
     if (target === 'composite') renderComposite();
     if (target === 'measures') renderMeasures(curActor);
+    if (target === 'species') { renderSpecies(); renderSpeciesMix(); }
   }
 
   tabs.forEach(function (t2) {
@@ -437,7 +487,8 @@
       t: { de: 'Erosionsgefährdete Brandnarben mit Stroh-/Geotextil-Rastern fixieren; Kohlenstoff nach LSR bewerten.',
            en: 'Fix erosion-prone burn scars with straw/geotextile grids; assess carbon per LSR.' } }
   ];
-  var TAGCLASS = { Wind: 'p', Schatten: 'p', Tau: 'n', Streu: 'n', Feuer: 'a', Kohlenstoff: 'a' };
+  var TAGCLASS = { Wind: 'p', Schatten: 'p', Tau: 'n', Streu: 'n', Feuer: 'a', Kohlenstoff: 'a',
+    Trockenheit: 'p', Sandboden: 'p', Pionier: 'n', Stickstoff: 'n', Bestaeuber: 'a' };
   var curActor = 'all';
 
   function renderMeasures(actor) {
@@ -459,18 +510,195 @@
       });
   }
 
-  slice(document.querySelectorAll('.seg-btn')).forEach(function (b) {
+  slice(document.querySelectorAll('.seg-btn[data-actor]')).forEach(function (b) {
     b.addEventListener('click', function () {
-      document.querySelectorAll('.seg-btn').forEach(function (x) { x.classList.remove('is-on'); });
+      document.querySelectorAll('.seg-btn[data-actor]').forEach(function (x) { x.classList.remove('is-on'); });
       b.classList.add('is-on');
       renderMeasures(b.dataset.actor);
     });
   });
 
   /* ---------------------------------------------------------
+     Species (Arten) — curated pioneer species + a rule-based
+     post-fire mix generator. `origin` (native/neo) is purely
+     informational: never used to score/rank, only to group the
+     generated mix and guarantee both are represented — same
+     boundary as Scorecard's AXES[].v (function) vs side.pine/
+     side.neo (presentation).
+     --------------------------------------------------------- */
+  var SPECIES = [
+    { id: 'sanddorn', name: { de: 'Sanddorn', en: 'Sea buckthorn' }, latin: 'Hippophae rhamnoides',
+      origin: 'native', tags: ['Stickstoff', 'Trockenheit', 'Sandboden', 'Wind'],
+      t: { de: 'Tiefwurzelnder Stickstofffixierer der Dünen — hält reinen Sand, erträgt Extremtrockenheit, dornige Windbremse.',
+           en: 'Deep-rooted nitrogen-fixer of dunes — holds bare sand, shrugs off extreme drought, thorny windbreak.' } },
+    { id: 'robinie', name: { de: 'Robinie', en: 'Black locust' }, latin: 'Robinia pseudoacacia',
+      origin: 'neo', tags: ['Stickstoff', 'Trockenheit', 'Sandboden', 'Bestaeuber'],
+      t: { de: 'Stickstofffixierende Pionierbaumart auf Ödland, hitzetolerant, tiefwurzelnd — eine der ergiebigsten Bienenweiden Mitteleuropas.',
+           en: 'Nitrogen-fixing pioneer tree on wasteland, heat-tolerant, deep-rooted — also one of Central Europe’s most productive bee-forage trees.' } },
+    { id: 'besenginster', name: { de: 'Besenginster', en: 'Common broom' }, latin: 'Cytisus scoparius',
+      origin: 'native', tags: ['Stickstoff', 'Trockenheit', 'Sandboden', 'Pionier'],
+      t: { de: 'Stickstofffixierender Heidestrauch, keimt oft massenhaft nach Feuer, erträgt Sand und Trockenheit.',
+           en: 'Nitrogen-fixing heathland shrub, often germinates en masse after fire, tolerates sand and drought.' } },
+    { id: 'silbergras', name: { de: 'Silbergras', en: 'Grey hair-grass' }, latin: 'Corynephorus canescens',
+      origin: 'native', tags: ['Trockenheit', 'Sandboden', 'Wind'],
+      t: { de: 'Leitgras offener Binnendünen — Extremspezialist für nährstoffarmen Sand, verfilzt gegen Winderosion.',
+           en: 'Signature grass of open inland dunes — an extreme specialist for nutrient-poor sand, mats against wind erosion.' } },
+    { id: 'sandstrohblume', name: { de: 'Sandstrohblume', en: 'Immortelle' }, latin: 'Helichrysum arenarium',
+      origin: 'native', tags: ['Trockenheit', 'Sandboden', 'Bestaeuber'],
+      t: { de: 'Trockenrasen-Charakterart brandenburgischer Sandböden, wichtige Nektarquelle für Wildbienen und Falter.',
+           en: 'Signature species of Brandenburg’s dry sandy grasslands, key nectar source for wild bees and moths.' } },
+    { id: 'bibernellrose', name: { de: 'Bibernellrose', en: 'Burnet rose' }, latin: 'Rosa spinosissima',
+      origin: 'native', tags: ['Trockenheit', 'Sandboden', 'Wind'],
+      t: { de: 'Dorniger Wurzelausläufer-Strauch der Dünen, stabilisiert Sand, trockenheitsfest.',
+           en: 'Thorny sucker-rooted dune shrub, stabilises sand, drought-hardy.' } },
+    { id: 'wiesensalbei', name: { de: 'Wiesensalbei', en: 'Meadow sage' }, latin: 'Salvia pratensis',
+      origin: 'native', tags: ['Trockenheit', 'Bestaeuber'],
+      t: { de: 'Tiefwurzelnder Lippenblütler trockener Magerrasen, hitzefest, ergiebige Nektarquelle für Hummeln.',
+           en: 'Deep-rooted herb of dry, nutrient-poor grassland, heat-hardy, rich nectar source for bumblebees.' } },
+    { id: 'sandbirke', name: { de: 'Sandbirke', en: 'Silver birch' }, latin: 'Betula pendula',
+      origin: 'native', tags: ['Pionier', 'Sandboden', 'Trockenheit'],
+      t: { de: 'Windverbreiteter Pionierbaum auf blankem Mineralboden nach Brand, schnelle Erstbesiedlung.',
+           en: 'Wind-dispersed pioneer tree on bare mineral soil after fire, fast first colonisation.' } },
+    { id: 'zitterpappel', name: { de: 'Zitterpappel', en: 'Aspen' }, latin: 'Populus tremula',
+      origin: 'native', tags: ['Pionier', 'Sandboden'],
+      t: { de: 'Wurzelbrütender Pionierbaum, besiedelt Brandflächen über Ausläufer.',
+           en: 'Root-suckering pioneer tree, colonises burn scars via runners.' } },
+    { id: 'brennnessel', name: { de: 'Brennnessel', en: 'Stinging nettle' }, latin: 'Urtica dioica',
+      origin: 'native', tags: ['Pionier', 'Bestaeuber'],
+      t: { de: 'Nährstoffzeiger, der Aschepulse nach dem Brand nutzt — Raupenfutter für zahlreiche Schmetterlingsarten.',
+           en: 'Nutrient indicator that exploits post-fire ash pulses — caterpillar food for numerous butterfly species.' } }
+  ];
+
+  var CRITERIA = ['Wind', 'Stickstoff', 'Bestaeuber', 'Pionier'];
+  var MIX_MIN = 4, MIX_MAX = 6;
+  var curCriteria = [];
+
+  function buildSpCard(sp) {
+    var li = document.createElement('li');
+    li.className = 'spcard';
+    var tags = sp.tags.map(function (tg) {
+      return '<span class="mtag ' + (TAGCLASS[tg] || 'p') + '">' + t('tag.' + tg) + '</span>';
+    }).join('');
+    li.innerHTML = '<div class="sp-head"><span class="sp-name"></span><span class="sp-latin"></span></div>' +
+      '<p></p><div class="m-tags">' + tags + '</div>';
+    li.querySelector('.sp-name').textContent = pick(sp.name);
+    li.querySelector('.sp-latin').textContent = sp.latin;
+    li.querySelector('p').textContent = pick(sp.t);
+    return li;
+  }
+
+  function renderSpecies() {
+    var list = document.getElementById('species-list');
+    if (!list) return;
+    list.textContent = '';
+    SPECIES.forEach(function (sp) { list.appendChild(buildSpCard(sp)); });
+  }
+
+  function scoreOne(sp, active) {
+    var s = 0;
+    for (var i = 0; i < active.length; i++) if (sp.tags.indexOf(active[i]) !== -1) s++;
+    return s;
+  }
+
+  function pickMix(criteria) {
+    var active = criteria.length ? criteria : CRITERIA;
+    var scored = SPECIES.map(function (sp, i) { return { sp: sp, i: i, score: scoreOne(sp, active) }; });
+    scored.sort(function (a, b) { return b.score - a.score || a.i - b.i; });
+
+    var matched = scored.filter(function (x) { return x.score > 0; });
+    var pool = matched.length >= MIX_MIN ? matched : scored;
+    var mix = pool.slice(0, MIX_MAX);
+    if (mix.length < MIX_MIN) mix = pool.slice(0, MIX_MIN);
+
+    ['native', 'neo'].forEach(function (need) {
+      if (mix.some(function (x) { return x.sp.origin === need; })) return;
+      var candidate = scored.filter(function (x) { return x.sp.origin === need; })[0];
+      if (!candidate) return;
+      var other = need === 'native' ? 'neo' : 'native';
+      for (var j = mix.length - 1; j >= 0; j--) {
+        if (mix[j].sp.origin === other) { mix[j] = candidate; break; }
+      }
+    });
+
+    mix.sort(function (a, b) { return b.score - a.score || a.i - b.i; });
+    return {
+      native: mix.filter(function (x) { return x.sp.origin === 'native'; }).map(function (x) { return x.sp; }),
+      neo: mix.filter(function (x) { return x.sp.origin === 'neo'; }).map(function (x) { return x.sp; })
+    };
+  }
+
+  function renderSpeciesMix() {
+    var box = document.getElementById('species-mix');
+    if (!box) return;
+    box.textContent = '';
+
+    var mix = pickMix(curCriteria);
+
+    var rationale = document.createElement('p');
+    rationale.className = 'note';
+    if (curCriteria.length) {
+      var names = curCriteria.map(function (c) { return t('crit.' + c).toLowerCase(); }).join(', ');
+      rationale.textContent = t('mix.rationale')
+        .replace('{criteria}', names)
+        .replace('{n}', String(mix.native.length))
+        .replace('{nUnit}', t('unit.native.' + (mix.native.length === 1 ? 'one' : 'many')))
+        .replace('{p}', String(mix.neo.length))
+        .replace('{pUnit}', t('unit.neo.' + (mix.neo.length === 1 ? 'one' : 'many')));
+    } else {
+      rationale.textContent = t('mix.baseline');
+    }
+    box.appendChild(rationale);
+
+    [['native', mix.native], ['neo', mix.neo]].forEach(function (pair) {
+      if (!pair[1].length) return;
+      var h = document.createElement('span');
+      h.className = pair[0] === 'native' ? 'tag-pine' : 'tag-neo';
+      h.textContent = t('origin.' + pair[0]);
+      box.appendChild(h);
+      var ul = document.createElement('ul');
+      ul.className = 'species';
+      pair[1].forEach(function (sp) { ul.appendChild(buildSpCard(sp)); });
+      box.appendChild(ul);
+    });
+
+    slice(document.querySelectorAll('.seg-btn[data-tag]')).forEach(function (b) {
+      var on = curCriteria.indexOf(b.dataset.tag) !== -1;
+      b.classList.toggle('is-on', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+
+  slice(document.querySelectorAll('.seg-btn[data-tag]')).forEach(function (b) {
+    b.addEventListener('click', function () {
+      var tag = b.dataset.tag;
+      var idx = curCriteria.indexOf(tag);
+      if (idx === -1) curCriteria.push(tag); else curCriteria.splice(idx, 1);
+      renderSpeciesMix();
+    });
+  });
+
+  /* ---------------------------------------------------------
+     Background parallax — hero image drifts slower than scroll,
+     then settles (clamped) so it never runs out of image on
+     long pages.
+     --------------------------------------------------------- */
+  var PARALLAX_FACTOR = 0.3, PARALLAX_MAX = 80;
+  var parallaxTicking = false;
+  function applyParallax() {
+    var offset = Math.max(-PARALLAX_MAX, -window.scrollY * PARALLAX_FACTOR);
+    document.body.style.setProperty('--bg-parallax', offset + 'px');
+    parallaxTicking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (parallaxTicking) return;
+    parallaxTicking = true;
+    requestAnimationFrame(applyParallax);
+  }, { passive: true });
+
+  /* ---------------------------------------------------------
      Init
      --------------------------------------------------------- */
   buildSwitcher();
-  setLang(LANG);          // applies translations + renders scorecard/measures
+  setLang(LANG);          // applies translations + renders scorecard/measures/species
   renderComposite();
 })();

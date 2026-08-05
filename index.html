@@ -30,6 +30,9 @@
       <button class="tab" role="tab" aria-selected="false" aria-controls="view-measures" data-target="measures">
         <span class="tab-ico" aria-hidden="true">⚒</span><span class="tab-lbl" data-i18n="tab.measures">Maßnahmen</span>
       </button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="view-species" data-target="species">
+        <span class="tab-ico" aria-hidden="true">✤</span><span class="tab-lbl" data-i18n="tab.species">Arten</span>
+      </button>
       <button class="tab" role="tab" aria-selected="false" aria-controls="view-concept" data-target="concept">
         <span class="tab-ico" aria-hidden="true">◆</span><span class="tab-lbl" data-i18n="tab.concept">Konzept</span>
       </button>
@@ -98,6 +101,21 @@
       </div>
       <ol id="measures-list" class="measures"></ol>
       <p class="note"><span data-i18n="measures.principle">Prinzip:</span> <span class="mtag p" data-i18n="tag.Wind">Wind</span> <span class="mtag p" data-i18n="tag.Schatten">Schatten</span> <span class="mtag n" data-i18n="tag.Tau">Tau</span> <span class="mtag n" data-i18n="tag.Streu">Streu</span> <span class="mtag a" data-i18n="tag.Feuer">Feuer</span> <span class="mtag a" data-i18n="tag.Kohlenstoff">Kohlenstoff</span></p>
+    </section>
+
+    <!-- VIEW: Arten -->
+    <section id="view-species" class="view" data-view="species" hidden aria-labelledby="t-species">
+      <h1 id="t-species" class="view-title" data-i18n="species.title">Arten</h1>
+      <p class="view-sub" data-i18n="species.sub">Stresstolerante Pionierarten für Sand, Trockenheit und die Zeit nach dem Brand.</p>
+      <div class="segmented crit-group" role="group" data-i18n-aria="crit.aria" aria-label="Kriterium wählen">
+        <button class="seg-btn" data-tag="Wind" data-i18n="crit.Wind">Wind stabilisieren</button>
+        <button class="seg-btn" data-tag="Stickstoff" data-i18n="crit.Stickstoff">Stickstoff aufbauen</button>
+        <button class="seg-btn" data-tag="Bestaeuber" data-i18n="crit.Bestaeuber">Bestäuber fördern</button>
+        <button class="seg-btn" data-tag="Pionier" data-i18n="crit.Pionier">Schnelle Pionierbesiedlung</button>
+      </div>
+      <div id="species-mix"></div>
+      <h2 class="h-sec" data-i18n="list.allTitle">Alle Arten</h2>
+      <ol id="species-list" class="species"></ol>
     </section>
 
     <!-- VIEW: Konzept -->
