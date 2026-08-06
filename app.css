@@ -142,9 +142,10 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
    SCORECARD
    ============================================================ */
 .cols-key{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:var(--sp-3);font-family:var(--font-sans);font-size:.74rem;font-weight:650}
-.tag-pine,.tag-neo{padding:.28rem .6rem;border-radius:var(--r-pill);border:1px solid}
+.tag-pine,.tag-neo,.tag-archaeo{padding:.28rem .6rem;border-radius:var(--r-pill);border:1px solid}
 .tag-pine{color:var(--pine);background:var(--pine-wash);border-color:var(--pine)}
 .tag-neo{color:var(--neo);background:var(--neo-wash);border-color:var(--neo)}
+.tag-archaeo{color:var(--accent);background:var(--accent-wash);border-color:var(--accent)}
 .scorelist{list-style:none;margin:0;padding:0;display:grid;gap:var(--sp-2)}
 .scard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:var(--sp-3);box-shadow:var(--shadow)}
 .scard-top{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-2);margin-bottom:.5rem}
@@ -193,7 +194,7 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 /* ============================================================
    SPECIES (Arten)
    ============================================================ */
-#species-mix .tag-pine,#species-mix .tag-neo{display:inline-block;margin:var(--sp-2) 0 var(--sp-2)}
+#species-mix .tag-pine,#species-mix .tag-neo,#species-mix .tag-archaeo{display:inline-block;margin:var(--sp-2) 0 var(--sp-2)}
 .species{list-style:none;margin:0 0 var(--sp-3);padding:0;display:grid;gap:var(--sp-2)}
 .spcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:var(--sp-3);box-shadow:var(--shadow)}
 .sp-head{display:flex;align-items:baseline;gap:.4rem;flex-wrap:wrap;margin-bottom:.3rem}

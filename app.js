@@ -85,12 +85,15 @@
       'crit.Pionier': 'Schnelle Pionierbesiedlung',
       'origin.native': 'Einheimisch',
       'origin.neo': 'Neophyten',
-      'mix.rationale': 'Für {criteria} empfiehlt Noveco diese Mischung: {n} {nUnit}, {p} {pUnit}.',
+      'origin.archaeo': 'Archäophyten',
+      'mix.rationale': 'Für {criteria} empfiehlt Noveco diese Mischung: {parts}.',
       'mix.baseline': 'Standardmischung für die gesamte Fläche',
       'unit.native.one': 'einheimischer Pionier',
       'unit.native.many': 'einheimische Pioniere',
       'unit.neo.one': 'Neophyt',
       'unit.neo.many': 'Neophyten',
+      'unit.archaeo.one': 'Archäophyt',
+      'unit.archaeo.many': 'Archäophyten',
       'list.allTitle': 'Alle Arten',
 
       'concept.title': 'Das Konzept',
@@ -170,12 +173,15 @@
       'crit.Pionier': 'Fast pioneer colonization',
       'origin.native': 'Native',
       'origin.neo': 'Neophytes',
-      'mix.rationale': 'For {criteria}, Noveco suggests this mix: {n} {nUnit}, {p} {pUnit}.',
+      'origin.archaeo': 'Archaeophytes',
+      'mix.rationale': 'For {criteria}, Noveco suggests this mix: {parts}.',
       'mix.baseline': 'Default mix for the whole site',
       'unit.native.one': 'native pioneer',
       'unit.native.many': 'native pioneers',
       'unit.neo.one': 'neophyte',
       'unit.neo.many': 'neophytes',
+      'unit.archaeo.one': 'archaeophyte',
+      'unit.archaeo.many': 'archaeophytes',
       'list.allTitle': 'All species',
 
       'concept.title': 'The concept',
@@ -520,12 +526,16 @@
 
   /* ---------------------------------------------------------
      Species (Arten) — curated pioneer species + a rule-based
-     post-fire mix generator. `origin` (native/neo) is purely
-     informational: never used to score/rank, only to group the
-     generated mix and guarantee both are represented — same
-     boundary as Scorecard's AXES[].v (function) vs side.pine/
-     side.neo (presentation).
+     post-fire mix generator. `origin` (native/neo/archaeo) is
+     purely informational: never used to score/rank, only to
+     group the generated mix and guarantee all three are
+     represented where possible — same boundary as Scorecard's
+     AXES[].v (function) vs side.pine/side.neo (presentation).
+     'archaeo' = archaeophyte: introduced before ~1492, long
+     naturalised (centuries, often 800+ years) — neither the
+     post-Columbian "neophyte" nor strictly post-glacial native.
      --------------------------------------------------------- */
+  var ORIGINS = ['native', 'neo', 'archaeo'];
   var SPECIES = [
     { id: 'sanddorn', name: { de: 'Sanddorn', en: 'Sea buckthorn' }, latin: 'Hippophae rhamnoides',
       origin: 'native', tags: ['Stickstoff', 'Trockenheit', 'Sandboden', 'Wind'],
@@ -566,11 +576,35 @@
     { id: 'brennnessel', name: { de: 'Brennnessel', en: 'Stinging nettle' }, latin: 'Urtica dioica',
       origin: 'native', tags: ['Pionier', 'Bestaeuber'],
       t: { de: 'Nährstoffzeiger, der Aschepulse nach dem Brand nutzt — Raupenfutter für zahlreiche Schmetterlingsarten.',
-           en: 'Nutrient indicator that exploits post-fire ash pulses — caterpillar food for numerous butterfly species.' } }
+           en: 'Nutrient indicator that exploits post-fire ash pulses — caterpillar food for numerous butterfly species.' } },
+    { id: 'traubeneiche', name: { de: 'Traubeneiche', en: 'Sessile oak' }, latin: 'Quercus petraea',
+      origin: 'native', tags: ['Trockenheit', 'Sandboden'],
+      t: { de: 'Tiefwurzelnde Klimawald-Eiche für den Umbau der Kiefernforste — trockenheitsfest, langlebig, dickere Rinde macht sie feuertoleranter als die Kiefer.',
+           en: 'Deep-rooted oak central to converting pine monocultures — drought-hardy, long-lived, thicker bark makes it more fire-tolerant than pine.' } },
+    { id: 'wacholder', name: { de: 'Wacholder', en: 'Common juniper' }, latin: 'Juniperus communis',
+      origin: 'native', tags: ['Trockenheit', 'Sandboden', 'Wind'],
+      t: { de: 'Feuerangepasster Heide-Nadelstrauch auf magerstem Sand — extrem trockenheitsfest, langsam, aber dauerhaft, windfeste Dornstruktur.',
+           en: 'Fire-adapted heathland conifer on the poorest sand — extremely drought-hardy, slow but persistent, wind-firm thorny structure.' } },
+    { id: 'schwarzkiefer', name: { de: 'Schwarzkiefer', en: 'Austrian pine' }, latin: 'Pinus nigra',
+      origin: 'neo', tags: ['Trockenheit', 'Sandboden', 'Pionier'],
+      t: { de: 'Südeuropäische Kiefer, in Brandenburger Versuchsflächen als hitze- und trockenheitsresistenterer Ersatz für die heimische Kiefer erprobt.',
+           en: 'Southern European pine trialled on Brandenburg test sites as a more heat- and drought-resilient stand-in for the native pine.' } },
+    { id: 'baumhasel', name: { de: 'Baumhasel', en: 'Turkish hazel' }, latin: 'Corylus colurna',
+      origin: 'neo', tags: ['Trockenheit'],
+      t: { de: 'Südosteuropäisch-westasiatischer Klimabaum, gilt als einer der hitze- und trockenheitshärtesten Laubbäume für den Stadt- und Forstumbau.',
+           en: 'Southeast European / West Asian climate tree, rated among the most heat- and drought-hardy broadleaves for urban and forest conversion.' } },
+    { id: 'edelkastanie', name: { de: 'Edelkastanie', en: 'Sweet chestnut' }, latin: 'Castanea sativa',
+      origin: 'archaeo', tags: ['Trockenheit', 'Sandboden', 'Bestaeuber'],
+      t: { de: 'Seit der Römerzeit in Mitteleuropa eingebürgert (über 800 Jahre nördlich der Alpen kultiviert) — liebt sandig-saure Böden, trockenheitsfest, ergiebige Bienenweide.',
+           en: 'Naturalised in Central Europe since Roman times (cultivated north of the Alps for over 800 years) — thrives on sandy, acidic soil, drought-hardy, rich bee forage.' } },
+    { id: 'walnuss', name: { de: 'Walnuss', en: 'Walnut' }, latin: 'Juglans regia',
+      origin: 'archaeo', tags: ['Trockenheit'],
+      t: { de: 'Schon im Mittelalter an Brandenburgs Dörfern gepflanzt — tiefwurzelnd und trockenheitsfest, aber kein Stickstofffixierer oder Pionier wie die anderen Arten hier.',
+           en: 'Planted at Brandenburg farmsteads since the Middle Ages — deep-rooted and drought-hardy, but not a nitrogen-fixer or pioneer like the other species here.' } }
   ];
 
   var CRITERIA = ['Wind', 'Stickstoff', 'Bestaeuber', 'Pionier'];
-  var MIX_MIN = 4, MIX_MAX = 6;
+  var MIX_MIN = 4, MIX_MAX = 7;
   var curCriteria = [];
 
   function buildSpCard(sp) {
@@ -610,21 +644,23 @@
     var mix = pool.slice(0, MIX_MAX);
     if (mix.length < MIX_MIN) mix = pool.slice(0, MIX_MIN);
 
-    ['native', 'neo'].forEach(function (need) {
+    ORIGINS.forEach(function (need) {
       if (mix.some(function (x) { return x.sp.origin === need; })) return;
       var candidate = scored.filter(function (x) { return x.sp.origin === need; })[0];
       if (!candidate) return;
-      var other = need === 'native' ? 'neo' : 'native';
+      var counts = {};
+      mix.forEach(function (x) { counts[x.sp.origin] = (counts[x.sp.origin] || 0) + 1; });
       for (var j = mix.length - 1; j >= 0; j--) {
-        if (mix[j].sp.origin === other) { mix[j] = candidate; break; }
+        if (counts[mix[j].sp.origin] > 1) { mix[j] = candidate; break; }
       }
     });
 
     mix.sort(function (a, b) { return b.score - a.score || a.i - b.i; });
-    return {
-      native: mix.filter(function (x) { return x.sp.origin === 'native'; }).map(function (x) { return x.sp; }),
-      neo: mix.filter(function (x) { return x.sp.origin === 'neo'; }).map(function (x) { return x.sp; })
-    };
+    var grouped = {};
+    ORIGINS.forEach(function (o) {
+      grouped[o] = mix.filter(function (x) { return x.sp.origin === o; }).map(function (x) { return x.sp; });
+    });
+    return grouped;
   }
 
   function renderSpeciesMix() {
@@ -638,26 +674,26 @@
     rationale.className = 'note';
     if (curCriteria.length) {
       var names = curCriteria.map(function (c) { return t('crit.' + c).toLowerCase(); }).join(', ');
-      rationale.textContent = t('mix.rationale')
-        .replace('{criteria}', names)
-        .replace('{n}', String(mix.native.length))
-        .replace('{nUnit}', t('unit.native.' + (mix.native.length === 1 ? 'one' : 'many')))
-        .replace('{p}', String(mix.neo.length))
-        .replace('{pUnit}', t('unit.neo.' + (mix.neo.length === 1 ? 'one' : 'many')));
+      var parts = ORIGINS.filter(function (o) { return mix[o].length; })
+        .map(function (o) {
+          return mix[o].length + ' ' + t('unit.' + o + '.' + (mix[o].length === 1 ? 'one' : 'many'));
+        }).join(', ');
+      rationale.textContent = t('mix.rationale').replace('{criteria}', names).replace('{parts}', parts);
     } else {
       rationale.textContent = t('mix.baseline');
     }
     box.appendChild(rationale);
 
-    [['native', mix.native], ['neo', mix.neo]].forEach(function (pair) {
-      if (!pair[1].length) return;
+    var ORIGIN_CLASS = { native: 'tag-pine', neo: 'tag-neo', archaeo: 'tag-archaeo' };
+    ORIGINS.forEach(function (o) {
+      if (!mix[o].length) return;
       var h = document.createElement('span');
-      h.className = pair[0] === 'native' ? 'tag-pine' : 'tag-neo';
-      h.textContent = t('origin.' + pair[0]);
+      h.className = ORIGIN_CLASS[o];
+      h.textContent = t('origin.' + o);
       box.appendChild(h);
       var ul = document.createElement('ul');
       ul.className = 'species';
-      pair[1].forEach(function (sp) { ul.appendChild(buildSpCard(sp)); });
+      mix[o].forEach(function (sp) { ul.appendChild(buildSpCard(sp)); });
       box.appendChild(ul);
     });
 
