@@ -115,14 +115,17 @@
       'scenarios.title': 'Drei Wege nach dem Brand',
       'scenarios.sub': 'Wie sich Jüterbogs Brandfläche je nach Strategie erholen könnte — vorbereitete Szenarien, keine Live-Simulation.',
       'scenarios.chartAria': 'Liniendiagramm: modellierte Erholung über 30 Jahre für drei Strategien',
-      'scenarios.caption': 'Erholung (%) über Jahre seit dem Brand',
-      'scenarios.note': 'Illustrative Modellierung auf Basis bekannter Sukzessionsmuster — keine Live-Simulation und keine GUS-Engine-Ausgabe. Die tatsächliche Entwicklung hängt von Standort, Witterung und Pflege ab.',
+      'scenarios.caption': 'Wiederbewaldungsgrad (%) über Jahre seit dem Brand',
+      'scenarios.measured': 'gemessen',
+      'scenarios.modelled': 'modelliert',
+      'scenarios.yAxis': '<strong>Wiederbewaldungsgrad</strong> heißt hier: Kronendeckung und Bestandeshöhe zusammengenommen, gemessen am unverbrannten Kiefernforst nebenan (80 % Deckung, rund 20 m). Beides muss stimmen — hohe Einzelbäume ohne Deckung sind kein Wald, dichter Niederwuchs ohne Höhe auch nicht.',
+      'scenarios.note': 'Bis Jahr 3–4 aus den PYROPHOB-Messungen in Jüterbog, danach modelliert (Höhen nach den Ertragstafeln für Sand-Birke und Kiefer). Keine Live-Simulation. Die tatsächliche Entwicklung hängt von Samenbäumen, Wild, Witterung und Wiederholungsbränden ab.',
       'scenario.pine': 'Kiefern nachpflanzen',
-      'scenario.pine.note': 'Planbares, stetiges Wachstum — aber harzreiche Monokultur bleibt hochbrandgefährdet (siehe Scorecard).',
+      'scenario.pine.note': 'Die gemessene Ernüchterung: Nach fünf Jahren lebten noch 14,7 % der gepflanzten Kiefern, „praktisch kein Höhenwachstum“. Was auf dieser Fläche Biomasse bildete, war die spontane Aspe — 0,8 % entfielen auf die Pflanzung. Erst mit Nachbesserung schließt sich später ein Kronendach (durchgezogen); die gestrichelte Linie zeigt den real gemessenen Verlauf ohne Nachpflanzen.',
       'scenario.passive': 'Sich selbst überlassen',
-      'scenario.passive.note': 'Langsamer Start, dafür eigenständige, oft widerstandsfähigere Sukzession ohne Eingriff.',
-      'scenario.assisted': 'Pionierpflanzen-Mix',
-      'scenario.assisted.note': 'Ammenstrukturen und Stickstofffixierer aus unserem Arten-Generator beschleunigen die frühe Erholung, ohne Monokultur-Risiko.',
+      'scenario.passive.note': 'In Jüterbog der unsicherste Weg — deshalb das breite Band: Zwei Flächen derselben Brandfläche liegen um den Faktor 20 auseinander, je nachdem ob Samenbäume überlebt haben. Dazu Reinsand, keine Jagd und flächiger Verbiss. Kostet nichts, garantiert aber auch nichts.',
+      'scenario.assisted': 'Nachhelfen statt pflanzen',
+      'scenario.assisted.note': 'Nicht räumen, sondern gezielt säen: Eichensaat überlebte zu über 99 %, gepflanzte Kiefer zu 14,7 %. Junge Eichen stoppten 2018 sogar ein Feuer. Schwächste Datenbasis der drei — keine PYROPHOB-Fläche kombiniert „nicht räumen“ mit Saat, das ist eine begründete Synthese.',
       'scenarios.mapTitle': 'Szenario durchspielen',
       'scenarios.scenAria': 'Szenario wählen',
       'scenarios.mapAria': 'Modellierter Bestand auf der Brandfläche',
@@ -234,14 +237,17 @@
       'scenarios.title': 'Three paths after the fire',
       'scenarios.sub': 'How Jüterbog’s burn scar could recover under different strategies — prepared scenarios, not a live simulation.',
       'scenarios.chartAria': 'Line chart: modelled recovery over 30 years for three strategies',
-      'scenarios.caption': 'Recovery (%) over years since the fire',
-      'scenarios.note': 'Illustrative modelling based on known succession patterns — not a live simulation and not GUS engine output. Actual recovery depends on site, weather and care.',
+      'scenarios.caption': 'Reforestation index (%) over years since the fire',
+      'scenarios.measured': 'measured',
+      'scenarios.modelled': 'modelled',
+      'scenarios.yAxis': '<strong>Reforestation index</strong> here means canopy cover and stand height taken together, measured against the unburned pine forest next door (80% cover, about 20 m). Both have to hold — tall single trees without cover are not a forest, and dense low growth without height is not either.',
+      'scenarios.note': 'Measured by PYROPHOB at Jüterbog to year 3–4, modelled after that (heights following the yield tables for silver birch and Scots pine). Not a live simulation. Real recovery depends on seed trees, browsing, weather and repeat fires.',
       'scenario.pine': 'Replant pine',
-      'scenario.pine.note': 'Predictable, steady growth — but a resin-rich monoculture stays highly fire-prone (see Scorecard).',
+      'scenario.pine.note': 'The measured disappointment: after five years 14.7% of the planted pines were still alive, with “practically no height growth”. What actually built biomass on that plot was spontaneous aspen — the planting accounted for 0.8%. Only with replanting does a canopy eventually close (solid line); the dashed line is the course actually measured, without replanting.',
       'scenario.passive': 'Left alone',
-      'scenario.passive.note': 'Slower start, but self-directed succession that’s often more resilient without intervention.',
-      'scenario.assisted': 'Pioneer-species mix',
-      'scenario.assisted.note': 'Nurse structures and nitrogen-fixers from our species generator speed up early recovery without monoculture risk.',
+      'scenario.passive.note': 'At Jüterbog the least predictable route — hence the wide band: two plots in the same burn scar differ by a factor of 20, depending on whether seed trees survived. Add pure sand, no hunting and browsing everywhere. It costs nothing, but guarantees nothing either.',
+      'scenario.assisted': 'Assist, don’t plant',
+      'scenario.assisted.note': 'Don’t clear — sow instead: sown oak survived at over 99%, planted pine at 14.7%. Young oaks even stopped a fire in 2018. The weakest evidence base of the three — no PYROPHOB plot combines “don’t clear” with sowing, so this is a reasoned synthesis.',
       'scenarios.mapTitle': 'Play a scenario',
       'scenarios.scenAria': 'Choose a scenario',
       'scenarios.mapAria': 'Modelled stand on the burn scar',
@@ -935,30 +941,48 @@
      the app's "ehrlich über Grenzen" value.
      --------------------------------------------------------- */
   var SCENARIO_YEARS = [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30];
-  /* Per scenario, parallel to SCENARIO_YEARS:
-       curve = recovery 0–1 (static chart)   dens = Bäume/ha
-       hgt   = mittlere Bestandeshöhe in m   dom  = dominante Art (SPECIES id)
-     Werte bis Jahr 5 an PYROPHOB-Messungen orientiert, danach modelliert. */
+  var MEASURED_UNTIL = 4;   // PYROPHOB misst in Jüterbog bis Jahr 4 — danach modelliert
+
+  /* Wiederbewaldungsgrad = √( min(1, Kronendeckung/0,80) × min(1, Oberhöhe/20 m) ).
+     Geometrisches Mittel, weil beides erfüllt sein muss: hohe Einzelbäume ohne
+     Deckung sind kein Wald, dichter Niederwuchs ohne Höhe auch nicht. Genau
+     dieser Unterschied trennt Jüterbog von Treuenbrietzen.
+     Werte bis Jahr 3–4 aus PYROPHOB (EFS 77), danach modelliert; Höhen ab Jahr 10
+     an den Ertragstafeln Sand-Birke (Lockow 1996) bzw. Kiefer (Lembcke u.a.). */
+  var REF_CANOPY = 0.80, REF_HEIGHT = 20;
+  function recoveryOf(canopy, hgt) {
+    return Math.sqrt(Math.min(1, canopy / REF_CANOPY) * Math.min(1, hgt / REF_HEIGHT));
+  }
+
   var SCENARIOS = [
     { id: 'passive', color: 'var(--neo)',
-      curve: [0, .18, .34, .48, .60, .70, .78, .84, .88, .91, .93],
-      dens:  [0, 13000, 11000, 8500, 6500, 5000, 4000, 3200, 2600, 2200, 1900],
-      hgt:   [0, 1.0, 2.6, 4.5, 6.5, 8.4, 10.0, 11.4, 12.5, 13.4, 14.2],
-      dom: ['silbergras', 'zitterpappel', 'zitterpappel', 'zitterpappel', 'zitterpappel',
-            'zitterpappel', 'zitterpappel', 'sandbirke', 'sandbirke', 'traubeneiche', 'traubeneiche'] },
+      canopy: [0, .02, .06, .13, .20, .26, .32, .37, .40, .43, .46],
+      hgt:    [0, 1.0, 2.6, 3.6, 4.6, 5.8, 6.9, 7.9, 8.2, 8.8, 9.3],
+      dens:   [0, 1000, 1600, 2100, 2500, 2700, 2800, 2800, 2700, 2600, 2500],
+      dom: ['silbergras', 'drahtschmiele', 'drahtschmiele', 'sandbirke', 'sandbirke',
+            'sandbirke', 'sandbirke', 'sandbirke', 'sandbirke', 'sandbirke', 'sandbirke'],
+      // gemessene Spannweite: Fläche V und Fläche Y liegen in derselben
+      // Brandfläche um Faktor 20 auseinander
+      band: { lo: [0, .02, .05, .09, .13, .16, .20, .22, .25, .26, .29],
+              hi: [0, .07, .18, .31, .42, .52, .61, .67, .72, .75, .78] } },
     { id: 'pine', color: 'var(--pine)',
-      curve: [0, .06, .10, .14, .20, .28, .37, .46, .54, .61, .67],
-      dens:  [0, 4600, 3500, 3000, 2800, 2600, 2400, 2200, 2000, 1900, 1800],
-      hgt:   [0, 0.3, 0.7, 1.3, 2.2, 3.3, 4.5, 5.8, 7.0, 8.1, 9.1],
+      canopy: [0, .01, .02, .08, .20, .42, .63, .79, .84, .88, .92],
+      hgt:    [0, 0.25, 0.5, 1.0, 1.8, 2.6, 3.45, 4.25, 4.75, 5.6, 6.5],
+      dens:   [0, 3000, 1300, 6500, 6200, 5900, 5600, 5400, 5200, 5000, 4800],
       dom: ['waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer',
-            'waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer'] },
+            'waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer'],
+      // ohne Nachbesserungspflanzung — das ist der real gemessene Fall
+      alt: [0, .01, .02, .04, .07, .11, .15, .20, .24, .27, .31] },
     { id: 'assisted', color: 'var(--accent)',
-      curve: [0, .20, .38, .53, .66, .76, .83, .88, .91, .93, .95],
-      dens:  [0, 15000, 12500, 9500, 7000, 5400, 4300, 3500, 2900, 2400, 2100],
-      hgt:   [0, 1.2, 3.0, 5.0, 7.0, 8.9, 10.5, 11.9, 13.0, 13.9, 14.7],
-      dom: ['besenheide', 'zitterpappel', 'zitterpappel', 'zitterpappel', 'sandbirke',
-            'sandbirke', 'traubeneiche', 'traubeneiche', 'traubeneiche', 'traubeneiche', 'traubeneiche'] }
+      canopy: [0, .05, .15, .28, .42, .51, .60, .67, .69, .72, .75],
+      hgt:    [0, 1.2, 3.0, 4.2, 5.4, 6.4, 7.4, 8.3, 8.9, 9.9, 11.0],
+      dens:   [0, 8000, 9000, 8500, 7800, 7200, 6700, 6300, 5900, 5600, 5300],
+      dom: ['besenheide', 'zitterpappel', 'zitterpappel', 'sandbirke', 'sandbirke',
+            'traubeneiche', 'traubeneiche', 'traubeneiche', 'traubeneiche', 'traubeneiche', 'traubeneiche'] }
   ];
+  SCENARIOS.forEach(function (s) {
+    s.curve = s.canopy.map(function (c, i) { return recoveryOf(c, s.hgt[i]); });
+  });
 
   var SP_COLOR = {
     waldkiefer: 'var(--pine)', schwarzkiefer: 'var(--pine)', douglasie: 'var(--pine)', wacholder: 'var(--pine)',
@@ -968,11 +992,16 @@
   };
 
   function buildScenarioChart() {
-    var W = 320, H = 200, padL = 28, padR = 4, padT = 6, padB = 18;
+    var W = 320, H = 200, padL = 28, padR = 4, padT = 12, padB = 18;
     var pw = W - padL - padR, ph = H - padT - padB;
     var n = SCENARIO_YEARS.length - 1;
+    var maxYear = SCENARIO_YEARS[n];
     function xAt(i) { return padL + (i / n) * pw; }
+    function xAtYear(y) { return padL + (y / maxYear) * pw; }
     function yAt(v) { return padT + (1 - v) * ph; }
+    function ptsOf(arr) {
+      return arr.map(function (v, i) { return xAt(i).toFixed(1) + ',' + yAt(v).toFixed(1); }).join(' ');
+    }
 
     var grid = [0, 25, 50, 75, 100].map(function (pct) {
       var y = yAt(pct / 100);
@@ -985,13 +1014,36 @@
       return '<text x="' + xAt(i).toFixed(1) + '" y="' + (H - 4) + '" text-anchor="middle" class="chart-axis">' + yr + '</text>';
     }).join('');
 
-    var lines = SCENARIOS.map(function (s) {
-      var pts = s.curve.map(function (v, i) { return xAt(i).toFixed(1) + ',' + yAt(v).toFixed(1); }).join(' ');
-      return '<polyline points="' + pts + '" fill="none" stroke="' + s.color + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+    // everything right of this line is extrapolation, not measurement
+    var divX = xAtYear(MEASURED_UNTIL);
+    var divider =
+      '<rect x="' + padL + '" y="' + padT + '" width="' + (divX - padL).toFixed(1) + '" height="' + ph +
+        '" fill="var(--ink)" opacity="0.06"/>' +
+      '<line x1="' + divX.toFixed(1) + '" y1="' + padT + '" x2="' + divX.toFixed(1) + '" y2="' + (padT + ph) +
+        '" stroke="var(--muted)" stroke-width="0.75" stroke-dasharray="3 3"/>' +
+      '<text x="' + (padL + 1) + '" y="' + (padT - 3) + '" text-anchor="start" class="chart-phase">' +
+        escapeHtml(t('scenarios.measured')) + '</text>' +
+      '<text x="' + (divX + 4).toFixed(1) + '" y="' + (padT - 3) + '" text-anchor="start" class="chart-phase">' +
+        escapeHtml(t('scenarios.modelled')) + '</text>';
+
+    var bands = SCENARIOS.filter(function (s) { return s.band; }).map(function (s) {
+      var up = s.band.hi.map(function (v, i) { return xAt(i).toFixed(1) + ',' + yAt(v).toFixed(1); });
+      var dn = s.band.lo.map(function (v, i) { return xAt(i).toFixed(1) + ',' + yAt(v).toFixed(1); }).reverse();
+      return '<polygon points="' + up.concat(dn).join(' ') + '" fill="' + s.color + '" opacity="0.13"/>';
     }).join('');
 
-    return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + t('scenarios.chartAria') + '">' +
-      grid + lines + xlabels + '</svg>';
+    var alts = SCENARIOS.filter(function (s) { return s.alt; }).map(function (s) {
+      return '<polyline points="' + ptsOf(s.alt) + '" fill="none" stroke="' + s.color +
+        '" stroke-width="1.25" stroke-dasharray="4 3" opacity="0.85"/>';
+    }).join('');
+
+    var lines = SCENARIOS.map(function (s) {
+      return '<polyline points="' + ptsOf(s.curve) + '" fill="none" stroke="' + s.color +
+        '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+    }).join('');
+
+    return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + escapeHtml(t('scenarios.chartAria')) + '">' +
+      grid + divider + bands + alts + lines + xlabels + '</svg>';
   }
 
   /* --- interactive scenario map: one scenario, scrubbed through time --- */

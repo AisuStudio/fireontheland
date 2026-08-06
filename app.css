@@ -224,6 +224,7 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
   padding:var(--sp-3) var(--sp-3) .5rem;box-shadow:var(--shadow)}
 #scenario-chart svg{width:100%;height:auto;display:block}
 .chart-axis{font-family:var(--font-sans);font-size:8px;fill:var(--muted)}
+.chart-phase{font-family:var(--font-sans);font-size:6px;letter-spacing:.02em;fill:var(--muted)}
 .chart-caption{font-family:var(--font-sans);font-size:.7rem;color:var(--muted);text-align:center;margin:.4rem 0 0}
 .scenario-legend{list-style:none;margin:var(--sp-3) 0 0;padding:0;display:grid;gap:var(--sp-2)}
 .scenario-item{display:flex;align-items:flex-start;gap:.6rem}
