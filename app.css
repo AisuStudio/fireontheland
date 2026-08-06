@@ -210,6 +210,12 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 .sp-name{font-family:var(--font-sans);font-weight:750;font-size:1rem}
 .sp-latin{font-family:var(--font-serif);font-style:italic;font-size:.82rem;color:var(--muted)}
 .spcard p{margin:.3rem 0 .55rem;font-size:.95rem;line-height:1.42}
+.excluded{border-left:2px solid var(--muted);padding-left:var(--sp-2)}
+.hypo{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:var(--r-m);padding:var(--sp-3);margin:var(--sp-4) 0 0;box-shadow:var(--shadow)}
+.hypo-title{font-size:1.05rem;font-weight:750;margin:.2rem 0 var(--sp-2)}
+.hypo p{font-size:.95rem;line-height:1.5;margin:0 0 var(--sp-2)}
+.hypo p:last-child{margin-bottom:0}
 .species-map{position:relative;margin:var(--sp-3) 0 0;border:1px solid var(--line);border-radius:var(--r-m);
   overflow:hidden;box-shadow:var(--shadow);background:var(--surface-2)}
 .species-map canvas{width:100%;height:auto;display:block}

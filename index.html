@@ -117,6 +117,12 @@
         <button class="seg-btn" data-tag="Bestaeuber" data-i18n="crit.Bestaeuber">Bestäuber fördern</button>
         <button class="seg-btn" data-tag="Wind" data-i18n="crit.Wind">Wind stabilisieren</button>
       </div>
+      <div class="segmented" role="group" data-i18n-aria="site.aria" aria-label="Flächenstatus wählen">
+        <button class="seg-btn site-btn is-on" data-site="nsg" aria-pressed="true" data-i18n="site.nsg">Schutzgebiet (Jüterbog)</button>
+        <button class="seg-btn site-btn" data-site="open" aria-pressed="false" data-i18n="site.open">Fläche ohne Schutzstatus</button>
+      </div>
+      <p id="site-note" class="note" data-i18n-html="site.nsgNote">Die Ankerfläche ist Naturschutz- und FFH-Gebiet mit geschützten <strong>nährstoffarmen</strong> Lebensraumtypen. Das Ausbringen gebietsfremder Arten ist dort nach § 40 BNatSchG genehmigungspflichtig — und die Genehmigung <em>ist zu versagen</em>, wenn eine Gefährdung nicht auszuschließen ist. Das Bundesamt für Naturschutz rät für Naturschutz- und FFH-Gebiete generell davon ab. Der Generator schlägt hier deshalb nur einheimische Arten vor.</p>
+
       <div id="species-mix"></div>
 
       <div class="species-map">
@@ -125,6 +131,14 @@
         <div id="species-map-pins" class="species-map-pins"></div>
       </div>
       <p class="chart-caption" data-i18n="speciesMap.caption">Illustrative Platzierung — keine realen Standortdaten.</p>
+
+      <div class="hypo">
+        <span class="kicker" data-i18n="hypo.kicker">Hypothese, nicht Befund</span>
+        <h2 class="hypo-title" data-i18n="hypo.title">Können Neophyten Teil der Klimaanpassung sein?</h2>
+        <p data-i18n-html="hypo.body">Die Robinie liefert das dauerhafteste Holz Europas, wurzelt tief, erträgt Hitze und Trockenheit und fixiert Stickstoff — als Anpassungskandidat auf armem Sand ist sie ernstzunehmen. <strong>Belegt ist das hier aber nicht.</strong> Die zugrunde liegenden Messungen vergleichen Behandlungs<em>verfahren</em> — räumen, pflügen, pflanzen, nichts tun — und nicht Herkünfte. Kein einziger Messwert dieser Flächen testet, ob gebietsfremde Arten die bessere Klimaanpassung liefern.</p>
+        <p data-i18n-html="hypo.counter">Dagegen steht: Auf nährstoffarmen Schutzflächen ist genau die Stickstofffixierung das Problem, weil sie den Lebensraum beseitigt, der geschützt werden soll. Und die anerkannte Route der forstlichen Klimaanpassung führt nicht über fremde Arten, sondern über die <strong>Herkunftswahl innerhalb heimischer Arten</strong> — trockenheitserprobte Provenienzen etwa von Traubeneiche oder Kiefer.</p>
+        <p class="note" data-i18n="hypo.test">Prüfbar wäre die These auf einer Fläche ohne Schutzstatus, mit Robinie gegen heimische Vergleichsvariante, über mindestens zehn Jahre. Diesen Versuch gibt es nach derzeitigem Stand nicht.</p>
+      </div>
 
       <h2 class="h-sec" data-i18n="list.allTitle">Alle Arten</h2>
       <ol id="species-list" class="species"></ol>

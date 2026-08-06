@@ -93,6 +93,18 @@
       'crit.Bestaeuber': 'Bestäuber fördern',
       'crit.Pionier': 'Schnelle Pionierbesiedlung',
       'crit.Wiederaustrieb': 'Treibt nach Feuer wieder aus',
+      'site.aria': 'Flächenstatus wählen',
+      'site.nsg': 'Schutzgebiet (Jüterbog)',
+      'site.open': 'Fläche ohne Schutzstatus',
+      'site.nsgNote': 'Die Ankerfläche ist Naturschutz- und FFH-Gebiet mit geschützten <strong>nährstoffarmen</strong> Lebensraumtypen. Das Ausbringen gebietsfremder Arten ist dort nach § 40 BNatSchG genehmigungspflichtig — und die Genehmigung <em>ist zu versagen</em>, wenn eine Gefährdung nicht auszuschließen ist. Das Bundesamt für Naturschutz rät für Naturschutz- und FFH-Gebiete generell davon ab. Der Generator schlägt hier deshalb nur einheimische Arten vor.',
+      'site.openNote': 'Ohne Schutzstatus entfällt die Beschränkung aus § 40 BNatSchG, und gebietsfremde Arten stehen zur Wahl. Damit wird die Mischung zur <em>Hypothese</em>: Ob sie besser trägt als eine einheimische, ist auf diesen Flächen nicht gemessen worden.',
+      'site.excludedTitle': 'Auf dieser Fläche ausgeschlossen:',
+      'site.excludedBody': '{n} gebietsfremde Arten ({list}) — nicht wegen ihrer Herkunft, sondern weil der Schutzzweck hier Nährstoffarmut ist und das Ausbringen rechtlich beschränkt.',
+      'hypo.kicker': 'Hypothese, nicht Befund',
+      'hypo.title': 'Können Neophyten Teil der Klimaanpassung sein?',
+      'hypo.body': 'Die Robinie liefert das dauerhafteste Holz Europas, wurzelt tief, erträgt Hitze und Trockenheit und fixiert Stickstoff — als Anpassungskandidat auf armem Sand ist sie ernstzunehmen. <strong>Belegt ist das hier aber nicht.</strong> Die zugrunde liegenden Messungen vergleichen Behandlungs<em>verfahren</em> — räumen, pflügen, pflanzen, nichts tun — und nicht Herkünfte. Kein einziger Messwert dieser Flächen testet, ob gebietsfremde Arten die bessere Klimaanpassung liefern.',
+      'hypo.counter': 'Dagegen steht: Auf nährstoffarmen Schutzflächen ist genau die Stickstofffixierung das Problem, weil sie den Lebensraum beseitigt, der geschützt werden soll. Und die anerkannte Route der forstlichen Klimaanpassung führt nicht über fremde Arten, sondern über die <strong>Herkunftswahl innerhalb heimischer Arten</strong> — trockenheitserprobte Provenienzen etwa von Traubeneiche oder Kiefer.',
+      'hypo.test': 'Prüfbar wäre die These auf einer Fläche ohne Schutzstatus, mit Robinie gegen heimische Vergleichsvariante, über mindestens zehn Jahre. Diesen Versuch gibt es nach derzeitigem Stand nicht.',
       'foot.credit': 'Sentinel-2 · Copernicus · PYROPHOB',
       'foot.legal': 'Impressum & Datenschutz',
       'species.source': 'Zahlen zur Naturverjüngung aus dem Forschungsprojekt PYROPHOB: Abschlussband <em>Eberswalder Forstliche Schriftenreihe Bd. 77</em> (LFE Brandenburg, 2024) sowie Schüle u.&nbsp;a., <em>Vegetationsentwicklung nach Waldbrand</em> (EFS 73) — die Aspen-Dichte von 13.590/ha stammt aus der 200-Plot-Rasteraufnahme Treuenbrietzen 2020 (Masterarbeiten Domes &amp; Schwanitz); der Abschlussband nennt für seine 15 Untersuchungsstandorte 6.289/ha. Standortangaben nach NSG-Verordnung Forst Zinna–Jüterbog–Keilberg und FloraWeb.',
@@ -217,6 +229,18 @@
       'crit.Bestaeuber': 'Support pollinators',
       'crit.Pionier': 'Fast pioneer colonization',
       'crit.Wiederaustrieb': 'Resprouts after fire',
+      'site.aria': 'Choose site status',
+      'site.nsg': 'Protected area (Jüterbog)',
+      'site.open': 'Site without protected status',
+      'site.nsgNote': 'The anchor site is a nature reserve and Natura 2000 area with protected <strong>nutrient-poor</strong> habitat types. Introducing non-native species there requires a permit under § 40 of the German Federal Nature Conservation Act — and that permit <em>must be refused</em> where harm cannot be ruled out. The Federal Agency for Nature Conservation advises against it for nature reserves and Natura 2000 sites generally. The generator therefore proposes native species only.',
+      'site.openNote': 'Without protected status the § 40 restriction falls away and non-native species become available. That turns the mix into a <em>hypothesis</em>: whether it performs better than a native one has not been measured on these sites.',
+      'site.excludedTitle': 'Excluded on this site:',
+      'site.excludedBody': '{n} non-native species ({list}) — not because of where they come from, but because the protection goal here is nutrient poverty and introduction is legally restricted.',
+      'hypo.kicker': 'Hypothesis, not finding',
+      'hypo.title': 'Can neophytes be part of climate adaptation?',
+      'hypo.body': 'Black locust yields Europe’s most durable timber, roots deeply, tolerates heat and drought and fixes nitrogen — as an adaptation candidate on poor sand it deserves to be taken seriously. <strong>But nothing here proves it.</strong> The underlying measurements compare treatment <em>methods</em> — clearing, ploughing, planting, doing nothing — not origins. Not one measurement from these sites tests whether non-native species deliver better climate adaptation.',
+      'hypo.counter': 'Against it: on nutrient-poor protected land, nitrogen fixation is precisely the problem, because it removes the habitat that is meant to be protected. And the accepted route of forestry climate adaptation does not run through foreign species but through <strong>provenance selection within native species</strong> — drought-tested origins of sessile oak or Scots pine, for instance.',
+      'hypo.test': 'The thesis would be testable on a site without protected status, black locust against a native control, over at least ten years. No such trial exists as things stand.',
       'foot.credit': 'Sentinel-2 · Copernicus · PYROPHOB',
       'foot.legal': 'Imprint & Privacy',
       'species.source': 'Regeneration figures from the PYROPHOB research project: final volume <em>Eberswalder Forstliche Schriftenreihe</em> vol. 77 (LFE Brandenburg, 2024) and Schüle et al., <em>Vegetationsentwicklung nach Waldbrand</em> (EFS 73) — the aspen density of 13,590/ha comes from the 200-plot grid survey at Treuenbrietzen in 2020 (master’s theses Domes &amp; Schwanitz); the final volume reports 6,289/ha for its 15 study sites. Site data after the Forst Zinna–Jüterbog–Keilberg nature reserve ordinance and FloraWeb.',
@@ -772,6 +796,17 @@
   var CRITERIA = ['Wiederaustrieb', 'Pionier', 'Stickstoff', 'Bestaeuber', 'Wind'];
   var MIX_MIN = 4, MIX_MAX = 7;
   var curCriteria = [];
+  /* Flächen-Modus. Die Ankerfläche ist NSG und FFH-Gebiet mit geschützten
+     nährstoffarmen Lebensraumtypen; dort ist das Ausbringen gebietsfremder
+     Arten nach § 40 BNatSchG genehmigungspflichtig (Genehmigung IST zu
+     versagen, wenn eine Gefährdung nicht auszuschließen ist), und das BfN rät
+     für NSG/FFH generell davon ab. Der Generator muss diese Antwort geben
+     können — sonst ist er ein Verkaufs-, kein Entscheidungsinstrument. */
+  var curSite = 'nsg';
+  function allowedSpecies() {
+    if (curSite !== 'nsg') return SPECIES;
+    return SPECIES.filter(function (sp) { return sp.origin === 'native'; });
+  }
 
   function buildSpCard(sp) {
     var li = document.createElement('li');
@@ -817,7 +852,7 @@
 
   function pickMix(criteria) {
     var active = criteria.length ? criteria : CRITERIA;
-    var scored = SPECIES.map(function (sp, i) { return { sp: sp, i: i, score: scoreOne(sp, active) }; });
+    var scored = allowedSpecies().map(function (sp, i) { return { sp: sp, i: i, score: scoreOne(sp, active) }; });
     scored.sort(function (a, b) { return b.score - a.score || a.i - b.i; });
 
     var matched = scored.filter(function (x) { return x.score > 0; });
@@ -866,6 +901,19 @@
       rationale.textContent = t('mix.baseline');
     }
     box.appendChild(rationale);
+
+    // sichtbar machen, was der Flächenschutz ausschließt — nicht still weglassen
+    if (curSite === 'nsg') {
+      var barred = SPECIES.filter(function (sp) { return sp.origin !== 'native'; });
+      var ex = document.createElement('p');
+      ex.className = 'note excluded';
+      ex.innerHTML = '<strong></strong> <span></span>';
+      ex.querySelector('strong').textContent = t('site.excludedTitle');
+      ex.querySelector('span').textContent = t('site.excludedBody')
+        .replace('{n}', String(barred.length))
+        .replace('{list}', barred.map(function (sp) { return pick(sp.name); }).join(', '));
+      box.appendChild(ex);
+    }
 
     var ORIGIN_CLASS = { native: 'tag-pine', neo: 'tag-neo', archaeo: 'tag-archaeo' };
     ORIGINS.forEach(function (o) {
@@ -932,6 +980,21 @@
       var tag = b.dataset.tag;
       var idx = curCriteria.indexOf(tag);
       if (idx === -1) curCriteria.push(tag); else curCriteria.splice(idx, 1);
+      renderSpeciesMix();
+      renderSpeciesMap();
+    });
+  });
+
+  slice(document.querySelectorAll('.site-btn')).forEach(function (b) {
+    b.addEventListener('click', function () {
+      curSite = b.dataset.site;
+      slice(document.querySelectorAll('.site-btn')).forEach(function (x) {
+        var on = x.dataset.site === curSite;
+        x.classList.toggle('is-on', on);
+        x.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      var note = document.getElementById('site-note');
+      if (note) note.innerHTML = t('site.' + curSite + 'Note');
       renderSpeciesMix();
       renderSpeciesMap();
     });
