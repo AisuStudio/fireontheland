@@ -26,6 +26,7 @@
       'tab.scorecard': 'Scorecard',
       'tab.measures': 'Maßnahmen',
       'tab.species': 'Arten',
+      'tab.scenarios': 'Szenarien',
       'tab.concept': 'Konzept',
 
       'composite.kicker': 'Was Noveco ist',
@@ -96,6 +97,19 @@
       'unit.archaeo.many': 'Archäophyten',
       'list.allTitle': 'Alle Arten',
 
+      'scenarios.kicker': 'Illustratives Modell',
+      'scenarios.title': 'Drei Wege nach dem Brand',
+      'scenarios.sub': 'Wie sich Jüterbogs Brandfläche je nach Strategie erholen könnte — vorbereitete Szenarien, keine Live-Simulation.',
+      'scenarios.chartAria': 'Liniendiagramm: modellierte Erholung über 30 Jahre für drei Strategien',
+      'scenarios.caption': 'Erholung (%) über Jahre seit dem Brand',
+      'scenarios.note': 'Illustrative Modellierung auf Basis bekannter Sukzessionsmuster — keine Live-Simulation und keine GUS-Engine-Ausgabe. Die tatsächliche Entwicklung hängt von Standort, Witterung und Pflege ab.',
+      'scenario.pine': 'Kiefern nachpflanzen',
+      'scenario.pine.note': 'Planbares, stetiges Wachstum — aber harzreiche Monokultur bleibt hochbrandgefährdet (siehe Scorecard).',
+      'scenario.passive': 'Sich selbst überlassen',
+      'scenario.passive.note': 'Langsamer Start, dafür eigenständige, oft widerstandsfähigere Sukzession ohne Eingriff.',
+      'scenario.assisted': 'Pionierpflanzen-Mix',
+      'scenario.assisted.note': 'Ammenstrukturen und Stickstofffixierer aus unserem Arten-Generator beschleunigen die frühe Erholung, ohne Monokultur-Risiko.',
+
       'concept.title': 'Das Konzept',
       'concept.kicker': 'Was es ist',
       'concept.define': 'Ein offenes Werkzeug, das eine Waldbrandfläche danach lesbar macht, welche Wiederbewaldung dort zugleich <strong>klimaangepasst, wirtschaftlich zukunftsfähig und kohlenstoff-wirksam</strong> ist.',
@@ -114,6 +128,7 @@
       'tab.scorecard': 'Scorecard',
       'tab.measures': 'Measures',
       'tab.species': 'Species',
+      'tab.scenarios': 'Scenarios',
       'tab.concept': 'Concept',
 
       'composite.kicker': 'What Noveco is',
@@ -183,6 +198,19 @@
       'unit.archaeo.one': 'archaeophyte',
       'unit.archaeo.many': 'archaeophytes',
       'list.allTitle': 'All species',
+
+      'scenarios.kicker': 'Illustrative model',
+      'scenarios.title': 'Three paths after the fire',
+      'scenarios.sub': 'How Jüterbog’s burn scar could recover under different strategies — prepared scenarios, not a live simulation.',
+      'scenarios.chartAria': 'Line chart: modelled recovery over 30 years for three strategies',
+      'scenarios.caption': 'Recovery (%) over years since the fire',
+      'scenarios.note': 'Illustrative modelling based on known succession patterns — not a live simulation and not GUS engine output. Actual recovery depends on site, weather and care.',
+      'scenario.pine': 'Replant pine',
+      'scenario.pine.note': 'Predictable, steady growth — but a resin-rich monoculture stays highly fire-prone (see Scorecard).',
+      'scenario.passive': 'Left alone',
+      'scenario.passive.note': 'Slower start, but self-directed succession that’s often more resilient without intervention.',
+      'scenario.assisted': 'Pioneer-species mix',
+      'scenario.assisted.note': 'Nurse structures and nitrogen-fixers from our species generator speed up early recovery without monoculture risk.',
 
       'concept.title': 'The concept',
       'concept.kicker': 'What it is',
@@ -266,6 +294,7 @@
     renderMeasures(curActor);
     renderSpecies();
     renderSpeciesMix();
+    renderScenarios();
   }
 
   /* ---------------------------------------------------------
@@ -277,6 +306,7 @@
     scorecard: document.getElementById('view-scorecard'),
     measures: document.getElementById('view-measures'),
     species: document.getElementById('view-species'),
+    scenarios: document.getElementById('view-scenarios'),
     concept: document.getElementById('view-concept')
   };
 
@@ -291,6 +321,7 @@
     });
     if (target === 'composite') renderComposite();
     if (target === 'measures') renderMeasures(curActor);
+    if (target === 'scenarios') renderScenarios();
     if (target === 'species') { renderSpecies(); renderSpeciesMix(); }
   }
 
@@ -728,6 +759,66 @@
       renderSpeciesMix();
     });
   });
+
+  /* ---------------------------------------------------------
+     Scenarios (Szenarien) — illustrative, hand-authored recovery
+     curves for three post-fire strategies. NOT a live simulation
+     and not GUS output — clearly labelled as a prepared model
+     (scenarios.note) so it's honest about what it is, matching
+     the app's "ehrlich über Grenzen" value.
+     --------------------------------------------------------- */
+  var SCENARIO_YEARS = [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30];
+  var SCENARIOS = [
+    { id: 'pine', color: 'var(--pine)', curve: [0, .10, .22, .35, .47, .58, .67, .74, .79, .83, .86] },
+    { id: 'passive', color: 'var(--muted)', curve: [0, .04, .11, .21, .33, .46, .58, .68, .76, .82, .87] },
+    { id: 'assisted', color: 'var(--accent)', curve: [0, .14, .29, .44, .57, .68, .76, .82, .87, .90, .93] }
+  ];
+
+  function buildScenarioChart() {
+    var W = 320, H = 200, padL = 28, padR = 4, padT = 6, padB = 18;
+    var pw = W - padL - padR, ph = H - padT - padB;
+    var n = SCENARIO_YEARS.length - 1;
+    function xAt(i) { return padL + (i / n) * pw; }
+    function yAt(v) { return padT + (1 - v) * ph; }
+
+    var grid = [0, 25, 50, 75, 100].map(function (pct) {
+      var y = yAt(pct / 100);
+      return '<line x1="' + padL + '" y1="' + y.toFixed(1) + '" x2="' + (W - padR) + '" y2="' + y.toFixed(1) + '" stroke="var(--line)" stroke-width="0.75"/>' +
+        '<text x="' + (padL - 4) + '" y="' + (y + 2.5).toFixed(1) + '" text-anchor="end" class="chart-axis">' + pct + '</text>';
+    }).join('');
+
+    var xlabels = SCENARIO_YEARS.map(function (yr, i) {
+      if (i % 2 !== 0) return '';
+      return '<text x="' + xAt(i).toFixed(1) + '" y="' + (H - 4) + '" text-anchor="middle" class="chart-axis">' + yr + '</text>';
+    }).join('');
+
+    var lines = SCENARIOS.map(function (s) {
+      var pts = s.curve.map(function (v, i) { return xAt(i).toFixed(1) + ',' + yAt(v).toFixed(1); }).join(' ');
+      return '<polyline points="' + pts + '" fill="none" stroke="' + s.color + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+    }).join('');
+
+    return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + t('scenarios.chartAria') + '">' +
+      grid + lines + xlabels + '</svg>';
+  }
+
+  function renderScenarios() {
+    var box = document.getElementById('scenario-chart');
+    if (!box) return;
+    box.innerHTML = buildScenarioChart();
+
+    var legend = document.getElementById('scenario-legend');
+    if (!legend) return;
+    legend.textContent = '';
+    SCENARIOS.forEach(function (s) {
+      var li = document.createElement('li');
+      li.className = 'scenario-item';
+      li.innerHTML = '<span class="scenario-dot" style="background:' + s.color + '"></span>' +
+        '<div><span class="scenario-name"></span><p class="scenario-note"></p></div>';
+      li.querySelector('.scenario-name').textContent = t('scenario.' + s.id);
+      li.querySelector('.scenario-note').textContent = t('scenario.' + s.id + '.note');
+      legend.appendChild(li);
+    });
+  }
 
   /* ---------------------------------------------------------
      Background parallax — hero image drifts slower than scroll,

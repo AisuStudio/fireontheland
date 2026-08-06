@@ -33,6 +33,9 @@
       <button class="tab" role="tab" aria-selected="false" aria-controls="view-species" data-target="species">
         <span class="tab-ico" aria-hidden="true">✤</span><span class="tab-lbl" data-i18n="tab.species">Arten</span>
       </button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="view-scenarios" data-target="scenarios">
+        <span class="tab-ico" aria-hidden="true">∿</span><span class="tab-lbl" data-i18n="tab.scenarios">Szenarien</span>
+      </button>
       <button class="tab" role="tab" aria-selected="false" aria-controls="view-concept" data-target="concept">
         <span class="tab-ico" aria-hidden="true">◆</span><span class="tab-lbl" data-i18n="tab.concept">Konzept</span>
       </button>
@@ -116,6 +119,22 @@
       <div id="species-mix"></div>
       <h2 class="h-sec" data-i18n="list.allTitle">Alle Arten</h2>
       <ol id="species-list" class="species"></ol>
+    </section>
+
+    <!-- VIEW: Szenarien -->
+    <section id="view-scenarios" class="view" data-view="scenarios" hidden aria-labelledby="t-scenarios">
+      <span class="kicker" data-i18n="scenarios.kicker">Illustratives Modell</span>
+      <h1 id="t-scenarios" class="view-title" data-i18n="scenarios.title">Drei Wege nach dem Brand</h1>
+      <p class="view-sub" data-i18n="scenarios.sub">Wie sich Jüterbogs Brandfläche je nach Strategie erholen könnte — vorbereitete Szenarien, keine Live-Simulation.</p>
+
+      <figure class="chart">
+        <div id="scenario-chart"></div>
+        <figcaption class="chart-caption" data-i18n="scenarios.caption">Erholung (%) über Jahre seit dem Brand</figcaption>
+      </figure>
+
+      <ul id="scenario-legend" class="scenario-legend"></ul>
+
+      <p class="note" data-i18n="scenarios.note">Illustrative Modellierung auf Basis bekannter Sukzessionsmuster — keine Live-Simulation und keine GUS-Engine-Ausgabe. Die tatsächliche Entwicklung hängt von Standort, Witterung und Pflege ab.</p>
     </section>
 
     <!-- VIEW: Konzept -->
