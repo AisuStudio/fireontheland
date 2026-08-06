@@ -133,9 +133,11 @@
       'scenarios.play': 'Abspielen',
       'scenarios.pause': 'Pause',
       'scenarios.yearLabel': 'Jahr {y}',
-      'scenarios.density': 'Dichte',
+      'scenarios.canopy': 'Kronendeckung',
+      'scenarios.density': 'Stammzahl',
       'scenarios.height': 'Höhe',
       'scenarios.dominant': 'Dominant',
+      'scenarios.mapNote': 'Jeder Punkt steht für ein Stück Kronendach, nicht für einen Baum — deshalb wächst die Punktwolke stetig, während die Stammzahl im älteren Bestand sinkt: Aus vielen dünnen Bäumen werden wenige dicke.',
 
       'concept.title': 'Das Konzept',
       'concept.kicker': 'Was es ist',
@@ -255,9 +257,11 @@
       'scenarios.play': 'Play',
       'scenarios.pause': 'Pause',
       'scenarios.yearLabel': 'Year {y}',
-      'scenarios.density': 'Density',
+      'scenarios.canopy': 'Canopy cover',
+      'scenarios.density': 'Stems',
       'scenarios.height': 'Height',
       'scenarios.dominant': 'Dominant',
+      'scenarios.mapNote': 'Each dot stands for a piece of canopy, not for a single tree — which is why the dots keep filling in while the stem count falls in the older stand: many thin trees become a few thick ones.',
 
       'concept.title': 'The concept',
       'concept.kicker': 'What it is',
@@ -1105,9 +1109,14 @@
 
     var dens = atYear(sc.dens, curYear);
     var hgt = atYear(sc.hgt, curYear);
+    var canopy = atYear(sc.canopy, curYear);
     var domId = domAtYear(sc, curYear);
-    var count = Math.round(Math.min(1, dens / 15000) * DOT_MAX);
-    var r = 1.5 + Math.min(1, hgt / 15) * 6.5;
+    // Punktzahl folgt der Kronendeckung, nicht der Stammzahl: die Stammzahl
+    // sinkt im älteren Bestand durch Selbstdurchforstung (wenige dicke statt
+    // vieler dünner Bäume) — als schrumpfende Punktwolke gelesen wäre das
+    // das Gegenteil dessen, was passiert. Punktgröße folgt der Höhe.
+    var count = Math.round(Math.min(1, canopy / REF_CANOPY) * DOT_MAX);
+    var r = 1.5 + Math.min(1, hgt / REF_HEIGHT) * 7;
 
     ctx.fillStyle = cssColor(SP_COLOR[domId] || 'var(--neo)');
     ctx.globalAlpha = 0.85;
@@ -1125,19 +1134,22 @@
       for (var j = 0; j < SPECIES.length; j++) if (SPECIES[j].id === domId) domSp = SPECIES[j];
       readout.innerHTML =
         '<span class="ro-year"></span>' +
-        '<span class="ro-item"><b></b> <i data-k="dens"></i></span>' +
-        '<span class="ro-item"><b></b> <i data-k="hgt"></i></span>' +
-        '<span class="ro-item"><b></b> <i data-k="dom"></i></span>';
+        '<span class="ro-item"><b></b> <i></i></span>' +
+        '<span class="ro-item"><b></b> <i></i></span>' +
+        '<span class="ro-item"><b></b> <i></i></span>' +
+        '<span class="ro-item"><b></b> <i></i></span>';
       readout.querySelector('.ro-year').textContent =
         t('scenarios.yearLabel').replace('{y}', String(Math.round(curYear)));
       var items = readout.querySelectorAll('.ro-item');
-      items[0].querySelector('b').textContent = t('scenarios.density');
-      items[0].querySelector('i').textContent = Math.round(dens / 100) * 100 + ' /ha';
+      items[0].querySelector('b').textContent = t('scenarios.canopy');
+      items[0].querySelector('i').textContent = Math.round(canopy * 100) + ' %';
       items[1].querySelector('b').textContent = t('scenarios.height');
       items[1].querySelector('i').textContent =
         (LANG === 'de' ? hgt.toFixed(1).replace('.', ',') : hgt.toFixed(1)) + ' m';
-      items[2].querySelector('b').textContent = t('scenarios.dominant');
-      items[2].querySelector('i').textContent = domSp ? pick(domSp.name) : '—';
+      items[2].querySelector('b').textContent = t('scenarios.density');
+      items[2].querySelector('i').textContent = Math.round(dens / 100) * 100 + ' /ha';
+      items[3].querySelector('b').textContent = t('scenarios.dominant');
+      items[3].querySelector('i').textContent = domSp ? pick(domSp.name) : '—';
     }
 
     slice(document.querySelectorAll('.scen-btn')).forEach(function (b) {
