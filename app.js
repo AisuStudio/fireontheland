@@ -4,6 +4,78 @@
 
   var slice = function (nl) { return Array.prototype.slice.call(nl); };
 
+  /* ---------------------------------------------------------
+     Glossar — Fachbegriffe werden dort erklärt, wo sie stehen.
+     Schreibweise im Text: [[schluessel|angezeigtes Wort]].
+     Antippen klappt die Erklärung direkt darunter auf.
+     --------------------------------------------------------- */
+  var GLOSSARY = {
+    riegel: {
+      de: 'Ein 40–50 m breiter Waldstreifen quer zur Hauptwindrichtung. Er löscht kein Feuer, sondern entzieht ihm Energie: Ein Vollfeuer, das in den Kronen läuft und mit Bodentechnik kaum zu bekämpfen ist, soll beim Auftreffen in ein Bodenfeuer zurückfallen — und das kann die Feuerwehr angreifen.',
+      en: 'A 40–50 m wide forest strip laid across the prevailing wind. It does not extinguish a fire, it drains its energy: a crown fire, which ground crews can barely fight, is meant to drop back into a ground fire on hitting the strip — and that firefighters can attack.'
+    },
+    neophyt: {
+      de: 'Eine Pflanzenart, die erst nach 1492 durch den Menschen hierher gelangt ist — die Jahreszahl steht für den Beginn des weltweiten Seehandels. Robinie, Rot-Eiche und Essigbaum stammen aus Nordamerika.',
+      en: 'A plant species brought here by people after 1492 — the date marks the start of global maritime trade. Black locust, red oak and staghorn sumac all come from North America.'
+    },
+    archaeophyt: {
+      de: 'Eine Art, die schon vor 1492 eingeführt wurde und seit Jahrhunderten hier wächst — weder ursprünglich heimisch noch neu. Die Edelkastanie kam mit den Römern.',
+      en: 'A species introduced before 1492 that has grown here for centuries — neither originally native nor new. Sweet chestnut arrived with the Romans.'
+    },
+    naturverjuengung: {
+      de: 'Bäume, die von selbst aufwachsen — aus angeflogenem Samen, aus der Samenbank im Boden oder aus Wurzelbrut. Das Gegenteil ist die Kunstverjüngung: gepflanzt oder gesät.',
+      en: 'Trees that come up on their own — from wind-blown seed, from the soil seed bank, or from root suckers. The opposite is artificial regeneration: planted or sown.'
+    },
+    ammenstruktur: {
+      de: 'Alles, was jungen Pflanzen Schutz gibt, ohne selbst Pflanze zu sein: liegendes Totholz, Reisig, Steine, Wurzelteller. Sie bremsen Wind, werfen Schatten, sammeln Tau und fangen Samen.',
+      en: 'Anything that shelters young plants without being a plant itself: fallen deadwood, brush, stones, root plates. They slow the wind, cast shade, gather dew and catch seed.'
+    },
+    sukzession: {
+      de: 'Die Abfolge, in der sich Pflanzengemeinschaften auf einer freien Fläche ablösen — von den schnellen Pionieren bis zu den langsamen, langlebigen Arten.',
+      en: 'The sequence in which plant communities replace one another on open ground — from fast pioneers to slow, long-lived species.'
+    },
+    nbr: {
+      de: 'Normalized Burn Ratio: ein Index aus zwei Sentinel-2-Kanälen, der Vegetation von verbranntem Boden trennt. Hohe Werte bedeuten grün, niedrige verbrannt oder vegetationsfrei.',
+      en: 'Normalized Burn Ratio: an index from two Sentinel-2 bands that separates vegetation from burnt ground. High values mean green, low values burnt or bare.'
+    },
+    lrt: {
+      de: 'Lebensraumtyp — eine europaweit einheitlich definierte Schutzkategorie. „LRT 2330 Silbergrasfluren auf Binnendünen" bezeichnet offene, nährstoffarme Sandflächen, deren Schutzzweck gerade die Armut ist.',
+      en: 'Habitat type — a conservation category defined uniformly across Europe. “Habitat 2330, inland dune grassland” denotes open, nutrient-poor sand whose very poverty is the protection goal.'
+    }
+  };
+
+  function withGlossary(text) {
+    return escapeHtml(text).replace(/\[\[([a-z]+)\|([^\]]+)\]\]/g, function (all, key, label) {
+      if (!GLOSSARY[key]) return label;
+      return '<button type="button" class="gloss" data-gloss="' + key + '">' + label + '</button>';
+    });
+  }
+
+  // direkt binden statt delegieren — wie die übrigen Schalter der App auch
+  function bindGloss(root) {
+    slice((root || document).querySelectorAll('.gloss')).forEach(function (b) {
+      if (b.dataset.bound) return;
+      b.dataset.bound = '1';
+      b.addEventListener('click', function () { toggleGloss(b); });
+    });
+  }
+
+  function toggleGloss(b) {
+    var key = b.dataset.gloss;
+    var wasOpen = b.getAttribute('aria-expanded') === 'true';
+    // Erklärung unter den ganzen Absatz hängen, nicht mitten in den Satz
+    var block = b.closest('p, li, div') || b.parentNode;
+    var card = block.parentNode;
+    slice(document.querySelectorAll('.gloss-def')).forEach(function (d) { d.remove(); });
+    slice(document.querySelectorAll('.gloss')).forEach(function (x) { x.setAttribute('aria-expanded', 'false'); });
+    if (wasOpen) return;
+    var def = document.createElement('p');
+    def.className = 'gloss-def';
+    def.textContent = (GLOSSARY[key] && GLOSSARY[key][LANG]) || (GLOSSARY[key] && GLOSSARY[key].de) || '';
+    card.insertBefore(def, block.nextSibling);
+    b.setAttribute('aria-expanded', 'true');
+  }
+
   // credits come from Wikimedia metadata — never interpolate them raw into innerHTML
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
@@ -605,8 +677,8 @@
       t: { de: 'Harke weglassen, Gras stehen lassen — Streu, Moos und Humus bauen sich auf.',
            en: 'Skip the rake, let the grass stand — litter, moss and humus build up.' } },
     { a: 'ind', tags: ['Schatten', 'Tau', 'Streu'],
-      t: { de: 'Totholz- und Reisighaufen als Ammenstrukturen: Schatten, Feuchtinseln, Habitat.',
-           en: 'Deadwood and brush piles as nurse structures: shade, moisture islands, habitat.' } },
+      t: { de: 'Totholz- und Reisighaufen als [[ammenstruktur|Ammenstrukturen]]: Schatten, Feuchtinseln, Habitat.',
+           en: 'Deadwood and brush piles as [[ammenstruktur|nurse structures]]: shade, moisture islands, habitat.' } },
     { a: 'ind', tags: ['Schatten', 'Tau'],
       t: { de: 'Steine und Stämme auf offenen Sand legen — Schatten- und Tau-Tropfkanten als Startpunkte.',
            en: 'Lay stones and logs on open sand — shade and dew-drip edges as starting points.' } },
@@ -621,8 +693,8 @@
       t: { de: 'Leitplanken, Lärmwände, Mauern als Tau-Kondensatoren und Schattenlinien für grüne Randstreifen nutzen.',
            en: 'Use guardrails, noise barriers and walls as dew condensers and shade lines for green verges.' } },
     { a: 'kom', tags: ['Schatten', 'Feuer'],
-      t: { de: 'Waldbrandriegel 40–50 m breit, quer zur Hauptwindrichtung. Wirksamste Art ist die Rot-Eiche; wo sie nicht anwächst, trägt auch ein Riegel aus Kiefer — dann über die Bestandesstruktur statt über die Baumart, was besonders konsequente Pflege verlangt.',
-           en: 'Firebreak strips 40–50 m wide, across the prevailing wind. Red oak is the most effective species; where it will not establish, a pine firebreak also works — then carried by stand structure rather than species, which demands especially rigorous tending.' } },
+      t: { de: '[[riegel|Waldbrandriegel]] 40–50 m breit, quer zur Hauptwindrichtung. Wirksamste Art ist die Rot-Eiche; wo sie nicht anwächst, trägt auch ein Riegel aus Kiefer — dann über die Bestandesstruktur statt über die Baumart, was besonders konsequente Pflege verlangt.',
+           en: '[[riegel|Firebreak strips]] 40–50 m wide, across the prevailing wind. Red oak is the most effective species; where it will not establish, a pine firebreak also works — then carried by stand structure rather than species, which demands especially rigorous tending.' } },
     { a: 'kom', tags: ['Wind', 'Tau'],
       t: { de: 'Offene Sand-/Heideflächen: Reisig-/Stroh-Raster plus Biokrusten-Förderung gegen Winderosion.',
            en: 'Open sand/heath: brush/straw grids plus biocrust promotion against wind erosion.' } },
@@ -634,14 +706,14 @@
            en: 'Channel rainwater into tree pits (sponge city); track recovery and carbon.' } },
 
     { a: 'forst', tags: ['Wind', 'Schatten'],
-      t: { de: 'Totholz stehend/liegend als Ammenstruktur, Windbremse und Schatten lassen — nicht kahlräumen.',
-           en: 'Leave deadwood standing or lying as nurse structure, windbreak and shade — don’t clear-cut.' } },
+      t: { de: 'Totholz stehend/liegend als [[ammenstruktur|Ammenstruktur]], Windbremse und Schatten lassen — nicht kahlräumen.',
+           en: 'Leave deadwood standing or lying as [[ammenstruktur|nurse structure]], windbreak and shade — don’t clear-cut.' } },
     { a: 'forst', tags: ['Wind', 'Streu'],
       t: { de: 'Schlagreisig flächig auslegen (lop-and-scatter): Wind bremsen, Feuchte halten, Natursaat fangen.',
            en: 'Spread slash across the area (lop-and-scatter): slow the wind, hold moisture, catch natural seed.' } },
     { a: 'forst', tags: ['Schatten', 'Streu'],
-      t: { de: 'Zwei-Phasen: Pionier-Naturverjüngung (Birke/Zitterpappel) als Amme, Zielbaumart darunter etablieren.',
-           en: 'Two-phase: pioneer natural regeneration (birch/aspen) as nurse, establish the target species beneath.' } },
+      t: { de: 'Zwei-Phasen: Pionier-[[naturverjuengung|Naturverjüngung]] (Birke/Zitterpappel) als Amme, Zielbaumart darunter etablieren.',
+           en: 'Two-phase: pioneer [[naturverjuengung|natural regeneration]] (birch/aspen) as nurse, establish the target species beneath.' } },
     { a: 'forst', tags: ['Feuer', 'Schatten'],
       t: { de: 'Leiterbrennstoffe unterbrechen: Bestände auflockern, tiefe Beastung ästen, Kronenschluss zum Boden vermeiden. Struktur senkt das Risiko nachweisbarer als die Baumartenwahl.',
            en: 'Break up ladder fuels: thin stands, prune low branches, avoid canopy running to the ground. Structure lowers risk more demonstrably than species choice does.' } },
@@ -668,7 +740,8 @@
         }).join('');
         li.innerHTML = '<span class="m-actor"></span><p></p><div class="m-tags">' + tags + '</div>';
         li.querySelector('.m-actor').textContent = t('actor.' + m.a);
-        li.querySelector('p').textContent = pick(m.t);
+        li.querySelector('p').innerHTML = withGlossary(pick(m.t));
+        bindGloss(li);
         list.appendChild(li);
       });
   }
@@ -875,7 +948,8 @@
       '<p></p><div class="m-tags">' + tags + '</div></div>';
     li.querySelector('.sp-name').textContent = pick(sp.name);
     li.querySelector('.sp-latin').textContent = sp.latin;
-    li.querySelector('p').textContent = pick(sp.t);
+    li.querySelector('p').innerHTML = withGlossary(pick(sp.t));
+    bindGloss(li);
     return li;
   }
 
