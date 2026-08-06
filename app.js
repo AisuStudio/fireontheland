@@ -143,6 +143,14 @@
       'scenario.passive.note': 'In Jüterbog der unsicherste Weg — deshalb das breite Band: Zwei Flächen derselben Brandfläche liegen um den Faktor 20 auseinander, je nachdem ob Samenbäume überlebt haben. Dazu Reinsand, keine Jagd und flächiger Verbiss. Kostet nichts, garantiert aber auch nichts.',
       'scenario.assisted': 'Nachhelfen statt pflanzen',
       'scenario.assisted.note': 'Nicht räumen, sondern gezielt säen: Eichensaat überlebte zu über 99 %, gepflanzte Kiefer zu 14,7 %. Junge Eichen stoppten 2018 sogar ein Feuer. Schwächste Datenbasis der drei — keine PYROPHOB-Fläche kombiniert „nicht räumen“ mit Saat, das ist eine begründete Synthese.',
+      'rad.kicker': 'Der Rahmen dahinter',
+      'rad.title': 'Resist · Accept · Direct',
+      'rad.resist': 'Resist',
+      'rad.accept': 'Accept',
+      'rad.direct': 'Direct',
+      'rad.body': 'Diese drei Wege sind keine Erfindung dieser App. Sie entsprechen dem <strong>Resist–Accept–Direct</strong>-Rahmen, mit dem der US-amerikanische National Park Service Ökosysteme im Klimawandel steuert. Sein Bild dafür ist ein Segelboot: <em>Resist</em> heißt Motor an und gegen den Wind zurück in den Heimathafen. <em>Accept</em> heißt Segel runter und treiben lassen. <em>Direct</em> heißt den Wind nutzen, um einen neuen, besseren Zielort anzusteuern.',
+      'rad.body2': 'Der entscheidende Punkt: <em>Direct</em> zielt ausdrücklich auf „bevorzugte <strong>neue</strong> Zustände“ — nicht auf historische. Genau dort liegt die Anpassungshypothese dieses Projekts, und genau dort liegt der Unterschied zwischen konservativem und progressivem Walddenken: Der eine Weg misst Erfolg am Vorzustand, der andere an der Überlebensfähigkeit unter künftigen Bedingungen.',
+      'rad.source': 'Schuurman u.&nbsp;a. (2022): <em>Navigating Ecological Transformation: Resist–Accept–Direct as a Path to a New Resource Management Paradigm</em>, BioScience 72(1) — sowie das RAD-Entscheidungsrahmenwerk des National Park Service.',
       'scenarios.mapTitle': 'Szenario durchspielen',
       'scenarios.scenAria': 'Szenario wählen',
       'scenarios.mapAria': 'Modellierter Bestand auf der Brandfläche',
@@ -289,6 +297,14 @@
       'scenario.passive.note': 'At Jüterbog the least predictable route — hence the wide band: two plots in the same burn scar differ by a factor of 20, depending on whether seed trees survived. Add pure sand, no hunting and browsing everywhere. It costs nothing, but guarantees nothing either.',
       'scenario.assisted': 'Assist, don’t plant',
       'scenario.assisted.note': 'Don’t clear — sow instead: sown oak survived at over 99%, planted pine at 14.7%. Young oaks even stopped a fire in 2018. The weakest evidence base of the three — no PYROPHOB plot combines “don’t clear” with sowing, so this is a reasoned synthesis.',
+      'rad.kicker': 'The framework behind it',
+      'rad.title': 'Resist · Accept · Direct',
+      'rad.resist': 'Resist',
+      'rad.accept': 'Accept',
+      'rad.direct': 'Direct',
+      'rad.body': 'These three paths are not this app’s invention. They match the <strong>Resist–Accept–Direct</strong> framework the US National Park Service uses to steward ecosystems under climate change. Its own image for it is a sailboat: <em>Resist</em> means running the engine against the wind to get back to the home port. <em>Accept</em> means dropping the sails and going where the wind takes you. <em>Direct</em> means using the wind to steer for a new, better destination.',
+      'rad.body2': 'The decisive point: <em>Direct</em> explicitly aims at “preferred <strong>new</strong> conditions” — not historical ones. That is exactly where this project’s adaptation hypothesis sits, and exactly where conservative and progressive forest thinking part ways: one measures success against the previous state, the other against survivability under future conditions.',
+      'rad.source': 'Schuurman et al. (2022): <em>Navigating Ecological Transformation: Resist–Accept–Direct as a Path to a New Resource Management Paradigm</em>, BioScience 72(1) — together with the National Park Service RAD decision framework.',
       'scenarios.mapTitle': 'Play a scenario',
       'scenarios.scenAria': 'Choose a scenario',
       'scenarios.mapAria': 'Modelled stand on the burn scar',
@@ -1059,7 +1075,7 @@
   }
 
   var SCENARIOS = [
-    { id: 'passive', color: 'var(--neo)',
+    { id: 'passive', color: 'var(--neo)', rad: 'accept',
       canopy: [0, .02, .06, .13, .20, .26, .32, .37, .40, .43, .46],
       hgt:    [0, 1.0, 2.6, 3.6, 4.6, 5.8, 6.9, 7.9, 8.2, 8.8, 9.3],
       dens:   [0, 1000, 1600, 2100, 2500, 2700, 2800, 2800, 2700, 2600, 2500],
@@ -1069,7 +1085,7 @@
       // Brandfläche um Faktor 20 auseinander
       band: { lo: [0, .02, .05, .09, .13, .16, .20, .22, .25, .26, .29],
               hi: [0, .07, .18, .31, .42, .52, .61, .67, .72, .75, .78] } },
-    { id: 'pine', color: 'var(--pine)',
+    { id: 'pine', color: 'var(--pine)', rad: 'resist',
       canopy: [0, .01, .02, .08, .20, .42, .63, .79, .84, .88, .92],
       hgt:    [0, 0.25, 0.5, 1.0, 1.8, 2.6, 3.45, 4.25, 4.75, 5.6, 6.5],
       dens:   [0, 3000, 1300, 6500, 6200, 5900, 5600, 5400, 5200, 5000, 4800],
@@ -1078,7 +1094,7 @@
       // ohne Nachbesserungspflanzung — das ist der real gemessene Fall
       altCanopy: [0, .006, .012, .025, .06, .10, .15, .21, .28, .33, .385],
       altHgt:    [0, 0.2, 0.35, 0.6, 1.0, 1.5, 2.1, 2.7, 3.2, 3.6, 4.0] },
-    { id: 'assisted', color: 'var(--accent)',
+    { id: 'assisted', color: 'var(--accent)', rad: 'direct',
       canopy: [0, .05, .15, .28, .42, .51, .60, .67, .69, .72, .75],
       hgt:    [0, 1.2, 3.0, 4.2, 5.4, 6.4, 7.4, 8.3, 8.9, 9.9, 11.0],
       dens:   [0, 8000, 9000, 8500, 7800, 7200, 6700, 6300, 5900, 5600, 5300],
@@ -1330,8 +1346,10 @@
       var li = document.createElement('li');
       li.className = 'scenario-item';
       li.innerHTML = '<span class="scenario-dot" style="background:' + s.color + '"></span>' +
-        '<div><span class="scenario-name"></span><p class="scenario-note"></p></div>';
+        '<div><span class="scenario-name"></span> <span class="rad-badge"></span>' +
+        '<p class="scenario-note"></p></div>';
       li.querySelector('.scenario-name').textContent = t('scenario.' + s.id);
+      li.querySelector('.rad-badge').textContent = t('rad.' + s.rad);
       li.querySelector('.scenario-note').textContent = t('scenario.' + s.id + '.note');
       legend.appendChild(li);
     });
