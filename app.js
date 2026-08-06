@@ -127,10 +127,15 @@
       'scenarios.title': 'Drei Wege nach dem Brand',
       'scenarios.sub': 'Wie sich Jüterbogs Brandfläche je nach Strategie erholen könnte — vorbereitete Szenarien, keine Live-Simulation.',
       'scenarios.chartAria': 'Liniendiagramm: modellierte Erholung über 30 Jahre für drei Strategien',
-      'scenarios.caption': 'Wiederbewaldungsgrad (%) über Jahre seit dem Brand',
+      'scenarios.caption.forest': 'Bewaldungsgrad (%) über Jahre seit dem Brand',
+      'scenarios.caption.open': 'Erhaltungsgrad des Offenlands (%) über Jahre seit dem Brand',
       'scenarios.measured': 'gemessen',
       'scenarios.modelled': 'modelliert',
-      'scenarios.yAxis': '<strong>Wiederbewaldungsgrad</strong> heißt hier: Kronendeckung und Bestandeshöhe zusammengenommen, gemessen am unverbrannten Kiefernforst nebenan (80 % Deckung, rund 20 m). Beides muss stimmen — hohe Einzelbäume ohne Deckung sind kein Wald, dichter Niederwuchs ohne Höhe auch nicht.',
+      'target.aria': 'Zielzustand wählen',
+      'target.forest': 'Ziel: geschlossener Wald',
+      'target.open': 'Ziel: offene Sandheide',
+      'target.forestNote': 'Gemessen wird gegen den unverbrannten Kiefernforst nebenan: 80 % Kronendeckung, rund 20 m Höhe. Beides muss stimmen — hohe Einzelbäume ohne Deckung sind kein Wald, dichter Niederwuchs ohne Höhe auch nicht.',
+      'target.openNote': 'Für die geschützten Lebensraumtypen des Gebiets — Silbergrasfluren auf Binnendünen, Sandheiden — ist Offenheit das Ziel. Gemessen wird deshalb die <strong>Freiheit von Gehölzen</strong>: Managementpläne stufen solche Flächen ab etwa 30 % Verbuschung als verschlechtert ein. Dieselben Daten, dieselbe Fläche, umgekehrtes Urteil — der Brand hat hier nicht zerstört, sondern zurückgesetzt. <em>Einschränkung:</em> Erfasst ist nur die Verbuschung, nicht das Vorhandensein der kennzeichnenden Arten — die brauchen Jahre und sind hier nicht modelliert. Das gemessene Unsicherheitsband gilt nur fürs Waldziel und wird deshalb ausgeblendet.',
       'scenarios.note': 'Bis Jahr 3–4 aus den PYROPHOB-Messungen in Jüterbog, danach modelliert (Höhen nach den Ertragstafeln für Sand-Birke und Kiefer). Keine Live-Simulation. Die tatsächliche Entwicklung hängt von Samenbäumen, Wild, Witterung und Wiederholungsbränden ab.',
       'scenario.pine': 'Kiefern nachpflanzen',
       'scenario.pine.note': 'Die gemessene Ernüchterung: Nach fünf Jahren lebten noch 14,7 % der gepflanzten Kiefern, „praktisch kein Höhenwachstum“. Was auf dieser Fläche Biomasse bildete, war die spontane Aspe — 0,8 % entfielen auf die Pflanzung. Erst mit Nachbesserung schließt sich später ein Kronendach (durchgezogen); die gestrichelte Linie zeigt den real gemessenen Verlauf ohne Nachpflanzen.',
@@ -263,10 +268,15 @@
       'scenarios.title': 'Three paths after the fire',
       'scenarios.sub': 'How Jüterbog’s burn scar could recover under different strategies — prepared scenarios, not a live simulation.',
       'scenarios.chartAria': 'Line chart: modelled recovery over 30 years for three strategies',
-      'scenarios.caption': 'Reforestation index (%) over years since the fire',
+      'scenarios.caption.forest': 'Afforestation index (%) over years since the fire',
+      'scenarios.caption.open': 'Open-habitat condition (%) over years since the fire',
       'scenarios.measured': 'measured',
       'scenarios.modelled': 'modelled',
-      'scenarios.yAxis': '<strong>Reforestation index</strong> here means canopy cover and stand height taken together, measured against the unburned pine forest next door (80% cover, about 20 m). Both have to hold — tall single trees without cover are not a forest, and dense low growth without height is not either.',
+      'target.aria': 'Choose target state',
+      'target.forest': 'Target: closed forest',
+      'target.open': 'Target: open sand heath',
+      'target.forestNote': 'Measured against the unburned pine forest next door: 80% canopy cover, about 20 m height. Both have to hold — tall single trees without cover are not a forest, and dense low growth without height is not either.',
+      'target.openNote': 'For the site’s protected habitat types — silver-grass swards on inland dunes, sand heaths — openness is the goal. What is measured is therefore <strong>freedom from woody encroachment</strong>: management plans rate such areas as degraded from roughly 30% shrub cover. Same data, same site, opposite verdict — here the fire did not destroy, it reset. <em>Caveat:</em> only encroachment is captured, not the presence of the characteristic species, which take years and are not modelled here. The measured uncertainty band applies to the forest target only and is therefore hidden.',
       'scenarios.note': 'Measured by PYROPHOB at Jüterbog to year 3–4, modelled after that (heights following the yield tables for silver birch and Scots pine). Not a live simulation. Real recovery depends on seed trees, browsing, weather and repeat fires.',
       'scenario.pine': 'Replant pine',
       'scenario.pine.note': 'The measured disappointment: after five years 14.7% of the planted pines were still alive, with “practically no height growth”. What actually built biomass on that plot was spontaneous aspen — the planting accounted for 0.8%. Only with replanting does a canopy eventually close (solid line); the dashed line is the course actually measured, without replanting.',
@@ -1017,8 +1027,25 @@
      Werte bis Jahr 3–4 aus PYROPHOB (EFS 77), danach modelliert; Höhen ab Jahr 10
      an den Ertragstafeln Sand-Birke (Lockow 1996) bzw. Kiefer (Lembcke u.a.). */
   var REF_CANOPY = 0.80, REF_HEIGHT = 20;
+  /* Zwei legitime Zielzustände auf derselben Fläche — genau das, was der
+     Leitsatz der App behauptet. Der Schutzzweck des Gebiets ist Offenland
+     (Silbergrasfluren, Sandheiden), nicht geschlossener Wald; Kronendeckung
+     ist dort kein Erfolg, sondern das Gegenteil.
+       forest = Kronendeckung und Höhe gegen den unverbrannten Kiefernforst
+       open   = Freiheit von Gehölzen; Managementpläne stufen Offenland-LRT
+                ab etwa 30 % Verbuschung als verschlechtert ein */
+  var WOODY_LIMIT = 0.30;
+  var curTarget = 'forest';
   function recoveryOf(canopy, hgt) {
+    if (curTarget === 'open') return Math.max(0, 1 - Math.min(1, canopy / WOODY_LIMIT));
     return Math.sqrt(Math.min(1, canopy / REF_CANOPY) * Math.min(1, hgt / REF_HEIGHT));
+  }
+  function curveOf(s) {
+    return s.canopy.map(function (c, i) { return recoveryOf(c, s.hgt[i]); });
+  }
+  function altCurveOf(s) {
+    if (!s.altCanopy) return null;
+    return s.altCanopy.map(function (c, i) { return recoveryOf(c, s.altHgt[i]); });
   }
 
   var SCENARIOS = [
@@ -1039,7 +1066,8 @@
       dom: ['waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer',
             'waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer'],
       // ohne Nachbesserungspflanzung — das ist der real gemessene Fall
-      alt: [0, .01, .02, .04, .07, .11, .15, .20, .24, .27, .31] },
+      altCanopy: [0, .006, .012, .025, .06, .10, .15, .21, .28, .33, .385],
+      altHgt:    [0, 0.2, 0.35, 0.6, 1.0, 1.5, 2.1, 2.7, 3.2, 3.6, 4.0] },
     { id: 'assisted', color: 'var(--accent)',
       canopy: [0, .05, .15, .28, .42, .51, .60, .67, .69, .72, .75],
       hgt:    [0, 1.2, 3.0, 4.2, 5.4, 6.4, 7.4, 8.3, 8.9, 9.9, 11.0],
@@ -1047,9 +1075,6 @@
       dom: ['besenheide', 'zitterpappel', 'zitterpappel', 'sandbirke', 'sandbirke',
             'traubeneiche', 'traubeneiche', 'traubeneiche', 'traubeneiche', 'traubeneiche', 'traubeneiche'] }
   ];
-  SCENARIOS.forEach(function (s) {
-    s.curve = s.canopy.map(function (c, i) { return recoveryOf(c, s.hgt[i]); });
-  });
 
   var SP_COLOR = {
     waldkiefer: 'var(--pine)', schwarzkiefer: 'var(--pine)', douglasie: 'var(--pine)', wacholder: 'var(--pine)',
@@ -1093,19 +1118,23 @@
       '<text x="' + (divX + 4).toFixed(1) + '" y="' + (padT - 3) + '" text-anchor="start" class="chart-phase">' +
         escapeHtml(t('scenarios.modelled')) + '</text>';
 
-    var bands = SCENARIOS.filter(function (s) { return s.band; }).map(function (s) {
+    // Das Band ist als gemessene Spannweite gegen das Waldziel hinterlegt —
+    // fürs Offenlandziel gibt es dafür keine Entsprechung, also nicht umdeuten.
+    var bands = (curTarget !== 'forest' ? [] : SCENARIOS.filter(function (s) { return s.band; })).map(function (s) {
       var up = s.band.hi.map(function (v, i) { return xAt(i).toFixed(1) + ',' + yAt(v).toFixed(1); });
       var dn = s.band.lo.map(function (v, i) { return xAt(i).toFixed(1) + ',' + yAt(v).toFixed(1); }).reverse();
       return '<polygon points="' + up.concat(dn).join(' ') + '" fill="' + s.color + '" opacity="0.13"/>';
     }).join('');
 
-    var alts = SCENARIOS.filter(function (s) { return s.alt; }).map(function (s) {
-      return '<polyline points="' + ptsOf(s.alt) + '" fill="none" stroke="' + s.color +
+    var alts = SCENARIOS.map(function (s) {
+      var a = altCurveOf(s);
+      if (!a) return '';
+      return '<polyline points="' + ptsOf(a) + '" fill="none" stroke="' + s.color +
         '" stroke-width="1.25" stroke-dasharray="4 3" opacity="0.85"/>';
     }).join('');
 
     var lines = SCENARIOS.map(function (s) {
-      return '<polyline points="' + ptsOf(s.curve) + '" fill="none" stroke="' + s.color +
+      return '<polyline points="' + ptsOf(curveOf(s)) + '" fill="none" stroke="' + s.color +
         '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
     }).join('');
 
@@ -1260,10 +1289,28 @@
     if (pb) pb.addEventListener('click', function () { playTimer ? stopPlay() : startPlay(); });
   })();
 
+  slice(document.querySelectorAll('.target-btn')).forEach(function (b) {
+    b.addEventListener('click', function () {
+      curTarget = b.dataset.target;
+      slice(document.querySelectorAll('.target-btn')).forEach(function (x) {
+        var on = x.dataset.target === curTarget;
+        x.classList.toggle('is-on', on);
+        x.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      renderScenarios();
+    });
+  });
+
   function renderScenarios() {
     var box = document.getElementById('scenario-chart');
     if (!box) return;
     box.innerHTML = buildScenarioChart();
+
+    var cap = document.getElementById('chart-caption');
+    if (cap) cap.textContent = t('scenarios.caption.' + curTarget);
+    var tn = document.getElementById('target-note');
+    if (tn) tn.innerHTML = t('target.' + curTarget + 'Note');
+
     renderScenarioMap();
 
     var legend = document.getElementById('scenario-legend');

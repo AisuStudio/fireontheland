@@ -151,11 +151,16 @@
       <h1 id="t-scenarios" class="view-title" data-i18n="scenarios.title">Drei Wege nach dem Brand</h1>
       <p class="view-sub" data-i18n="scenarios.sub">Wie sich Jüterbogs Brandfläche je nach Strategie erholen könnte — vorbereitete Szenarien, keine Live-Simulation.</p>
 
+      <div class="segmented" role="group" data-i18n-aria="target.aria" aria-label="Zielzustand wählen">
+        <button class="seg-btn target-btn is-on" data-target="forest" aria-pressed="true" data-i18n="target.forest">Ziel: geschlossener Wald</button>
+        <button class="seg-btn target-btn" data-target="open" aria-pressed="false" data-i18n="target.open">Ziel: offene Sandheide</button>
+      </div>
+
       <figure class="chart">
         <div id="scenario-chart"></div>
-        <figcaption class="chart-caption" data-i18n="scenarios.caption">Wiederbewaldungsgrad (%) über Jahre seit dem Brand</figcaption>
+        <figcaption id="chart-caption" class="chart-caption" data-i18n="scenarios.caption.forest">Bewaldungsgrad (%) über Jahre seit dem Brand</figcaption>
       </figure>
-      <p class="note" data-i18n-html="scenarios.yAxis"><strong>Wiederbewaldungsgrad</strong> heißt hier: Kronendeckung und Bestandeshöhe zusammengenommen, gemessen am unverbrannten Kiefernforst nebenan (80 % Deckung, rund 20 m).</p>
+      <p id="target-note" class="note" data-i18n-html="target.forestNote">Gemessen wird gegen den unverbrannten Kiefernforst nebenan: 80 % Kronendeckung, rund 20 m Höhe. Beides muss stimmen — hohe Einzelbäume ohne Deckung sind kein Wald, dichter Niederwuchs ohne Höhe auch nicht.</p>
 
       <ul id="scenario-legend" class="scenario-legend"></ul>
 
