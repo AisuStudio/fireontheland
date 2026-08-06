@@ -144,6 +144,25 @@
 
       <ul id="scenario-legend" class="scenario-legend"></ul>
 
+      <h2 class="h-sec" data-i18n="scenarios.mapTitle">Szenario durchspielen</h2>
+      <div class="segmented" role="group" data-i18n-aria="scenarios.scenAria" aria-label="Szenario wählen">
+        <button class="seg-btn scen-btn is-on" data-scenario="passive" aria-pressed="true" data-i18n="scenario.passive">Sich selbst überlassen</button>
+        <button class="seg-btn scen-btn" data-scenario="pine" aria-pressed="false" data-i18n="scenario.pine">Kiefern nachpflanzen</button>
+        <button class="seg-btn scen-btn" data-scenario="assisted" aria-pressed="false" data-i18n="scenario.assisted">Pionierpflanzen-Mix</button>
+      </div>
+
+      <div class="species-map">
+        <canvas id="scenario-map-canvas" width="640" height="440" role="img"
+          data-i18n-aria="scenarios.mapAria" aria-label="Modellierter Bestand auf der Brandfläche"></canvas>
+      </div>
+      <p id="scenario-readout" class="scenario-readout"></p>
+
+      <div class="scrub">
+        <button id="scenario-play" class="seg-btn" aria-pressed="false" data-i18n="scenarios.play">Abspielen</button>
+        <input id="scenario-slider" class="scrub-range" type="range" min="0" max="30" step="1" value="0"
+          data-i18n-aria="scenarios.sliderAria" aria-label="Jahre seit dem Brand">
+      </div>
+
       <p class="note" data-i18n="scenarios.note">Illustrative Modellierung auf Basis bekannter Sukzessionsmuster — keine Live-Simulation und keine GUS-Engine-Ausgabe. Die tatsächliche Entwicklung hängt von Standort, Witterung und Pflege ab.</p>
     </section>
 

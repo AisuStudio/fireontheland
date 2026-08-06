@@ -231,6 +231,16 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 .scenario-name{display:block;font-family:var(--font-sans);font-weight:700;font-size:.92rem}
 .scenario-note{margin:.15rem 0 0;font-size:.85rem;color:var(--muted);line-height:1.4}
 
+.scenario-readout{display:flex;flex-wrap:wrap;gap:.5rem var(--sp-3);margin:.5rem 0 0;
+  font-family:var(--font-sans);font-size:.78rem;color:var(--muted)}
+.scenario-readout .ro-year{font-weight:750;color:var(--ink)}
+.scenario-readout .ro-item b{font-weight:650}
+.scenario-readout .ro-item i{font-style:normal;color:var(--ink);font-variant-numeric:tabular-nums}
+
+.scrub{display:flex;align-items:center;gap:var(--sp-2);margin-top:var(--sp-3)}
+.scrub-range{flex:1;min-width:0;accent-color:var(--accent);height:28px}
+#scenario-play{white-space:nowrap;min-width:6.5em}
+
 /* ============================================================
    LEGAL PAGE (Impressum & Datenschutz)
    ============================================================ */

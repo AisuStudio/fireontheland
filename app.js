@@ -123,6 +123,16 @@
       'scenario.passive.note': 'Langsamer Start, dafür eigenständige, oft widerstandsfähigere Sukzession ohne Eingriff.',
       'scenario.assisted': 'Pionierpflanzen-Mix',
       'scenario.assisted.note': 'Ammenstrukturen und Stickstofffixierer aus unserem Arten-Generator beschleunigen die frühe Erholung, ohne Monokultur-Risiko.',
+      'scenarios.mapTitle': 'Szenario durchspielen',
+      'scenarios.scenAria': 'Szenario wählen',
+      'scenarios.mapAria': 'Modellierter Bestand auf der Brandfläche',
+      'scenarios.sliderAria': 'Jahre seit dem Brand',
+      'scenarios.play': 'Abspielen',
+      'scenarios.pause': 'Pause',
+      'scenarios.yearLabel': 'Jahr {y}',
+      'scenarios.density': 'Dichte',
+      'scenarios.height': 'Höhe',
+      'scenarios.dominant': 'Dominant',
 
       'concept.title': 'Das Konzept',
       'concept.kicker': 'Was es ist',
@@ -232,6 +242,16 @@
       'scenario.passive.note': 'Slower start, but self-directed succession that’s often more resilient without intervention.',
       'scenario.assisted': 'Pioneer-species mix',
       'scenario.assisted.note': 'Nurse structures and nitrogen-fixers from our species generator speed up early recovery without monoculture risk.',
+      'scenarios.mapTitle': 'Play a scenario',
+      'scenarios.scenAria': 'Choose a scenario',
+      'scenarios.mapAria': 'Modelled stand on the burn scar',
+      'scenarios.sliderAria': 'Years since the fire',
+      'scenarios.play': 'Play',
+      'scenarios.pause': 'Pause',
+      'scenarios.yearLabel': 'Year {y}',
+      'scenarios.density': 'Density',
+      'scenarios.height': 'Height',
+      'scenarios.dominant': 'Dominant',
 
       'concept.title': 'The concept',
       'concept.kicker': 'What it is',
@@ -494,6 +514,7 @@
     tilesReady = true;
     renderComposite();
     renderSpeciesMap();
+    renderScenarioMap();
   }).catch(function (err) {
     console.error('Sentinel-Kacheln konnten nicht geladen werden', err);
   });
@@ -914,11 +935,37 @@
      the app's "ehrlich über Grenzen" value.
      --------------------------------------------------------- */
   var SCENARIO_YEARS = [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30];
+  /* Per scenario, parallel to SCENARIO_YEARS:
+       curve = recovery 0–1 (static chart)   dens = Bäume/ha
+       hgt   = mittlere Bestandeshöhe in m   dom  = dominante Art (SPECIES id)
+     Werte bis Jahr 5 an PYROPHOB-Messungen orientiert, danach modelliert. */
   var SCENARIOS = [
-    { id: 'pine', color: 'var(--pine)', curve: [0, .10, .22, .35, .47, .58, .67, .74, .79, .83, .86] },
-    { id: 'passive', color: 'var(--muted)', curve: [0, .04, .11, .21, .33, .46, .58, .68, .76, .82, .87] },
-    { id: 'assisted', color: 'var(--accent)', curve: [0, .14, .29, .44, .57, .68, .76, .82, .87, .90, .93] }
+    { id: 'passive', color: 'var(--neo)',
+      curve: [0, .18, .34, .48, .60, .70, .78, .84, .88, .91, .93],
+      dens:  [0, 13000, 11000, 8500, 6500, 5000, 4000, 3200, 2600, 2200, 1900],
+      hgt:   [0, 1.0, 2.6, 4.5, 6.5, 8.4, 10.0, 11.4, 12.5, 13.4, 14.2],
+      dom: ['silbergras', 'zitterpappel', 'zitterpappel', 'zitterpappel', 'zitterpappel',
+            'zitterpappel', 'zitterpappel', 'sandbirke', 'sandbirke', 'traubeneiche', 'traubeneiche'] },
+    { id: 'pine', color: 'var(--pine)',
+      curve: [0, .06, .10, .14, .20, .28, .37, .46, .54, .61, .67],
+      dens:  [0, 4600, 3500, 3000, 2800, 2600, 2400, 2200, 2000, 1900, 1800],
+      hgt:   [0, 0.3, 0.7, 1.3, 2.2, 3.3, 4.5, 5.8, 7.0, 8.1, 9.1],
+      dom: ['waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer',
+            'waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer'] },
+    { id: 'assisted', color: 'var(--accent)',
+      curve: [0, .20, .38, .53, .66, .76, .83, .88, .91, .93, .95],
+      dens:  [0, 15000, 12500, 9500, 7000, 5400, 4300, 3500, 2900, 2400, 2100],
+      hgt:   [0, 1.2, 3.0, 5.0, 7.0, 8.9, 10.5, 11.9, 13.0, 13.9, 14.7],
+      dom: ['besenheide', 'zitterpappel', 'zitterpappel', 'zitterpappel', 'sandbirke',
+            'sandbirke', 'traubeneiche', 'traubeneiche', 'traubeneiche', 'traubeneiche', 'traubeneiche'] }
   ];
+
+  var SP_COLOR = {
+    waldkiefer: 'var(--pine)', schwarzkiefer: 'var(--pine)', douglasie: 'var(--pine)', wacholder: 'var(--pine)',
+    zitterpappel: 'var(--neo)', sandbirke: 'var(--neo)', salweide: 'var(--neo)',
+    traubeneiche: 'var(--accent)', roteiche: 'var(--accent)', besenheide: 'var(--accent)',
+    silbergras: 'var(--muted)', drahtschmiele: 'var(--muted)', landreitgras: 'var(--muted)'
+  };
 
   function buildScenarioChart() {
     var W = 320, H = 200, padL = 28, padR = 4, padT = 6, padB = 18;
@@ -947,10 +994,150 @@
       grid + lines + xlabels + '</svg>';
   }
 
+  /* --- interactive scenario map: one scenario, scrubbed through time --- */
+  var curScenario = 'passive', curYear = 0, playTimer = null;
+  var MAX_YEAR = SCENARIO_YEARS[SCENARIO_YEARS.length - 1];
+  var DOT_MAX = 340;
+
+  // fixed, deterministic scatter — same seed every render, so scrubbing the
+  // slider grows the existing stand instead of reshuffling it
+  var DOT_POS = (function () {
+    var out = [], h = 2166136261;
+    for (var i = 0; i < DOT_MAX; i++) {
+      h = (h ^ (i + 1)) >>> 0; h = (h * 16777619) >>> 0;
+      var x = (h % 10000) / 10000;
+      h = (h * 16777619) >>> 0;
+      var y = (h % 10000) / 10000;
+      out.push({ x: 3 + x * 94, y: 6 + y * 88 });
+    }
+    return out;
+  })();
+
+  function scenarioById(id) {
+    for (var i = 0; i < SCENARIOS.length; i++) if (SCENARIOS[i].id === id) return SCENARIOS[i];
+    return SCENARIOS[0];
+  }
+
+  // linear interpolation between the SCENARIO_YEARS support points
+  function atYear(arr, year) {
+    var n = SCENARIO_YEARS.length - 1;
+    if (year <= 0) return arr[0];
+    if (year >= MAX_YEAR) return arr[n];
+    var pos = (year / MAX_YEAR) * n;
+    var i = Math.floor(pos), f = pos - i;
+    return arr[i] + (arr[i + 1] - arr[i]) * f;
+  }
+  function domAtYear(sc, year) {
+    var n = SCENARIO_YEARS.length - 1;
+    var i = Math.min(n, Math.round((year / MAX_YEAR) * n));
+    return sc.dom[i];
+  }
+
+  function cssColor(varExpr) {
+    var name = /var\((--[\w-]+)\)/.exec(varExpr);
+    if (!name) return varExpr;
+    return getComputedStyle(document.documentElement).getPropertyValue(name[1]).trim() || '#888';
+  }
+
+  function renderScenarioMap() {
+    var canvas = document.getElementById('scenario-map-canvas');
+    if (!canvas) return;
+    var sc = scenarioById(curScenario);
+
+    drawCompositeOn(canvas, 2020, 2022, 2024);
+    var ctx = canvas.getContext('2d');
+
+    // dim the satellite base so the modelled stand reads clearly on top
+    ctx.fillStyle = 'rgba(12,9,5,0.55)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    var dens = atYear(sc.dens, curYear);
+    var hgt = atYear(sc.hgt, curYear);
+    var domId = domAtYear(sc, curYear);
+    var count = Math.round(Math.min(1, dens / 15000) * DOT_MAX);
+    var r = 1.5 + Math.min(1, hgt / 15) * 6.5;
+
+    ctx.fillStyle = cssColor(SP_COLOR[domId] || 'var(--neo)');
+    ctx.globalAlpha = 0.85;
+    for (var i = 0; i < count; i++) {
+      var p = DOT_POS[i];
+      ctx.beginPath();
+      ctx.arc(p.x / 100 * canvas.width, p.y / 100 * canvas.height, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    var readout = document.getElementById('scenario-readout');
+    if (readout) {
+      var domSp = null;
+      for (var j = 0; j < SPECIES.length; j++) if (SPECIES[j].id === domId) domSp = SPECIES[j];
+      readout.innerHTML =
+        '<span class="ro-year"></span>' +
+        '<span class="ro-item"><b></b> <i data-k="dens"></i></span>' +
+        '<span class="ro-item"><b></b> <i data-k="hgt"></i></span>' +
+        '<span class="ro-item"><b></b> <i data-k="dom"></i></span>';
+      readout.querySelector('.ro-year').textContent =
+        t('scenarios.yearLabel').replace('{y}', String(Math.round(curYear)));
+      var items = readout.querySelectorAll('.ro-item');
+      items[0].querySelector('b').textContent = t('scenarios.density');
+      items[0].querySelector('i').textContent = Math.round(dens / 100) * 100 + ' /ha';
+      items[1].querySelector('b').textContent = t('scenarios.height');
+      items[1].querySelector('i').textContent =
+        (LANG === 'de' ? hgt.toFixed(1).replace('.', ',') : hgt.toFixed(1)) + ' m';
+      items[2].querySelector('b').textContent = t('scenarios.dominant');
+      items[2].querySelector('i').textContent = domSp ? pick(domSp.name) : '—';
+    }
+
+    slice(document.querySelectorAll('.scen-btn')).forEach(function (b) {
+      var on = b.dataset.scenario === curScenario;
+      b.classList.toggle('is-on', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    var slider = document.getElementById('scenario-slider');
+    if (slider && +slider.value !== curYear) slider.value = String(curYear);
+  }
+
+  function stopPlay() {
+    if (playTimer) { clearInterval(playTimer); playTimer = null; }
+    var pb = document.getElementById('scenario-play');
+    if (pb) { pb.textContent = t('scenarios.play'); pb.setAttribute('aria-pressed', 'false'); }
+  }
+  function startPlay() {
+    stopPlay();
+    if (curYear >= MAX_YEAR) curYear = 0;
+    var pb = document.getElementById('scenario-play');
+    if (pb) { pb.textContent = t('scenarios.pause'); pb.setAttribute('aria-pressed', 'true'); }
+    playTimer = setInterval(function () {
+      curYear += 1;
+      if (curYear >= MAX_YEAR) { curYear = MAX_YEAR; renderScenarioMap(); stopPlay(); return; }
+      renderScenarioMap();
+    }, 220);
+  }
+
+  slice(document.querySelectorAll('.scen-btn')).forEach(function (b) {
+    b.addEventListener('click', function () {
+      curScenario = b.dataset.scenario;
+      renderScenarioMap();
+    });
+  });
+  (function () {
+    var slider = document.getElementById('scenario-slider');
+    if (slider) {
+      slider.addEventListener('input', function () {
+        stopPlay();
+        curYear = +slider.value;
+        renderScenarioMap();
+      });
+    }
+    var pb = document.getElementById('scenario-play');
+    if (pb) pb.addEventListener('click', function () { playTimer ? stopPlay() : startPlay(); });
+  })();
+
   function renderScenarios() {
     var box = document.getElementById('scenario-chart');
     if (!box) return;
     box.innerHTML = buildScenarioChart();
+    renderScenarioMap();
 
     var legend = document.getElementById('scenario-legend');
     if (!legend) return;
