@@ -201,6 +201,12 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 .sp-name{font-family:var(--font-sans);font-weight:750;font-size:1rem}
 .sp-latin{font-family:var(--font-serif);font-style:italic;font-size:.82rem;color:var(--muted)}
 .spcard p{margin:.3rem 0 .55rem;font-size:.95rem;line-height:1.42}
+.species-map{position:relative;margin:var(--sp-3) 0 0;border:1px solid var(--line);border-radius:var(--r-m);
+  overflow:hidden;box-shadow:var(--shadow);background:var(--surface-2)}
+.species-map canvas{width:100%;height:auto;display:block}
+.species-map-pins{position:absolute;inset:0}
+.sp-pin{position:absolute;width:13px;height:13px;border-radius:50%;border:2px solid var(--surface);
+  transform:translate(-50%,-50%);box-shadow:0 1px 3px #00000066}
 
 /* ============================================================
    SCENARIOS (Szenarien)

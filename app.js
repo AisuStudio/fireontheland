@@ -95,6 +95,8 @@
       'unit.neo.many': 'Neophyten',
       'unit.archaeo.one': 'Archäophyt',
       'unit.archaeo.many': 'Archäophyten',
+      'speciesMap.aria': 'Generierte Mischung illustrativ auf dem Sentinel-Komposit platziert',
+      'speciesMap.caption': 'Illustrative Platzierung — keine realen Standortdaten.',
       'list.allTitle': 'Alle Arten',
 
       'scenarios.kicker': 'Illustratives Modell',
@@ -197,6 +199,8 @@
       'unit.neo.many': 'neophytes',
       'unit.archaeo.one': 'archaeophyte',
       'unit.archaeo.many': 'archaeophytes',
+      'speciesMap.aria': 'Generated mix illustratively placed on the Sentinel composite',
+      'speciesMap.caption': 'Illustrative placement — not real site data.',
       'list.allTitle': 'All species',
 
       'scenarios.kicker': 'Illustrative model',
@@ -294,6 +298,7 @@
     renderMeasures(curActor);
     renderSpecies();
     renderSpeciesMix();
+    renderSpeciesMap();
     renderScenarios();
   }
 
@@ -322,7 +327,7 @@
     if (target === 'composite') renderComposite();
     if (target === 'measures') renderMeasures(curActor);
     if (target === 'scenarios') renderScenarios();
-    if (target === 'species') { renderSpecies(); renderSpeciesMix(); }
+    if (target === 'species') { renderSpecies(); renderSpeciesMix(); renderSpeciesMap(); }
   }
 
   tabs.forEach(function (t2) {
@@ -447,12 +452,11 @@
     });
   }
 
-  function renderComposite() {
-    if (!canvas || views.composite.hidden || !tilesReady) return;
-    var yr = +selR.value, yg = +selG.value, yb = +selB.value;
+  function drawCompositeOn(targetCanvas, yr, yg, yb) {
+    if (!targetCanvas || !tilesReady || !tileCache[yr] || !tileCache[yg] || !tileCache[yb]) return false;
     var r = tileCache[yr].data, g = tileCache[yg].data, b = tileCache[yb].data;
-    var ctx = canvas.getContext('2d');
-    var out = ctx.createImageData(canvas.width, canvas.height);
+    var ctx = targetCanvas.getContext('2d');
+    var out = ctx.createImageData(targetCanvas.width, targetCanvas.height);
     var px = out.data;
     for (var i = 0; i < px.length; i += 4) {
       px[i]     = r[i];   // grayscale NBR PNG → R=G=B=value at index i
@@ -461,11 +465,18 @@
       px[i + 3] = 255;
     }
     ctx.putImageData(out, 0, 0);
+    return true;
+  }
+
+  function renderComposite() {
+    if (!canvas || views.composite.hidden) return;
+    drawCompositeOn(canvas, +selR.value, +selG.value, +selB.value);
   }
 
   Promise.all(TILE_YEARS.map(loadTile)).then(function () {
     tilesReady = true;
     renderComposite();
+    renderSpeciesMap();
   }).catch(function (err) {
     console.error('Sentinel-Kacheln konnten nicht geladen werden', err);
   });
@@ -751,12 +762,53 @@
     });
   }
 
+  /* ---------------------------------------------------------
+     Species map — the generated mix placed illustratively on
+     the real Sentinel composite. Positions are a deterministic
+     hash of each species id (never Math.random — reproducible,
+     screenshot-stable) and are NOT real planting coordinates;
+     labelled as such (speciesMap.caption) per "ehrlich über
+     Grenzen".
+     --------------------------------------------------------- */
+  var ORIGIN_DOT = { native: 'var(--pine)', neo: 'var(--neo)', archaeo: 'var(--accent)' };
+
+  function hashPos(id) {
+    var h = 0;
+    for (var i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
+    return {
+      x: 10 + (h % 1000) / 1000 * 80,
+      y: 12 + (Math.floor(h / 256) % 1000) / 1000 * 74
+    };
+  }
+
+  function renderSpeciesMap() {
+    var mapCanvas = document.getElementById('species-map-canvas');
+    var pinLayer = document.getElementById('species-map-pins');
+    if (!mapCanvas || !pinLayer) return;
+    drawCompositeOn(mapCanvas, 2020, 2022, 2024);
+
+    var mix = pickMix(curCriteria);
+    var all = ORIGINS.reduce(function (acc, o) { return acc.concat(mix[o]); }, []);
+    pinLayer.textContent = '';
+    all.forEach(function (sp) {
+      var pos = hashPos(sp.id);
+      var pin = document.createElement('span');
+      pin.className = 'sp-pin';
+      pin.style.left = pos.x + '%';
+      pin.style.top = pos.y + '%';
+      pin.style.background = ORIGIN_DOT[sp.origin] || 'var(--accent)';
+      pin.title = pick(sp.name);
+      pinLayer.appendChild(pin);
+    });
+  }
+
   slice(document.querySelectorAll('.seg-btn[data-tag]')).forEach(function (b) {
     b.addEventListener('click', function () {
       var tag = b.dataset.tag;
       var idx = curCriteria.indexOf(tag);
       if (idx === -1) curCriteria.push(tag); else curCriteria.splice(idx, 1);
       renderSpeciesMix();
+      renderSpeciesMap();
     });
   });
 

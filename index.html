@@ -117,6 +117,14 @@
         <button class="seg-btn" data-tag="Pionier" data-i18n="crit.Pionier">Schnelle Pionierbesiedlung</button>
       </div>
       <div id="species-mix"></div>
+
+      <div class="species-map">
+        <canvas id="species-map-canvas" width="640" height="440" role="img"
+          data-i18n-aria="speciesMap.aria" aria-label="Generierte Mischung illustrativ auf dem Sentinel-Komposit platziert"></canvas>
+        <div id="species-map-pins" class="species-map-pins"></div>
+      </div>
+      <p class="chart-caption" data-i18n="speciesMap.caption">Illustrative Platzierung — keine realen Standortdaten.</p>
+
       <h2 class="h-sec" data-i18n="list.allTitle">Alle Arten</h2>
       <ol id="species-list" class="species"></ol>
     </section>
