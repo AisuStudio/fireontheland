@@ -4,6 +4,13 @@
 
   var slice = function (nl) { return Array.prototype.slice.call(nl); };
 
+  // credits come from Wikimedia metadata — never interpolate them raw into innerHTML
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
   /* ---------------------------------------------------------
      i18n — language layer
      UI strings live in T[lang][key]; data-driven content
@@ -699,6 +706,38 @@
            en: 'Cultivated north of the Alps since Roman times and, unlike most orchard trees, lime-avoiding — it likes acidic ground. Still too demanding for the open burn scar: it needs deeper, moister soil than pure drift sand.' } }
   ];
 
+  /* Image credits — fetched from Wikimedia Commons by
+     scripts/fetch-species-images.mjs. Inlined rather than fetched so the
+     page also works from file://. a = author, l = licence, u = licence URL,
+     s = Commons file page. */
+  var IMG_CREDITS = {
+    zitterpappel: { a: 'Willow', l: 'CC BY-SA 2.5', u: 'https://creativecommons.org/licenses/by-sa/2.5', s: 'https://commons.wikimedia.org/wiki/File:Populus_tremula_004.jpg' },
+    sandbirke: { a: 'Andrzej Otrębski', l: 'CC BY-SA 3.0', u: 'https://creativecommons.org/licenses/by-sa/3.0', s: 'https://commons.wikimedia.org/wiki/File:Chmielno_brzoza.jpg' },
+    waldkiefer: { a: 'floranet', l: 'Public domain', u: '', s: 'https://commons.wikimedia.org/wiki/File:Illustration_Pinus_sylvestris0_new.jpg' },
+    salweide: { a: 'Willow', l: 'CC BY 2.5', u: 'https://creativecommons.org/licenses/by/2.5', s: 'https://commons.wikimedia.org/wiki/File:Salix_caprea_036.jpg' },
+    traubeneiche: { a: 'Franz Eugen Köhler, Köhler\'s Medizinal-Pflanzen', l: 'Public domain', u: '', s: 'https://commons.wikimedia.org/wiki/File:Quercus_petraea_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-118.jpg' },
+    besenheide: { a: 'Aqwis', l: 'CC BY-SA 3.0', u: 'https://creativecommons.org/licenses/by-sa/3.0', s: 'https://commons.wikimedia.org/wiki/File:CallunaVulgaris.jpg' },
+    silbergras: { a: 'Alexis', l: 'CC BY 4.0', u: 'https://creativecommons.org/licenses/by/4.0', s: 'https://commons.wikimedia.org/wiki/File:Corynephorus_canescens_80318704.jpg' },
+    sandsegge: { a: 'Christian Fischer', l: 'CC BY-SA 3.0', u: 'https://creativecommons.org/licenses/by-sa/3.0', s: 'https://commons.wikimedia.org/wiki/File:CarexArenaria.jpg' },
+    drahtschmiele: { a: 'Stefan.lefnaer', l: 'CC BY-SA 4.0', u: 'https://creativecommons.org/licenses/by-sa/4.0', s: 'https://commons.wikimedia.org/wiki/File:Avenella_flexuosa_subsp._flexuosa_sl5.jpg' },
+    landreitgras: { a: 'Christian Fischer', l: 'CC BY-SA 3.0', u: 'https://creativecommons.org/licenses/by-sa/3.0', s: 'https://commons.wikimedia.org/wiki/File:CalamagrostisEpigejos2.jpg' },
+    adlerfarn: { a: 'Hans Hillewaert', l: 'CC BY-SA 4.0', u: 'https://creativecommons.org/licenses/by-sa/4.0', s: 'https://commons.wikimedia.org/wiki/File:Pteridium_aquilinum_(habitus).jpg' },
+    weidenroeschen: { a: 'kallerna', l: 'CC BY-SA 3.0', u: 'https://creativecommons.org/licenses/by-sa/3.0', s: 'https://commons.wikimedia.org/wiki/File:Maitohorsma_(Epilobium_angustifolium).JPG' },
+    sandstrohblume: { a: 'Fornax (Wikimedia Commons)', l: 'CC BY-SA 3.0', u: 'http://creativecommons.org/licenses/by-sa/3.0/', s: 'https://commons.wikimedia.org/wiki/File:Helichrysum_arenarium.jpg' },
+    brennnessel: { a: 'Anghy (Wikimedia Commons)', l: 'CC BY-SA 3.0', u: 'http://creativecommons.org/licenses/by-sa/3.0/', s: 'https://commons.wikimedia.org/wiki/File:Brennnessel.jpg' },
+    besenginster: { a: 'MPF (Wikimedia Commons)', l: 'CC BY-SA 3.0', u: 'http://creativecommons.org/licenses/by-sa/3.0/', s: 'https://commons.wikimedia.org/wiki/File:Cytisus_scoparius3.jpg' },
+    wacholder: { a: 'Nikanos', l: 'CC BY-SA 2.5', u: 'https://creativecommons.org/licenses/by-sa/2.5', s: 'https://commons.wikimedia.org/wiki/File:L%C3%BCneburger_Heide_006.jpg' },
+    sanddorn: { a: 'Svdmolen', l: 'CC BY-SA 3.0', u: 'http://creativecommons.org/licenses/by-sa/3.0/', s: 'https://commons.wikimedia.org/wiki/File:Hippophae_rhamnoides-01_(xndr).JPG' },
+    robinie: { a: 'Pollinator at English Wikipedia', l: 'CC BY-SA 3.0', u: 'http://creativecommons.org/licenses/by-sa/3.0/', s: 'https://commons.wikimedia.org/wiki/File:Robina9146.JPG' },
+    roteiche: { a: 'Ivan Ruggiero', l: 'CC BY-SA 4.0', u: 'https://creativecommons.org/licenses/by-sa/4.0', s: 'https://commons.wikimedia.org/wiki/File:Quercus_Rubra_Sambuy.jpg' },
+    traubenkirsche: { a: 'Rasbak', l: 'CC BY-SA 3.0', u: 'http://creativecommons.org/licenses/by-sa/3.0/', s: 'https://commons.wikimedia.org/wiki/File:Amerikaanse_vogelkers_vruchten_(1)_Prunus_serotina.jpg' },
+    essigbaum: { a: 'Dcoetzee (Wikimedia Commons)', l: 'CC BY-SA 3.0', u: 'http://creativecommons.org/licenses/by-sa/3.0/', s: 'https://commons.wikimedia.org/wiki/File:Rhus-typhina.JPG' },
+    schwarzkiefer: { a: 'Fritz Geller-Grimm', l: 'CC BY-SA 2.5', u: 'https://creativecommons.org/licenses/by-sa/2.5', s: 'https://commons.wikimedia.org/wiki/File:Pinus_nigra_salzmannii_fg01.jpg' },
+    douglasie: { a: 'Thomas Dreger , Suhl', l: 'CC BY-SA 3.0', u: 'http://creativecommons.org/licenses/by-sa/3.0/', s: 'https://commons.wikimedia.org/wiki/File:Pseudotsuga_menziesii_Schleus_Berg_Suhl_Th_Dreger.jpg' },
+    baumhasel: { a: 'Orjen, Pavle Cikovac', l: 'CC BY-SA 3.0', u: 'https://creativecommons.org/licenses/by-sa/3.0', s: 'https://commons.wikimedia.org/wiki/File:Corylus_colurna_subadriatic_dinaric_mountains_Orjen_2.JPG' },
+    edelkastanie: { a: 'Darkone', l: 'CC BY-SA 2.5', u: 'https://creativecommons.org/licenses/by-sa/2.5', s: 'https://commons.wikimedia.org/wiki/File:Edelkastanie_(Castanea_sativa)_1.jpg' }
+  };
+
   var CRITERIA = ['Wiederaustrieb', 'Pionier', 'Stickstoff', 'Bestaeuber', 'Wind'];
   var MIX_MIN = 4, MIX_MAX = 7;
   var curCriteria = [];
@@ -709,8 +748,23 @@
     var tags = sp.tags.map(function (tg) {
       return '<span class="mtag ' + (TAGCLASS[tg] || 'p') + '">' + t('tag.' + tg) + '</span>';
     }).join('');
-    li.innerHTML = '<div class="sp-head"><span class="sp-name"></span><span class="sp-latin"></span></div>' +
-      '<p></p><div class="m-tags">' + tags + '</div>';
+    var cr = IMG_CREDITS[sp.id];
+    var figure = '';
+    if (cr) {
+      var licence = cr.u
+        ? '<a href="' + cr.u + '" rel="noopener nofollow">' + cr.l + '</a>'
+        : cr.l;
+      figure = '<figure class="sp-fig">' +
+        '<img src="./assets/species/' + sp.id + '.jpg" alt="" loading="lazy" width="320" height="320">' +
+        '<figcaption class="sp-credit">' +
+          '<a href="' + cr.s + '" rel="noopener nofollow">' + escapeHtml(cr.a) + '</a>' +
+          '<br>' + licence +
+        '</figcaption></figure>';
+    }
+    li.innerHTML = figure +
+      '<div class="sp-body">' +
+      '<div class="sp-head"><span class="sp-name"></span><span class="sp-latin"></span></div>' +
+      '<p></p><div class="m-tags">' + tags + '</div></div>';
     li.querySelector('.sp-name').textContent = pick(sp.name);
     li.querySelector('.sp-latin').textContent = sp.latin;
     li.querySelector('p').textContent = pick(sp.t);
