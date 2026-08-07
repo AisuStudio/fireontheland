@@ -130,6 +130,7 @@
       'font.kicker': 'Font · früher Testbuild',
       'font.title': 'AS Dehcho',
       'font.sub': 'Ein handgezeichneter Comic-Display-Font für dieses Projekt — trägt sowohl die Dene-Orthografie der Dehcho-Region als auch Sprechblasen-Lettering in einer Familie. Aktuell nicht in aktiver Arbeit, aber schon nutzbar.',
+      'font.styleLabel': 'Stil',
       'font.linkSpecimen': 'Vollständiges Specimen — Diakritika, Alternates, Grawlixes',
 
       'app.kicker': 'Adoption Scenarios',
@@ -271,17 +272,9 @@
       'scenarios.dominant': 'Dominant',
       'scenarios.mapNote': 'Jeder Punkt steht für ein Stück Kronendach, nicht für einen Baum — deshalb wächst die Punktwolke stetig, während die Stammzahl im älteren Bestand sinkt: Aus vielen dünnen Bäumen werden wenige dicke.',
 
-      'concept.title': 'Das Konzept',
-      'concept.kicker': 'Was es ist',
-      'concept.define': 'Ein offenes Werkzeug, das eine Waldbrandfläche danach lesbar macht, was dort von selbst wächst — und welcher Umgang damit zugleich <strong>klimaangepasst, wirtschaftlich zukunftsfähig und kohlenstoff-wirksam</strong> wäre. Nicht: Wie stellen wir den Vorzustand wieder her.',
       'concept.thesis': 'Der Wert einer Sukzession ist keine Eigenschaft der <em>Pflanze</em> — sondern der <em>Fläche</em>.',
       'concept.hsec3': 'Nicht wiederherstellen — weiterdenken',
-      'concept.rethink.1': 'Wiederherstellung fragt: Wie bekommen wir zurück, was vorher da war? Auf einer Fläche, deren Vorzustand ein brandanfälliger Kiefernacker war, ist das die falsche Frage. Sinnvoller ist: <strong>Was wächst hier von selbst, und was lässt sich damit anfangen?</strong>',
-      'concept.rethink.2': 'In einem Ökosystem gibt es keinen Abfall — jedes Produkt ist anderswo Eingangsstoff. Übertragen auf die Brandfläche heißt das: Die 13.590 Aspen pro Hektar, die dort ohne Zutun und ohne Kosten hochkommen, sind kein Ausfall. Es fehlt ihnen nur die Verwertungskette. Und eine fehlende Kette ist keine Eigenschaft des Baumes, sondern eine Entscheidung der Branche.',
-      'concept.rethink.3': 'Die Zahlen stützen das deutlicher, als der Ruf der Pionierhölzer vermuten lässt. Nach den Ertragstafeln für Nordostdeutschland erreicht die Sand-Birke auf armem Sand im Alter 30 einen Vorrat in derselben Größenordnung wie die Kiefer auf vergleichbarem Standort — bei einer Baumart, die sich gratis selbst aussät, während die gepflanzte Kiefer nach fünf Jahren zu 85 % tot war. Die Robinie liefert das dauerhafteste Holz Europas und ersetzt im Außenbau Tropenholz und Druckimprägnat.',
-      'concept.rethink.4': 'Am deutlichsten zeigt sich das an einer Lücke. Für die Kiefer stützt sich die Ertragstafel Nordostdeutschlands auf rund 1.500 Probeflächen, für die Sand-Birke auf 192. Für die Zitterpappel — die Baumart, die nach dem Brand tatsächlich dominiert — <strong>gibt es keine</strong>, und für ungleichaltrige Pionier-Mischbestände existiert überhaupt kein Ertragsmodell. Auch das Forschungsprojekt selbst hält fest, es habe „keine ökonomischen Untersuchungen“ gegeben.',
-      'concept.rethink.5': 'Das ist kein Datenmangel, sondern ein Abdruck der Bewirtschaftungsgeschichte: <strong>Die Forstwissenschaft hat zweihundertfünfzig Jahre lang vermessen, was gepflanzt wurde.</strong> Was von selbst kommt, ist unvermessen geblieben — nicht weil es nichts leistet, sondern weil niemand es gezählt hat. Die fehlende Tafel ist damit selbst das stärkste Argument dafür, den Blick zu ändern.',
-      'concept.rethink.limit': '<strong>Wo dieses Argument nicht hingehört:</strong> auf Schutzflächen, deren Zweck gerade die Nährstoffarmut und Offenheit ist — dort ist der Aufwuchs nicht Ertrag, sondern Verlust. Der Umdenk-Vorschlag zielt auf den gewöhnlichen Wirtschaftswald, von dem Brandenburg nach jedem Brandjahr reichlich hat.',
+      'concept.compressed': 'Wiederherstellung fragt, wie wir zurückbekommen, was vorher da war — auf einer Fläche, deren Vorzustand ein brandanfälliger Kiefernacker war, die falsche Frage. Die Zahlen zeigen das deutlich: Für die Kiefer stützt sich die Ertragstafel auf rund 1.500 Probeflächen, für die Sand-Birke auf 192, für die nach dem Brand tatsächlich dominierende Zitterpappel auf keine einzige — die Forstwissenschaft hat 250 Jahre lang vermessen, was gepflanzt wurde, nicht, was von selbst kam. Das gilt für den gewöhnlichen Wirtschaftswald; auf Schutzflächen wie dieser hier ist Aufwuchs nicht Ertrag, sondern Verlust.',
       'concept.hsec2': 'Wertekanon',
       'concept.canon.1': '<strong>Vorurteilsfrei.</strong> Bewertet wird Funktion, nicht Herkunft.',
       'concept.canon.2': '<strong>Kontext vor Dogma.</strong> Derselbe Baum ist Retter oder Verdränger — je nach Fläche.',
@@ -321,6 +314,7 @@
       'font.kicker': 'Font · early test build',
       'font.title': 'AS Dehcho',
       'font.sub': 'A hand-lettered comic display face built for this project — carrying both Dehcho-region Dene orthography and speech-bubble lettering in one family. Not in active development right now, but already usable.',
+      'font.styleLabel': 'Style',
       'font.linkSpecimen': 'Full specimen — diacritics, alternates, grawlixes',
 
       'app.kicker': 'Adoption Scenarios',
@@ -462,17 +456,9 @@
       'scenarios.dominant': 'Dominant',
       'scenarios.mapNote': 'Each dot stands for a piece of canopy, not for a single tree — which is why the dots keep filling in while the stem count falls in the older stand: many thin trees become a few thick ones.',
 
-      'concept.title': 'The concept',
-      'concept.kicker': 'What it is',
-      'concept.define': 'An open tool that makes a wildfire site legible in terms of what grows there on its own — and which way of working with that would be at once <strong>climate-adapted, economically future-proof and carbon-effective</strong>. Not: how do we restore the previous state.',
       'concept.thesis': 'The value of a succession is not a property of the <em>plant</em> — but of the <em>site</em>.',
       'concept.hsec3': 'Not restoration — rethinking',
-      'concept.rethink.1': 'Restoration asks: how do we get back what was here before? On a site whose previous state was a fire-prone pine field, that is the wrong question. The better one is: <strong>what grows here on its own, and what can be done with it?</strong>',
-      'concept.rethink.2': 'An ecosystem produces no waste — every output is an input somewhere else. Applied to the burn scar: the 13,590 aspen per hectare that come up there unaided and at no cost are not a failure. What they lack is a supply chain. And a missing chain is not a property of the tree, it is a decision of the industry.',
-      'concept.rethink.3': 'The figures support this more clearly than the reputation of pioneer timber suggests. According to the yield tables for northeast Germany, silver birch on poor sand reaches a standing volume at age 30 of the same order as pine on comparable ground — from a species that seeds itself for free, while the planted pine was 85% dead after five years. Black locust yields Europe’s most durable timber and replaces tropical hardwood and pressure-treated pine in outdoor construction.',
-      'concept.rethink.4': 'The clearest evidence is an absence. The yield table for pine in northeast Germany rests on some 1,500 sample plots, the one for silver birch on 192. For aspen — the species that actually dominates after the fire — <strong>there is none</strong>, and for uneven-aged pioneer mixtures no yield model exists at all. The research project itself records that it carried out “no economic investigations”.',
-      'concept.rethink.5': 'That is not a data gap but a fingerprint of management history: <strong>forestry science spent two and a half centuries measuring what it planted.</strong> What arrives on its own has stayed unmeasured — not because it yields nothing, but because nobody counted it. The missing table is therefore itself the strongest argument for changing the view.',
-      'concept.rethink.limit': '<strong>Where this argument does not belong:</strong> on protected sites whose very purpose is nutrient poverty and openness — there the growth is not yield but loss. The rethinking proposed here targets ordinary commercial forest, of which Brandenburg has plenty after every fire year.',
+      'concept.compressed': 'Restoration asks how we get back what was here before — on a site whose previous state was a fire-prone pine field, the wrong question. The numbers make the point clearly: the pine yield table rests on some 1,500 sample plots, silver birch on 192, and the aspen that actually dominates after the fire on none at all — forestry science spent 250 years measuring what it planted, not what arrived on its own. That argument holds for ordinary commercial forest; on protected sites like this one, growth is not yield but loss.',
       'concept.hsec2': 'Canon of values',
       'concept.canon.1': '<strong>Free of prejudice.</strong> What is assessed is function, not origin.',
       'concept.canon.2': '<strong>Context over dogma.</strong> The same tree is saviour or invader — depending on the site.',
@@ -562,11 +548,9 @@
   var tabs = slice(document.querySelectorAll('.tab'));
   var views = {
     composite: document.getElementById('view-composite'),
-    scorecard: document.getElementById('view-scorecard'),
     measures: document.getElementById('view-measures'),
     species: document.getElementById('view-species'),
-    scenarios: document.getElementById('view-scenarios'),
-    concept: document.getElementById('view-concept')
+    scenarios: document.getElementById('view-scenarios')
   };
 
   function show(target) {
@@ -619,6 +603,29 @@
   mainnavBtns.forEach(function (b) {
     b.addEventListener('click', function () { showSection(b.dataset.section); });
   });
+
+  /* ---------------------------------------------------------
+     Font page — style picker
+     --------------------------------------------------------- */
+  var FONT_STYLES = [
+    'Regular', 'RegularSlanted', 'Medium', 'MediumSlanted', 'MediumSemiSlanted', 'MediumRough',
+    'Bold', 'BoldSlanted', 'BoldSemiSlanted',
+    'Narrow', 'NarrowSlanted', 'NarrowSemiBold', 'NarrowBold', 'NarrowBoldSlanted',
+    'Megular'
+  ];
+  var fontSelect = document.getElementById('font-style-select');
+  var fontSpecimen = document.getElementById('font-specimen');
+  if (fontSelect && fontSpecimen) {
+    FONT_STYLES.forEach(function (name) {
+      var o = document.createElement('option');
+      o.value = name;
+      o.textContent = name;
+      fontSelect.appendChild(o);
+    });
+    fontSelect.addEventListener('change', function () {
+      fontSpecimen.style.fontFamily = '"Dehcho ' + fontSelect.value + '"';
+    });
+  }
 
   /* ---------------------------------------------------------
      Scorecard data + render

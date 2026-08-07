@@ -35,26 +35,21 @@
   src:url("fonts/PublicSans/PublicSans-Italic.woff2") format("woff2");
   font-weight:400; font-style:italic; font-display:swap;
 }
-@font-face{
-  font-family:"Dehcho";
-  src:url("fonts/Dehcho/ASDehchoTestAg01-Regular.woff2") format("woff2");
-  font-weight:400; font-style:normal; font-display:swap;
-}
-@font-face{
-  font-family:"Dehcho";
-  src:url("fonts/Dehcho/ASDehchoTestAg01-Bold.woff2") format("woff2");
-  font-weight:700; font-style:normal; font-display:swap;
-}
-@font-face{
-  font-family:"Dehcho Megular";
-  src:url("fonts/Dehcho/ASDehchoTestAg01-Megular.woff2") format("woff2");
-  font-weight:400; font-style:normal; font-display:swap;
-}
-@font-face{
-  font-family:"Dehcho Rough";
-  src:url("fonts/Dehcho/ASDehchoTestAg01-MediumRough.woff2") format("woff2");
-  font-weight:400; font-style:normal; font-display:swap;
-}
+@font-face{ font-family:"Dehcho Regular"; src:url("fonts/Dehcho/ASDehchoTestAg01-Regular.woff2") format("woff2"); font-display:swap; }
+@font-face{ font-family:"Dehcho RegularSlanted"; src:url("fonts/Dehcho/ASDehchoTestAg01-RegularSlanted.woff2") format("woff2"); font-display:swap; }
+@font-face{ font-family:"Dehcho Medium"; src:url("fonts/Dehcho/ASDehchoTestAg01-Medium.woff2") format("woff2"); font-display:swap; }
+@font-face{ font-family:"Dehcho MediumSlanted"; src:url("fonts/Dehcho/ASDehchoTestAg01-MediumSlanted.woff2") format("woff2"); font-display:swap; }
+@font-face{ font-family:"Dehcho MediumSemiSlanted"; src:url("fonts/Dehcho/ASDehchoTestAg01-MediumSemiSlanted.woff2") format("woff2"); font-display:swap; }
+@font-face{ font-family:"Dehcho MediumRough"; src:url("fonts/Dehcho/ASDehchoTestAg01-MediumRough.woff2") format("woff2"); font-display:swap; }
+@font-face{ font-family:"Dehcho Bold"; src:url("fonts/Dehcho/ASDehchoTestAg01-Bold.woff2") format("woff2"); font-display:swap; }
+@font-face{ font-family:"Dehcho BoldSlanted"; src:url("fonts/Dehcho/ASDehchoTestAg01-BoldSlanted.woff2") format("woff2"); font-display:swap; }
+@font-face{ font-family:"Dehcho BoldSemiSlanted"; src:url("fonts/Dehcho/ASDehchoTestAg01-BoldSemiSlanted.woff2") format("woff2"); font-display:swap; }
+@font-face{ font-family:"Dehcho Narrow"; src:url("fonts/Dehcho/ASDehchoTestAg01-Narrow.woff2") format("woff2"); font-display:swap; }
+@font-face{ font-family:"Dehcho NarrowSlanted"; src:url("fonts/Dehcho/ASDehchoTestAg01-NarrowSlanted.woff2") format("woff2"); font-display:swap; }
+@font-face{ font-family:"Dehcho NarrowSemiBold"; src:url("fonts/Dehcho/ASDehchoTestAg01-NarrowSemiBold.woff2") format("woff2"); font-display:swap; }
+@font-face{ font-family:"Dehcho NarrowBold"; src:url("fonts/Dehcho/ASDehchoTestAg01-NarrowBold.woff2") format("woff2"); font-display:swap; }
+@font-face{ font-family:"Dehcho NarrowBoldSlanted"; src:url("fonts/Dehcho/ASDehchoTestAg01-NarrowBoldSlanted.woff2") format("woff2"); font-display:swap; }
+@font-face{ font-family:"Dehcho Megular"; src:url("fonts/Dehcho/ASDehchoTestAg01-Megular.woff2") format("woff2"); font-display:swap; }
 :root{
   /* color — light — waffle primary tier (blueberry/grape/lemon + vanilla/cappuccino
      surfaces), ported 2026-08-07. --pine/--neo stay Fire on the Land's own: they're
@@ -152,7 +147,7 @@ h1,h2{font-family:var(--font-headline);font-weight:400;letter-spacing:-.01em;tex
 .brand{display:flex;align-items:center;gap:.55rem}
 .brand-mark{width:16px;height:16px;border-radius:4px;
   background:linear-gradient(135deg,var(--accent),var(--neo) 60%,var(--pine));box-shadow:var(--shadow)}
-.brand-name{font-family:var(--font-sans);font-weight:700;letter-spacing:-.02em;font-size:1.15rem}
+.brand-name{font-family:var(--font-headline);font-weight:400;letter-spacing:-.01em;font-size:1.25rem}
 .appbar-end{display:flex;align-items:center;gap:var(--sp-2);min-width:0}
 .appbar-site{font-family:var(--font-sans);font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;white-space:nowrap}
 
@@ -226,9 +221,6 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 /* ============================================================
    CONCEPT
    ============================================================ */
-.define{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--neo);
-  border-radius:var(--r-s);padding:var(--sp-3);box-shadow:var(--shadow)}
-.define p{margin:.35rem 0 0}
 .thesis-line{font-family:var(--font-serif);font-size:1.15rem;line-height:1.4;border-left:3px solid var(--accent);
   padding-left:var(--sp-3);margin:var(--sp-3) 0}
 .thesis-line em{color:var(--accent);font-style:italic}
@@ -389,11 +381,16 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 /* ============================================================
    FONT
    ============================================================ */
-.font-sample{font-family:"Dehcho Megular";font-size:clamp(2.6rem,11vw,4.2rem);line-height:.95;margin:var(--sp-4) 0 0;text-wrap:balance}
-.font-line{font-family:"Dehcho";font-size:clamp(1.15rem,4.5vw,1.6rem);border-top:1px solid var(--line);padding-top:var(--sp-2);margin-top:var(--sp-3)}
-.font-line.rough{font-family:"Dehcho Rough"}
-.font-glyphrow{font-family:"Dehcho";font-size:1.8rem;letter-spacing:.15em;color:var(--accent);
-  border-top:1px solid var(--line);padding-top:var(--sp-2);margin-top:var(--sp-3)}
+.font-style-picker{display:flex;align-items:center;gap:.6rem;margin-top:var(--sp-3)}
+.font-style-picker .channel-select{flex:1;background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--r-s);padding:.4rem .5rem}
+#font-specimen{font-family:"Dehcho Regular";margin-top:var(--sp-3);border-top:1px solid var(--line);padding-top:var(--sp-3)}
+#font-specimen > div{border-bottom:1px solid var(--line);padding:.5rem 0}
+#font-specimen > div:last-child{border-bottom:0}
+.font-l1{font-size:clamp(2.6rem,11vw,4.2rem);line-height:.95;text-wrap:balance}
+.font-l2{font-size:clamp(1.7rem,7vw,2.4rem);line-height:1.05;text-wrap:balance}
+.font-l3{font-size:clamp(1.1rem,4vw,1.4rem);line-height:1.2}
+.font-l4{font-size:1.3rem;letter-spacing:.06em;color:var(--accent)}
 
 /* ============================================================
    ADOPTION SCENARIOS — intro above the existing sub-app
@@ -410,12 +407,10 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
   border-bottom:1px solid var(--line);
 }
 .tabbar[hidden]{display:none}
-.tab{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;
-  background:none;border:0;color:var(--muted);font-family:var(--font-sans);cursor:pointer;padding:.4rem .1rem;min-height:44px}
-.tab-ico{font-size:1.1rem;line-height:1}
-.tab-lbl{font-size:.62rem;font-weight:700;letter-spacing:.005em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.tab{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;
+  background:none;border:0;color:var(--muted);font-family:var(--font-sans);cursor:pointer;padding:.4rem .5rem;min-height:44px}
+.tab-lbl{font-size:.78rem;font-weight:700;letter-spacing:.005em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .tab.is-active{color:var(--accent)}
-.tab.is-active .tab-ico{transform:translateY(-1px)}
 
 /* ============================================================
    WIDER SCREENS (progressive enhancement over mobile-first)

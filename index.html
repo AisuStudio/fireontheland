@@ -34,22 +34,16 @@
 
     <nav class="tabbar" id="subtabbar" role="tablist" aria-label="Ansichten" data-i18n-aria="nav.aria" hidden>
       <button class="tab is-active" role="tab" aria-selected="true" aria-controls="view-composite" data-target="composite">
-        <span class="tab-ico" aria-hidden="true">▚</span><span class="tab-lbl" data-i18n="tab.composite">Komposit</span>
-      </button>
-      <button class="tab" role="tab" aria-selected="false" aria-controls="view-scorecard" data-target="scorecard">
-        <span class="tab-ico" aria-hidden="true">▤</span><span class="tab-lbl" data-i18n="tab.scorecard">Scorecard</span>
-      </button>
-      <button class="tab" role="tab" aria-selected="false" aria-controls="view-measures" data-target="measures">
-        <span class="tab-ico" aria-hidden="true">⚒</span><span class="tab-lbl" data-i18n="tab.measures">Maßnahmen</span>
-      </button>
-      <button class="tab" role="tab" aria-selected="false" aria-controls="view-species" data-target="species">
-        <span class="tab-ico" aria-hidden="true">✤</span><span class="tab-lbl" data-i18n="tab.species">Arten</span>
+        <span class="tab-lbl" data-i18n="tab.composite">Komposit</span>
       </button>
       <button class="tab" role="tab" aria-selected="false" aria-controls="view-scenarios" data-target="scenarios">
-        <span class="tab-ico" aria-hidden="true">∿</span><span class="tab-lbl" data-i18n="tab.scenarios">Szenarien</span>
+        <span class="tab-lbl" data-i18n="tab.scenarios">Szenarien</span>
       </button>
-      <button class="tab" role="tab" aria-selected="false" aria-controls="view-concept" data-target="concept">
-        <span class="tab-ico" aria-hidden="true">◆</span><span class="tab-lbl" data-i18n="tab.concept">Konzept</span>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="view-measures" data-target="measures">
+        <span class="tab-lbl" data-i18n="tab.measures">Maßnahmen</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="view-species" data-target="species">
+        <span class="tab-lbl" data-i18n="tab.species">Arten</span>
       </button>
     </nav>
   </div>
@@ -117,10 +111,19 @@
       <span class="kicker" data-i18n="font.kicker">Font · früher Testbuild</span>
       <h1 id="t-font" class="view-title" data-i18n="font.title">AS Dehcho</h1>
       <p class="view-sub" data-i18n="font.sub">Ein handgezeichneter Comic-Display-Font für dieses Projekt — trägt sowohl die Dene-Orthografie der Dehcho-Region als auch Sprechblasen-Lettering in einer Familie. Aktuell nicht in aktiver Arbeit, aber schon nutzbar.</p>
-      <div class="font-sample">Dehcho</div>
-      <div class="font-line">Fire on the Land — Dehcho, NWT</div>
-      <div class="font-line rough">Fire on the Land — Dehcho, NWT</div>
-      <div class="font-glyphrow" aria-hidden="true">ą́ ę́ ł ʔ ǫ́ ų́</div>
+      <label class="font-style-picker">
+        <span class="channel-key" data-i18n="font.styleLabel">Style</span>
+        <select id="font-style-select" class="channel-select"></select>
+      </label>
+
+      <div id="font-specimen">
+        <div class="font-l1">Dehcho</div>
+        <div class="font-l2">Fire on the Land</div>
+        <div class="font-l3">Dehcho, Northwest Territories</div>
+        <div class="font-l3">Scotty Creek Research Station</div>
+        <div class="font-l4">0123456789</div>
+        <div class="font-l4" aria-hidden="true">ą́ ę́ ł ʔ ǫ́ ų́</div>
+      </div>
       <a class="novel-cta" href="https://claude.ai/code/artifact/e5214fd9-b5b0-45b9-8dcb-acd254598f7c" target="_blank" rel="noopener" data-i18n="font.linkSpecimen">Vollständiges Specimen — Diakritika, Alternates, Grawlixes</a>
     </section>
 
@@ -130,7 +133,7 @@
         <p data-i18n="app.sub">Reale Post-Fire-Flächen, an denen die Fragen aus Fire on the Land an echten Daten geprüft werden — angefangen mit Jüterbog, Brandenburg.</p>
       </div>
 
-    <!-- VIEW: Komposit -->
+    <!-- VIEW: Komposit (+ Scorecard + Konzept, komprimiert) -->
     <section id="view-composite" class="view" data-view="composite" aria-labelledby="t-composite">
       <span class="kicker" data-i18n="composite.kicker">Was Fire on the Land ist</span>
       <h1 id="t-composite" class="view-title" data-i18n="composite.title">Erholung in einem Bild</h1>
@@ -164,11 +167,8 @@
         <li><span class="swatch" style="background:var(--neo)"></span> <span data-i18n="legend.green">Grün — mittlere Erholung</span></li>
         <li><span class="swatch" style="background:var(--pine)"></span> <span data-i18n="legend.cool">Kühl — späte Erholung</span></li>
       </ul>
-    </section>
 
-    <!-- VIEW: Scorecard -->
-    <section id="view-scorecard" class="view" data-view="scorecard" hidden aria-labelledby="t-scorecard">
-      <h1 id="t-scorecard" class="view-title" data-i18n="scorecard.title">Kiefern-Kulturwald oder Neophyten?</h1>
+      <h2 class="h-sec" data-i18n="scorecard.title">Kiefern-Kulturwald oder Neophyten?</h2>
       <p class="view-sub" data-i18n="scorecard.sub">Zwei neue Ökosysteme im Vergleich</p>
       <p class="lede" data-i18n="scorecard.history">Brandenburgs Kiefernwälder sind selbst eine menschengemachte Kultur: nach Übernutzung im 19. Jahrhundert auf kargem Sand angepflanzt, weil dort kaum etwas anderes wuchs. Genau diese Monokultur brennt heute leicht — wie 2019 bei Jüterbog oder 2018 und erneut 2022 bei Treuenbrietzen. Auf den Brandflächen etabliert sich oft ein zweites, ebenso neues Ökosystem schneller: Neophyten wie die Robinie. Im Klimawandel stehen beide unter Druck — und die Scorecard unten vergleicht sie ehrlich: kein Sieger-Loblied, sondern ein Raster, auf dem jede Seite Achsen gewinnt und verliert.</p>
       <div class="cols-key">
@@ -177,6 +177,68 @@
       </div>
       <ol id="scorecard-list" class="scorelist"></ol>
       <p class="note" data-i18n-html="scorecard.note">Die Achse <strong>Biodiversität</strong> kippt je nach Fläche — der Angelpunkt, den das Werkzeug sichtbar macht.</p>
+
+      <h2 class="h-sec" data-i18n="concept.hsec3">Nicht wiederherstellen — weiterdenken</h2>
+      <p class="thesis-line" data-i18n-html="concept.thesis">Der Wert einer Sukzession ist keine Eigenschaft der <em>Pflanze</em> — sondern der <em>Fläche</em>.</p>
+      <p data-i18n-html="concept.compressed">Wiederherstellung fragt, wie wir zurückbekommen, was vorher da war — auf einer Fläche, deren Vorzustand ein brandanfälliger Kiefernacker war, die falsche Frage. Die Zahlen zeigen das deutlich: Für die Kiefer stützt sich die Ertragstafel auf rund 1.500 Probeflächen, für die Sand-Birke auf 192, für die nach dem Brand tatsächlich dominierende Zitterpappel auf keine einzige — die Forstwissenschaft hat 250 Jahre lang vermessen, was gepflanzt wurde, nicht, was von selbst kam. Das gilt für den gewöhnlichen Wirtschaftswald; auf Schutzflächen wie dieser hier ist Aufwuchs nicht Ertrag, sondern Verlust.</p>
+
+      <h2 class="h-sec" data-i18n="concept.hsec2">Wertekanon</h2>
+      <ul class="canon">
+        <li data-i18n-html="concept.canon.1"><strong>Vorurteilsfrei.</strong> Bewertet wird Funktion, nicht Herkunft.</li>
+        <li data-i18n-html="concept.canon.2"><strong>Kontext vor Dogma.</strong> Derselbe Baum ist Retter oder Verdränger — je nach Fläche.</li>
+        <li data-i18n-html="concept.canon.3"><strong>Ehrlich über Grenzen.</strong> Permanenz, Homogenisierung, schwächster Datenpunkt offen.</li>
+        <li data-i18n-html="concept.canon.4"><strong>Bewerten, nicht entscheiden.</strong> Das Werkzeug zeigt den Zielkonflikt; entscheiden Mensch und Fläche.</li>
+      </ul>
+    </section>
+
+    <!-- VIEW: Szenarien -->
+    <section id="view-scenarios" class="view" data-view="scenarios" hidden aria-labelledby="t-scenarios">
+      <span class="kicker" data-i18n="scenarios.kicker">Illustratives Modell</span>
+      <h1 id="t-scenarios" class="view-title" data-i18n="scenarios.title">Drei Wege nach dem Brand</h1>
+      <p class="view-sub" data-i18n="scenarios.sub">Wie sich Jüterbogs Brandfläche je nach Strategie erholen könnte — vorbereitete Szenarien, keine Live-Simulation.</p>
+
+      <div class="segmented" role="group" data-i18n-aria="target.aria" aria-label="Zielzustand wählen">
+        <button class="seg-btn target-btn is-on" data-target="forest" aria-pressed="true" data-i18n="target.forest">Ziel: geschlossener Wald</button>
+        <button class="seg-btn target-btn" data-target="open" aria-pressed="false" data-i18n="target.open">Ziel: offene Sandheide</button>
+      </div>
+
+      <figure class="chart">
+        <div id="scenario-chart"></div>
+        <figcaption id="chart-caption" class="chart-caption" data-i18n="scenarios.caption.forest">Bewaldungsgrad (%) über Jahre seit dem Brand</figcaption>
+      </figure>
+      <p id="target-note" class="note" data-i18n-html="target.forestNote">Gemessen wird gegen den unverbrannten Kiefernforst nebenan: 80 % Kronendeckung, rund 20 m Höhe. Beides muss stimmen — hohe Einzelbäume ohne Deckung sind kein Wald, dichter Niederwuchs ohne Höhe auch nicht.</p>
+
+      <ul id="scenario-legend" class="scenario-legend"></ul>
+
+      <div class="rad-box">
+        <span class="kicker" data-i18n="rad.kicker">Der Rahmen dahinter</span>
+        <h2 class="hypo-title" data-i18n="rad.title">Resist · Accept · Direct</h2>
+        <p data-i18n-html="rad.body">Diese drei Wege sind keine Erfindung dieser App. Sie entsprechen dem <strong>Resist–Accept–Direct</strong>-Rahmen, mit dem der US-amerikanische National Park Service Ökosysteme im Klimawandel steuert. Sein Bild dafür ist ein Segelboot: <em>Resist</em> heißt Motor an und gegen den Wind zurück in den Heimathafen. <em>Accept</em> heißt Segel runter und treiben lassen. <em>Direct</em> heißt den Wind nutzen, um einen neuen, besseren Zielort anzusteuern.</p>
+        <p data-i18n-html="rad.body2">Der entscheidende Punkt: <em>Direct</em> zielt ausdrücklich auf „bevorzugte <strong>neue</strong> Zustände" — nicht auf historische. Genau dort liegt die Anpassungshypothese dieses Projekts, und genau dort liegt der Unterschied zwischen konservativem und progressivem Walddenken: Der eine Weg misst Erfolg am Vorzustand, der andere an der Überlebensfähigkeit unter künftigen Bedingungen.</p>
+        <p class="note" data-i18n-html="rad.source">Schuurman u.&nbsp;a. (2022): <em>Navigating Ecological Transformation: Resist–Accept–Direct as a Path to a New Resource Management Paradigm</em>, BioScience 72(1) — sowie das RAD-Entscheidungsrahmenwerk des National Park Service.</p>
+      </div>
+
+      <h2 class="h-sec" data-i18n="scenarios.mapTitle">Szenario durchspielen</h2>
+      <div class="segmented" role="group" data-i18n-aria="scenarios.scenAria" aria-label="Szenario wählen">
+        <button class="seg-btn scen-btn is-on" data-scenario="passive" aria-pressed="true" data-i18n="scenario.passive">Sich selbst überlassen</button>
+        <button class="seg-btn scen-btn" data-scenario="pine" aria-pressed="false" data-i18n="scenario.pine">Kiefern nachpflanzen</button>
+        <button class="seg-btn scen-btn" data-scenario="assisted" aria-pressed="false" data-i18n="scenario.assisted">Pionierpflanzen-Mix</button>
+      </div>
+
+      <div class="species-map">
+        <canvas id="scenario-map-canvas" width="640" height="440" role="img"
+          data-i18n-aria="scenarios.mapAria" aria-label="Modellierter Bestand auf der Brandfläche"></canvas>
+      </div>
+      <p id="scenario-readout" class="scenario-readout"></p>
+      <p class="note" data-i18n="scenarios.mapNote">Jeder Punkt steht für ein Stück Kronendach, nicht für einen Baum — deshalb wächst die Punktwolke stetig, während die Stammzahl im älteren Bestand sinkt: Aus vielen dünnen Bäumen werden wenige dicke.</p>
+
+      <div class="scrub">
+        <button id="scenario-play" class="seg-btn" aria-pressed="false" data-i18n="scenarios.play">Abspielen</button>
+        <input id="scenario-slider" class="scrub-range" type="range" min="0" max="30" step="1" value="0"
+          data-i18n-aria="scenarios.sliderAria" aria-label="Jahre seit dem Brand">
+      </div>
+
+      <p class="note" data-i18n="scenarios.note">Illustrative Modellierung auf Basis bekannter Sukzessionsmuster — keine Live-Simulation und keine GUS-Engine-Ausgabe. Die tatsächliche Entwicklung hängt von Standort, Witterung und Pflege ab.</p>
     </section>
 
     <!-- VIEW: Maßnahmen -->
@@ -233,83 +295,6 @@
       <p class="note" data-i18n-html="species.source">Zahlen zur Naturverjüngung aus: <em>PYROPHOB — Pyrophobe Wälder</em>, Eberswalder Forstliche Schriftenreihe Bd. 77 (LFE Brandenburg, 2024). Standortangaben nach NSG-Verordnung Forst Zinna–Jüterbog–Keilberg und FloraWeb.</p>
     </section>
 
-    <!-- VIEW: Szenarien -->
-    <section id="view-scenarios" class="view" data-view="scenarios" hidden aria-labelledby="t-scenarios">
-      <span class="kicker" data-i18n="scenarios.kicker">Illustratives Modell</span>
-      <h1 id="t-scenarios" class="view-title" data-i18n="scenarios.title">Drei Wege nach dem Brand</h1>
-      <p class="view-sub" data-i18n="scenarios.sub">Wie sich Jüterbogs Brandfläche je nach Strategie erholen könnte — vorbereitete Szenarien, keine Live-Simulation.</p>
-
-      <div class="segmented" role="group" data-i18n-aria="target.aria" aria-label="Zielzustand wählen">
-        <button class="seg-btn target-btn is-on" data-target="forest" aria-pressed="true" data-i18n="target.forest">Ziel: geschlossener Wald</button>
-        <button class="seg-btn target-btn" data-target="open" aria-pressed="false" data-i18n="target.open">Ziel: offene Sandheide</button>
-      </div>
-
-      <figure class="chart">
-        <div id="scenario-chart"></div>
-        <figcaption id="chart-caption" class="chart-caption" data-i18n="scenarios.caption.forest">Bewaldungsgrad (%) über Jahre seit dem Brand</figcaption>
-      </figure>
-      <p id="target-note" class="note" data-i18n-html="target.forestNote">Gemessen wird gegen den unverbrannten Kiefernforst nebenan: 80 % Kronendeckung, rund 20 m Höhe. Beides muss stimmen — hohe Einzelbäume ohne Deckung sind kein Wald, dichter Niederwuchs ohne Höhe auch nicht.</p>
-
-      <ul id="scenario-legend" class="scenario-legend"></ul>
-
-      <div class="rad-box">
-        <span class="kicker" data-i18n="rad.kicker">Der Rahmen dahinter</span>
-        <h2 class="hypo-title" data-i18n="rad.title">Resist · Accept · Direct</h2>
-        <p data-i18n-html="rad.body">Diese drei Wege sind keine Erfindung dieser App. Sie entsprechen dem <strong>Resist–Accept–Direct</strong>-Rahmen, mit dem der US-amerikanische National Park Service Ökosysteme im Klimawandel steuert. Sein Bild dafür ist ein Segelboot: <em>Resist</em> heißt Motor an und gegen den Wind zurück in den Heimathafen. <em>Accept</em> heißt Segel runter und treiben lassen. <em>Direct</em> heißt den Wind nutzen, um einen neuen, besseren Zielort anzusteuern.</p>
-        <p data-i18n-html="rad.body2">Der entscheidende Punkt: <em>Direct</em> zielt ausdrücklich auf „bevorzugte <strong>neue</strong> Zustände" — nicht auf historische. Genau dort liegt die Anpassungshypothese dieses Projekts, und genau dort liegt der Unterschied zwischen konservativem und progressivem Walddenken: Der eine Weg misst Erfolg am Vorzustand, der andere an der Überlebensfähigkeit unter künftigen Bedingungen.</p>
-        <p class="note" data-i18n-html="rad.source">Schuurman u.&nbsp;a. (2022): <em>Navigating Ecological Transformation: Resist–Accept–Direct as a Path to a New Resource Management Paradigm</em>, BioScience 72(1) — sowie das RAD-Entscheidungsrahmenwerk des National Park Service.</p>
-      </div>
-
-      <h2 class="h-sec" data-i18n="scenarios.mapTitle">Szenario durchspielen</h2>
-      <div class="segmented" role="group" data-i18n-aria="scenarios.scenAria" aria-label="Szenario wählen">
-        <button class="seg-btn scen-btn is-on" data-scenario="passive" aria-pressed="true" data-i18n="scenario.passive">Sich selbst überlassen</button>
-        <button class="seg-btn scen-btn" data-scenario="pine" aria-pressed="false" data-i18n="scenario.pine">Kiefern nachpflanzen</button>
-        <button class="seg-btn scen-btn" data-scenario="assisted" aria-pressed="false" data-i18n="scenario.assisted">Pionierpflanzen-Mix</button>
-      </div>
-
-      <div class="species-map">
-        <canvas id="scenario-map-canvas" width="640" height="440" role="img"
-          data-i18n-aria="scenarios.mapAria" aria-label="Modellierter Bestand auf der Brandfläche"></canvas>
-      </div>
-      <p id="scenario-readout" class="scenario-readout"></p>
-      <p class="note" data-i18n="scenarios.mapNote">Jeder Punkt steht für ein Stück Kronendach, nicht für einen Baum — deshalb wächst die Punktwolke stetig, während die Stammzahl im älteren Bestand sinkt: Aus vielen dünnen Bäumen werden wenige dicke.</p>
-
-      <div class="scrub">
-        <button id="scenario-play" class="seg-btn" aria-pressed="false" data-i18n="scenarios.play">Abspielen</button>
-        <input id="scenario-slider" class="scrub-range" type="range" min="0" max="30" step="1" value="0"
-          data-i18n-aria="scenarios.sliderAria" aria-label="Jahre seit dem Brand">
-      </div>
-
-      <p class="note" data-i18n="scenarios.note">Illustrative Modellierung auf Basis bekannter Sukzessionsmuster — keine Live-Simulation und keine GUS-Engine-Ausgabe. Die tatsächliche Entwicklung hängt von Standort, Witterung und Pflege ab.</p>
-    </section>
-
-    <!-- VIEW: Konzept -->
-    <section id="view-concept" class="view" data-view="concept" hidden aria-labelledby="t-concept">
-      <h1 id="t-concept" class="view-title" data-i18n="concept.title">Das Konzept</h1>
-
-      <div class="define">
-        <span class="kicker" data-i18n="concept.kicker">Was es ist</span>
-        <p data-i18n-html="concept.define">Ein offenes Werkzeug, das eine Waldbrandfläche danach lesbar macht, welche Wiederbewaldung dort zugleich <strong>klimaangepasst, wirtschaftlich zukunftsfähig und kohlenstoff-wirksam</strong> ist.</p>
-      </div>
-
-      <p class="thesis-line" data-i18n-html="concept.thesis">Der Wert einer Sukzession ist keine Eigenschaft der <em>Pflanze</em> — sondern der <em>Fläche</em>.</p>
-
-      <h2 class="h-sec" data-i18n="concept.hsec3">Nicht wiederherstellen — weiterdenken</h2>
-      <p data-i18n-html="concept.rethink.1">Wiederherstellung fragt: Wie bekommen wir zurück, was vorher da war? Auf einer Fläche, deren Vorzustand ein brandanfälliger Kiefernacker war, ist das die falsche Frage. Sinnvoller ist: <strong>Was wächst hier von selbst, und was lässt sich damit anfangen?</strong></p>
-      <p data-i18n-html="concept.rethink.2">In einem Ökosystem gibt es keinen Abfall — jedes Produkt ist anderswo Eingangsstoff. Übertragen auf die Brandfläche heißt das: Die 13.590 Aspen pro Hektar, die dort ohne Zutun und ohne Kosten hochkommen, sind kein Ausfall. Es fehlt ihnen nur die Verwertungskette. Und eine fehlende Kette ist keine Eigenschaft des Baumes, sondern eine Entscheidung der Branche.</p>
-      <p data-i18n-html="concept.rethink.3">Die Zahlen stützen das deutlicher, als der Ruf der Pionierhölzer vermuten lässt. Nach den Ertragstafeln für Nordostdeutschland erreicht die Sand-Birke auf armem Sand im Alter 30 einen Vorrat in derselben Größenordnung wie die Kiefer auf vergleichbarem Standort — bei einer Baumart, die sich gratis selbst aussät, während die gepflanzte Kiefer nach fünf Jahren zu 85 % tot war. Die Robinie liefert das dauerhafteste Holz Europas und ersetzt im Außenbau Tropenholz und Druckimprägnat.</p>
-      <p data-i18n-html="concept.rethink.4">Am deutlichsten zeigt sich das an einer Lücke. Für die Kiefer stützt sich die Ertragstafel Nordostdeutschlands auf rund 1.500 Probeflächen, für die Sand-Birke auf 192. Für die Zitterpappel — die Baumart, die nach dem Brand tatsächlich dominiert — <strong>gibt es keine</strong>, und für ungleichaltrige Pionier-Mischbestände existiert überhaupt kein Ertragsmodell. Auch das Forschungsprojekt selbst hält fest, es habe „keine ökonomischen Untersuchungen" gegeben.</p>
-      <p data-i18n-html="concept.rethink.5">Das ist kein Datenmangel, sondern ein Abdruck der Bewirtschaftungsgeschichte: <strong>Die Forstwissenschaft hat zweihundertfünfzig Jahre lang vermessen, was gepflanzt wurde.</strong> Was von selbst kommt, ist unvermessen geblieben — nicht weil es nichts leistet, sondern weil niemand es gezählt hat. Die fehlende Tafel ist damit selbst das stärkste Argument dafür, den Blick zu ändern.</p>
-      <p class="note" data-i18n-html="concept.rethink.limit"><strong>Wo dieses Argument nicht hingehört:</strong> auf Schutzflächen, deren Zweck gerade die Nährstoffarmut und Offenheit ist — dort ist der Aufwuchs nicht Ertrag, sondern Verlust. Der Umdenk-Vorschlag zielt auf den gewöhnlichen Wirtschaftswald, von dem Brandenburg nach jedem Brandjahr reichlich hat.</p>
-
-      <h2 class="h-sec" data-i18n="concept.hsec2">Wertekanon</h2>
-      <ul class="canon">
-        <li data-i18n-html="concept.canon.1"><strong>Vorurteilsfrei.</strong> Bewertet wird Funktion, nicht Herkunft.</li>
-        <li data-i18n-html="concept.canon.2"><strong>Kontext vor Dogma.</strong> Derselbe Baum ist Retter oder Verdränger — je nach Fläche.</li>
-        <li data-i18n-html="concept.canon.3"><strong>Ehrlich über Grenzen.</strong> Permanenz, Homogenisierung, schwächster Datenpunkt offen.</li>
-        <li data-i18n-html="concept.canon.4"><strong>Bewerten, nicht entscheiden.</strong> Das Werkzeug zeigt den Zielkonflikt; entscheiden Mensch und Fläche.</li>
-      </ul>
-    </section>
     </div>
   </main>
 
