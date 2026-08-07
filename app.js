@@ -107,7 +107,7 @@
       'section.app': 'Adoption Scenarios',
       'loc.novel': 'Northwest Territories · Kanada',
       'loc.font': 'AS Dehcho',
-      'loc.app': 'Jüterbog · Brandenburg',
+      'locpicker.label': 'Standort',
 
       'novel.kicker': 'Work in Progress · Graphic Novel',
       'novel.title': 'Fire on the Land',
@@ -291,7 +291,7 @@
       'section.app': 'Adoption Scenarios',
       'loc.novel': 'Northwest Territories · Canada',
       'loc.font': 'AS Dehcho',
-      'loc.app': 'Jüterbog · Brandenburg',
+      'locpicker.label': 'Location',
 
       'novel.kicker': 'Work in progress · Graphic novel',
       'novel.title': 'Fire on the Land',
@@ -539,7 +539,7 @@
     renderSpeciesMix();
     renderSpeciesMap();
     renderScenarios();
-    if (appbarSite) appbarSite.textContent = t(LOC_KEY[curSection]);
+    if (appbarSite && curSection !== 'app') appbarSite.textContent = t(LOC_KEY[curSection]);
   }
 
   /* ---------------------------------------------------------
@@ -582,8 +582,9 @@
     app: document.getElementById('view-app')
   };
   var subtabbar = document.getElementById('subtabbar');
+  var sitepicker = document.getElementById('sitepicker');
   var appbarSite = document.getElementById('appbar-site');
-  var LOC_KEY = { novel: 'loc.novel', font: 'loc.font', app: 'loc.app' };
+  var LOC_KEY = { novel: 'loc.novel', font: 'loc.font' };
   var curSection = 'novel';
 
   function showSection(target) {
@@ -597,7 +598,11 @@
       b.setAttribute('aria-selected', on ? 'true' : 'false');
     });
     if (subtabbar) subtabbar.hidden = (target !== 'app');
-    if (appbarSite) appbarSite.textContent = t(LOC_KEY[target]);
+    if (sitepicker) sitepicker.hidden = (target !== 'app');
+    if (appbarSite) {
+      appbarSite.hidden = (target === 'app');
+      if (target !== 'app') appbarSite.textContent = t(LOC_KEY[target]);
+    }
   }
 
   mainnavBtns.forEach(function (b) {

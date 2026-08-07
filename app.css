@@ -353,6 +353,16 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 }
 .mainnav-btn.is-active{color:var(--accent);box-shadow:inset 0 -2px 0 var(--accent)}
 
+.site-picker{
+  display:flex;align-items:center;gap:.6rem;padding:.6rem var(--sp-3);
+  background:color-mix(in srgb,var(--surface) 92%, transparent);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.site-picker[hidden]{display:none}
+.site-picker .channel-key{white-space:nowrap}
+.site-picker .channel-select{flex:1;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:var(--r-s);padding:.35rem .5rem;color:var(--ink);font-weight:700}
+
 /* ============================================================
    GRAPHIC NOVEL
    ============================================================ */
