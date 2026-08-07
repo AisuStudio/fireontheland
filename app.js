@@ -145,8 +145,8 @@
       'tab.concept': 'Konzept',
 
       'composite.kicker': 'Was Fire on the Land ist',
-      'composite.title': 'Erholung in einem Bild',
-      'composite.sub': 'Ein offenes Werkzeug, das eine Waldbrandfläche danach lesbar macht, welche Wiederbewaldung dort <strong>klimaangepasst, wirtschaftlich zukunftsfähig und kohlenstoffwirksam</strong> ist. Los geht’s mit der Erholung selbst: drei Jahre nach dem Brand auf Rot · Grün · Blau gelegt — grau = unverändert, Farbe = zeitversetztes Ergrünen.',
+      'composite.title': 'Post-Fire Recovery in einem Bild',
+      'composite.sub': 'Ein offenes Werkzeug für die Post-Fire Recovery: Es macht sichtbar, welche Wiederbewaldung auf einer Brandfläche <strong>klimaangepasst, wirtschaftlich zukunftsfähig und kohlenstoffwirksam</strong> ist. Los geht’s mit der Erholung selbst — drei Jahre nach dem Brand auf Rot · Grün · Blau gelegt: grau = unverändert, Farbe = zeitversetztes Ergrünen.',
       'composite.canvasAria': 'Sentinel-2-NBR-Erholungskomposit der Brandfläche Jüterbog',
       'composite.badge': 'Sentinel-2 L2A · NBR · Copernicus Data Space Ecosystem',
       'composite.channelsAria': 'Jahre den Farbkanälen zuordnen',
@@ -330,8 +330,8 @@
       'tab.concept': 'Concept',
 
       'composite.kicker': 'What Fire on the Land is',
-      'composite.title': 'Recovery in a single image',
-      'composite.sub': 'An open tool that makes a wildfire site legible by which reforestation there is at once <strong>climate-adapted, economically future-proof and carbon-effective</strong>. It starts with recovery itself: three years after the fire, mapped onto Red · Green · Blue — grey = unchanged, colour = greening offset in time.',
+      'composite.title': 'Post-Fire Recovery in a single image',
+      'composite.sub': 'An open tool for post-fire recovery: it shows which reforestation strategy on a burn scar is <strong>climate-adapted, economically future-proof and carbon-effective</strong>. It starts with recovery itself — three years after the fire, mapped onto Red · Green · Blue: grey = unchanged, colour = greening offset in time.',
       'composite.canvasAria': 'Sentinel-2 NBR recovery composite of the Jüterbog burn area',
       'composite.badge': 'Sentinel-2 L2A · NBR · Copernicus Data Space Ecosystem',
       'composite.channelsAria': 'Assign years to colour channels',
