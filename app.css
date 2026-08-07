@@ -136,16 +136,6 @@ body{
   padding-bottom:env(safe-area-inset-bottom);
   position:relative;
 }
-body::before{
-  content:"";
-  position:fixed;inset:-100px -24px;z-index:-1;
-  background:
-    linear-gradient(to bottom, rgba(12,9,5,.32) 0, rgba(12,9,5,.52) 42vh, rgba(12,9,5,.8) 85vh, rgba(12,9,5,.8) 100%),
-    url('./assets/bg-fire.jpg') center/cover no-repeat;
-  filter:blur(10px);
-  transform:translateY(var(--bg-parallax, 0px));
-  will-change:transform;
-}
 h1,h2{font-family:var(--font-headline);font-weight:400;letter-spacing:-.01em;text-wrap:balance}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:var(--r-s)}
 

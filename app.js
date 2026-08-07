@@ -1537,24 +1537,6 @@
   }
 
   /* ---------------------------------------------------------
-     Background parallax — hero image drifts slower than scroll,
-     then settles (clamped) so it never runs out of image on
-     long pages.
-     --------------------------------------------------------- */
-  var PARALLAX_FACTOR = 0.3, PARALLAX_MAX = 80;
-  var parallaxTicking = false;
-  function applyParallax() {
-    var offset = Math.max(-PARALLAX_MAX, -window.scrollY * PARALLAX_FACTOR);
-    document.body.style.setProperty('--bg-parallax', offset + 'px');
-    parallaxTicking = false;
-  }
-  window.addEventListener('scroll', function () {
-    if (parallaxTicking) return;
-    parallaxTicking = true;
-    requestAnimationFrame(applyParallax);
-  }, { passive: true });
-
-  /* ---------------------------------------------------------
      Init
      --------------------------------------------------------- */
   buildSwitcher();
