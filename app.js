@@ -1,4 +1,4 @@
-/* Noveco — MVP scaffold. Dependency-free. */
+/* Fire on the Land — MVP scaffold. Dependency-free. */
 (function () {
   'use strict';
 
@@ -94,7 +94,7 @@
     { code: 'de', label: 'DE', name: 'Deutsch' },
     { code: 'en', label: 'EN', name: 'English' }
   ];
-  var STORE_KEY = 'noveco-lang';
+  var STORE_KEY = 'fireontheland-lang';
 
   var T = {
     de: {
@@ -108,7 +108,7 @@
       'tab.scenarios': 'Szenarien',
       'tab.concept': 'Konzept',
 
-      'composite.kicker': 'Was Noveco ist',
+      'composite.kicker': 'Was Fire on the Land ist',
       'composite.title': 'Erholung in einem Bild',
       'composite.sub': 'Ein offenes Werkzeug, das eine Waldbrandfläche danach lesbar macht, welche Wiederbewaldung dort <strong>klimaangepasst, wirtschaftlich zukunftsfähig und kohlenstoffwirksam</strong> ist. Los geht’s mit der Erholung selbst: drei Jahre nach dem Brand auf Rot · Grün · Blau gelegt — grau = unverändert, Farbe = zeitversetztes Ergrünen.',
       'composite.canvasAria': 'Sentinel-2-NBR-Erholungskomposit der Brandfläche Jüterbog',
@@ -184,7 +184,7 @@
       'origin.native': 'Einheimisch',
       'origin.neo': 'Neophyten',
       'origin.archaeo': 'Archäophyten',
-      'mix.rationale': 'Kriterien: {criteria}. Noveco empfiehlt diese Mischung: {parts}.',
+      'mix.rationale': 'Kriterien: {criteria}. Fire on the Land empfiehlt diese Mischung: {parts}.',
       'mix.baseline': 'Standardmischung für die gesamte Fläche',
       'unit.native.one': 'einheimischer Pionier',
       'unit.native.many': 'einheimische Pioniere',
@@ -265,7 +265,7 @@
       'tab.scenarios': 'Scenarios',
       'tab.concept': 'Concept',
 
-      'composite.kicker': 'What Noveco is',
+      'composite.kicker': 'What Fire on the Land is',
       'composite.title': 'Recovery in a single image',
       'composite.sub': 'An open tool that makes a wildfire site legible by which reforestation there is at once <strong>climate-adapted, economically future-proof and carbon-effective</strong>. It starts with recovery itself: three years after the fire, mapped onto Red · Green · Blue — grey = unchanged, colour = greening offset in time.',
       'composite.canvasAria': 'Sentinel-2 NBR recovery composite of the Jüterbog burn area',
@@ -341,7 +341,7 @@
       'origin.native': 'Native',
       'origin.neo': 'Neophytes',
       'origin.archaeo': 'Archaeophytes',
-      'mix.rationale': 'Criteria: {criteria}. Noveco suggests this mix: {parts}.',
+      'mix.rationale': 'Criteria: {criteria}. Fire on the Land suggests this mix: {parts}.',
       'mix.baseline': 'Default mix for the whole site',
       'unit.native.one': 'native pioneer',
       'unit.native.many': 'native pioneers',
@@ -778,8 +778,8 @@
            en: 'Wind-dispersed pioneer on bare mineral soil, 660 plants/ha after two years and the tallest species at roughly 1 m in year three. It takes a second fire badly: minus 82.5%.' } },
     { id: 'waldkiefer', name: { de: 'Waldkiefer', en: 'Scots pine' }, latin: 'Pinus sylvestris',
       origin: 'native', tags: ['Trockenheit', 'Sandboden', 'Pionier'],
-      t: { de: 'Die Kulturkiefer Brandenburgs selbst. Bemerkenswert: natürlich angeflogene Kiefern überlebten zu 91–100 %, gepflanzte nur zu 23–40 %. Im Reinbestand bleibt sie die brandanfällige Monokultur, die Noveco hinterfragt.',
-           en: 'Brandenburg’s cultivated pine itself. Notably: naturally seeded pines survived at 91–100%, planted ones at only 23–40%. In monoculture it stays the fire-prone stand Noveco questions.' } },
+      t: { de: 'Die Kulturkiefer Brandenburgs selbst. Bemerkenswert: natürlich angeflogene Kiefern überlebten zu 91–100 %, gepflanzte nur zu 23–40 %. Im Reinbestand bleibt sie die brandanfällige Monokultur, die Fire on the Land hinterfragt.',
+           en: 'Brandenburg’s cultivated pine itself. Notably: naturally seeded pines survived at 91–100%, planted ones at only 23–40%. In monoculture it stays the fire-prone stand Fire on the Land questions.' } },
     { id: 'salweide', name: { de: 'Salweide', en: 'Goat willow' }, latin: 'Salix caprea',
       origin: 'native', tags: ['Pionier', 'Bestaeuber'],
       t: { de: 'Fernbesiedler mit flugfähigen Samen, 104 Pflanzen/ha nach zwei Jahren. Früheste Bienenweide des Jahres — verliert nach einem Zweitbrand aber knapp 60 % ihrer Bestände.',
