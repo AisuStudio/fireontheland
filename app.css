@@ -406,7 +406,7 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 /* ============================================================
    ADOPTION SCENARIOS — intro above the existing sub-app
    ============================================================ */
-.app-intro{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3) var(--sp-3) 0}
+.app-intro{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3) 0 var(--sp-4)}
 .app-intro p{color:var(--muted);font-size:.92rem;margin:.3rem 0 0}
 
 /* ============================================================
