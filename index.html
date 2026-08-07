@@ -5,7 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#1b1710">
   <title>Fire on the Land</title>
-  <link rel="stylesheet" href="./app.css">
+  <script>
+    // Restores the real path stashed by 404.html's redirect (see there
+    // for why) — before app.js runs, so its initial routing reads the
+    // right pathname. No-op on a normal, direct load.
+    (function () {
+      var p = new URLSearchParams(window.location.search).get('p');
+      if (p) {
+        try { window.history.replaceState(null, '', p); } catch (e) {}
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="/app.css">
 </head>
 <body>
   <div class="topbar">
@@ -310,9 +321,9 @@
 
   <footer class="site-foot">
     <span data-i18n="foot.credit">Sentinel-2 · Copernicus · PYROPHOB</span>
-    <a href="./legal.html" data-i18n="foot.legal">Impressum &amp; Datenschutz</a>
+    <a href="/legal.html" data-i18n="foot.legal">Impressum &amp; Datenschutz</a>
   </footer>
 
-  <script src="./app.js"></script>
+  <script src="/app.js"></script>
 </body>
 </html>

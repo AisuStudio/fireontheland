@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fire on the Land</title>
+  <script>
+    // GitHub Pages has no server-side routing, so any real path (e.g.
+    // /adoption-scenarios/scenarios) 404s on reload/direct-link. This
+    // redirects to the app with the intended path stashed in ?p=, and
+    // the tiny restore script in index.html's <head> puts it back via
+    // history.replaceState before the app renders. Pattern:
+    // https://github.com/rafgraph/spa-github-pages
+    window.location.replace(
+      window.location.origin + '/?p=' + encodeURIComponent(window.location.pathname)
+    );
+  </script>
+</head>
+<body></body>
+</html>

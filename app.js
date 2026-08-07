@@ -559,7 +559,8 @@
     scenarios: document.getElementById('view-scenarios')
   };
 
-  function show(target) {
+  function show(target, fromRoute) {
+    curSubTab = target;
     Object.keys(views).forEach(function (k) {
       views[k].hidden = (k !== target);
     });
@@ -572,6 +573,7 @@
     if (target === 'measures') renderMeasures(curActor);
     if (target === 'scenarios') renderScenarios();
     if (target === 'species') { renderSpecies(); renderSpeciesMix(); renderSpeciesMap(); }
+    if (!fromRoute) syncURL(true);
   }
 
   tabs.forEach(function (t2) {
@@ -593,7 +595,7 @@
   var LOC_KEY = { novel: 'loc.novel', font: 'loc.font' };
   var curSection = 'novel';
 
-  function showSection(target) {
+  function showSection(target, fromRoute) {
     curSection = target;
     Object.keys(mainSections).forEach(function (k) {
       mainSections[k].hidden = (k !== target);
@@ -609,10 +611,58 @@
       appbarSite.hidden = (target === 'app');
       if (target !== 'app') appbarSite.textContent = t(LOC_KEY[target]);
     }
+    if (!fromRoute) syncURL(true);
   }
 
   mainnavBtns.forEach(function (b) {
     b.addEventListener('click', function () { showSection(b.dataset.section); });
+  });
+
+  /* ---------------------------------------------------------
+     Routing — real paths via the History API, restored on load
+     through the GitHub Pages 404 redirect trick (see 404.html +
+     the tiny restore script in index.html's <head>). Falls back
+     silently if pushState is unavailable (e.g. some file:// setups).
+     --------------------------------------------------------- */
+  var ROUTES = [
+    { path: '/graphic-novel', section: 'novel' },
+    { path: '/font', section: 'font' },
+    { path: '/adoption-scenarios', section: 'app', sub: 'composite' },
+    { path: '/adoption-scenarios/scenarios', section: 'app', sub: 'scenarios' },
+    { path: '/adoption-scenarios/measures', section: 'app', sub: 'measures' },
+    { path: '/adoption-scenarios/species', section: 'app', sub: 'species' }
+  ];
+  var curSubTab = 'composite';
+
+  function pathFor(section, sub) {
+    var match = ROUTES.filter(function (r) {
+      return r.section === section && (r.section !== 'app' || r.sub === (sub || 'composite'));
+    })[0];
+    return match ? match.path : '/graphic-novel';
+  }
+
+  function routeFor(pathname) {
+    var p = pathname.replace(/\/+$/, '');
+    if (p === '' || p === '/index.html') p = '/graphic-novel';
+    var match = ROUTES.filter(function (r) { return r.path === p; })[0];
+    return match || ROUTES[0];
+  }
+
+  function syncURL(push) {
+    if (!window.history || !window.history.pushState) return;
+    var path = pathFor(curSection, curSubTab);
+    if (window.location.pathname === path) return;
+    try {
+      var state = { section: curSection, sub: curSubTab };
+      if (push) window.history.pushState(state, '', path);
+      else window.history.replaceState(state, '', path);
+    } catch (e) {}
+  }
+
+  window.addEventListener('popstate', function () {
+    var route = routeFor(window.location.pathname);
+    showSection(route.section, true);
+    if (route.section === 'app') show(route.sub || 'composite', true);
   });
 
   /* ---------------------------------------------------------
@@ -752,7 +802,7 @@
         resolve();
       };
       img.onerror = reject;
-      img.src = './assets/nbr-' + year + '.png';
+      img.src = '/assets/nbr-' + year + '.png';
     });
   }
 
@@ -1055,7 +1105,7 @@
         ? '<a href="' + cr.u + '" rel="noopener nofollow">' + cr.l + '</a>'
         : cr.l;
       figure = '<figure class="sp-fig">' +
-        '<img src="./assets/species/' + sp.id + '.jpg" alt="" loading="lazy" width="320" height="320">' +
+        '<img src="/assets/species/' + sp.id + '.jpg" alt="" loading="lazy" width="320" height="320">' +
         '<figcaption class="sp-credit">' +
           '<a href="' + cr.s + '" rel="noopener nofollow">' + escapeHtml(cr.a) + '</a>' +
           '<br>' + licence +
@@ -1611,4 +1661,11 @@
   buildSwitcher();
   setLang(LANG);          // applies translations + renders scorecard/measures/species
   renderComposite();
+
+  (function initRoute() {
+    var route = routeFor(window.location.pathname);
+    showSection(route.section, true);
+    if (route.section === 'app') show(route.sub || 'composite', true);
+    syncURL(false); // normalize (e.g. bare "/") without adding a history entry
+  })();
 })();
