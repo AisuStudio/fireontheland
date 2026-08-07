@@ -137,7 +137,7 @@
       'verdict.ctx': 'Kontextabhängig',
 
       'measures.title': 'Maßnahmen',
-      'measures.sub': 'Struktur, nicht Art, ist die billigste Maßnahme: Wind bremsen, Schatten und Tau schaffen, Samen fangen — und weil Stein und Totholz nicht brennen, ist es reburn-resilient.',
+      'measures.sub': 'Struktur, nicht Art, ist die billigste Maßnahme: Wind bremsen, Schatten und Tau schaffen, Samen fangen — reburn-resilient sind davon aber nur die unbrennbaren Teile wie Stein und Wurzelteller; trockenes Totholz brennt im Ernstfall mit.',
       'measures.filterAria': 'Nach Akteur filtern',
       'measures.principle': 'Prinzip:',
       'actor.all': 'Alle',
@@ -294,7 +294,7 @@
       'verdict.ctx': 'Context-dependent',
 
       'measures.title': 'Measures',
-      'measures.sub': 'Structure, not species, is the cheapest measure: slow the wind, make shade and dew, catch seed — and because stone and deadwood don’t burn, it’s reburn-resilient.',
+      'measures.sub': 'Structure, not species, is the cheapest measure: slow the wind, make shade and dew, catch seed — but only the parts that don’t burn, stone and root plates, are actually reburn-resilient; dry deadwood is fuel again, not shelter, once fire returns.',
       'measures.filterAria': 'Filter by actor',
       'measures.principle': 'Principle:',
       'actor.all': 'All',
