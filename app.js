@@ -131,6 +131,7 @@
       'font.title': 'AS Dehcho',
       'font.sub': 'Ein handgezeichneter Comic-Display-Font für dieses Projekt — trägt sowohl die Dene-Orthografie der Dehcho-Region als auch Sprechblasen-Lettering in einer Familie. Aktuell nicht in aktiver Arbeit, aber schon nutzbar.',
       'font.styleLabel': 'Stil',
+      'font.projectSentence': 'Fire on the Land erzählt, wie der Wissenschaftler Oliver Sonnentag gemeinsam mit Dieter Cazon von der Liidlii Kue First Nation seinen abgebrannten Messturm an der Scotty-Creek-Forschungsstation in den Northwest Territories wieder aufbaut.',
       'font.linkSpecimen': 'Vollständiges Specimen — Diakritika, Alternates, Grawlixes',
 
       'app.kicker': 'Adoption Scenarios',
@@ -315,6 +316,7 @@
       'font.title': 'AS Dehcho',
       'font.sub': 'A hand-lettered comic display face built for this project — carrying both Dehcho-region Dene orthography and speech-bubble lettering in one family. Not in active development right now, but already usable.',
       'font.styleLabel': 'Style',
+      'font.projectSentence': 'Fire on the Land follows scientist Oliver Sonnentag and Dieter Cazon of the Liidlii Kue First Nation as they rebuild a burned research tower at the Scotty Creek Station in the Northwest Territories.',
       'font.linkSpecimen': 'Full specimen — diacritics, alternates, grawlixes',
 
       'app.kicker': 'Adoption Scenarios',
