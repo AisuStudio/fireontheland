@@ -246,6 +246,7 @@
       'target.forestNote': 'Gemessen wird gegen den unverbrannten Kiefernforst nebenan: 80 % Kronendeckung, rund 20 m Höhe. Beides muss stimmen — hohe Einzelbäume ohne Deckung sind kein Wald, dichter Niederwuchs ohne Höhe auch nicht.',
       'target.openNote': 'Für die geschützten Lebensraumtypen des Gebiets — Silbergrasfluren auf Binnendünen, Sandheiden — ist Offenheit das Ziel. Gemessen wird deshalb die <strong>Freiheit von Gehölzen</strong>: Managementpläne stufen solche Flächen ab etwa 30 % Verbuschung als verschlechtert ein. Dieselben Daten, dieselbe Fläche, umgekehrtes Urteil — der Brand hat hier nicht zerstört, sondern zurückgesetzt. <em>Einschränkung:</em> Erfasst ist nur die Verbuschung, nicht das Vorhandensein der kennzeichnenden Arten — die brauchen Jahre und sind hier nicht modelliert. Das gemessene Unsicherheitsband gilt nur fürs Waldziel und wird deshalb ausgeblendet.',
       'scenarios.note': 'Bis Jahr 3–4 aus den PYROPHOB-Messungen in Jüterbog, danach modelliert (Höhen nach den Ertragstafeln für Sand-Birke und Kiefer). Keine Live-Simulation. Die tatsächliche Entwicklung hängt von Samenbäumen, Wild, Witterung und Wiederholungsbränden ab.',
+      'scenarios.csvDownload': 'Szenario-Daten als CSV herunterladen',
       'scenario.pine': 'Kiefern nachpflanzen',
       'scenario.pine.note': 'Die gemessene Ernüchterung: Nach fünf Jahren lebten noch 14,7 % der gepflanzten Kiefern, „praktisch kein Höhenwachstum“. Was auf dieser Fläche Biomasse bildete, war die spontane Aspe — 0,8 % entfielen auf die Pflanzung. Erst mit Nachbesserung schließt sich später ein Kronendach (durchgezogen); die gestrichelte Linie zeigt den real gemessenen Verlauf ohne Nachpflanzen.',
       'scenario.passive': 'Sich selbst überlassen',
@@ -431,6 +432,7 @@
       'target.forestNote': 'Measured against the unburned pine forest next door: 80% canopy cover, about 20 m height. Both have to hold — tall single trees without cover are not a forest, and dense low growth without height is not either.',
       'target.openNote': 'For the site’s protected habitat types — silver-grass swards on inland dunes, sand heaths — openness is the goal. What is measured is therefore <strong>freedom from woody encroachment</strong>: management plans rate such areas as degraded from roughly 30% shrub cover. Same data, same site, opposite verdict — here the fire did not destroy, it reset. <em>Caveat:</em> only encroachment is captured, not the presence of the characteristic species, which take years and are not modelled here. The measured uncertainty band applies to the forest target only and is therefore hidden.',
       'scenarios.note': 'Measured by PYROPHOB at Jüterbog to year 3–4, modelled after that (heights following the yield tables for silver birch and Scots pine). Not a live simulation. Real recovery depends on seed trees, browsing, weather and repeat fires.',
+      'scenarios.csvDownload': 'Download scenario data as CSV',
       'scenario.pine': 'Replant pine',
       'scenario.pine.note': 'The measured disappointment: after five years 14.7% of the planted pines were still alive, with “practically no height growth”. What actually built biomass on that plot was spontaneous aspen — the planting accounted for 0.8%. Only with replanting does a canopy eventually close (solid line); the dashed line is the course actually measured, without replanting.',
       'scenario.passive': 'Left alone',
@@ -1521,6 +1523,53 @@
       renderScenarios();
     });
   });
+
+  function csvCell(v) {
+    if (v === undefined || v === null || v === '') return '';
+    var s = String(v);
+    return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+  }
+
+  function buildScenarioCSV() {
+    var speciesName = {};
+    SPECIES.forEach(function (sp) { speciesName[sp.id] = pick(sp.name); });
+
+    var fields = [
+      'scenario_id', 'rad_strategy', 'scenario_label', 'years_since_fire', 'data_status',
+      'canopy_cover_fraction', 'height_m', 'stem_density_per_ha', 'dominant_species_id', 'dominant_species_name',
+      'canopy_cover_fraction_no_followup_replant', 'height_m_no_followup_replant',
+      'canopy_cover_band_low_fraction', 'canopy_cover_band_high_fraction'
+    ];
+    var rows = [fields.join(',')];
+
+    SCENARIOS.forEach(function (s) {
+      SCENARIO_YEARS.forEach(function (yr, i) {
+        var row = [
+          s.id, s.rad, t('scenario.' + s.id), yr, (yr <= MEASURED_UNTIL ? 'measured' : 'modeled'),
+          s.canopy[i], s.hgt[i], s.dens[i], s.dom[i], speciesName[s.dom[i]] || '',
+          s.altCanopy ? s.altCanopy[i] : '', s.altHgt ? s.altHgt[i] : '',
+          s.band ? s.band.lo[i] : '', s.band ? s.band.hi[i] : ''
+        ];
+        rows.push(row.map(csvCell).join(','));
+      });
+    });
+    return rows.join('\r\n');
+  }
+
+  var csvBtn = document.getElementById('scenario-csv-download');
+  if (csvBtn) {
+    csvBtn.addEventListener('click', function () {
+      var blob = new Blob([buildScenarioCSV()], { type: 'text/csv;charset=utf-8;' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'jueterbog_scenario_data.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+  }
 
   function renderScenarios() {
     var box = document.getElementById('scenario-chart');
