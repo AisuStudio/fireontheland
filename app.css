@@ -5,6 +5,36 @@
    1:1 with waffle's token output — components reference only
    these custom properties, so no component code needs to change.
    ============================================================ */
+@font-face{
+  font-family:"Stoke";
+  src:url("fonts/Stoke/Stoke-Light.woff2") format("woff2");
+  font-weight:300; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Stoke";
+  src:url("fonts/Stoke/Stoke-Regular.woff2") format("woff2");
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Public Sans";
+  src:url("fonts/PublicSans/PublicSans-Regular.woff2") format("woff2");
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Public Sans";
+  src:url("fonts/PublicSans/PublicSans-Medium.woff2") format("woff2");
+  font-weight:500; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Public Sans";
+  src:url("fonts/PublicSans/PublicSans-Bold.woff2") format("woff2");
+  font-weight:700; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Public Sans";
+  src:url("fonts/PublicSans/PublicSans-Italic.woff2") format("woff2");
+  font-weight:400; font-style:italic; font-display:swap;
+}
 :root{
   /* color — light */
   --bg:#e7e1d4;
@@ -29,9 +59,13 @@
   /* elevation */
   --shadow:0 1px 0 #ffffff40, 0 12px 30px -22px #21201a66;
 
-  /* type */
-  --font-sans:ui-sans-serif,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+  /* type — Stoke for headlines (h1/h2), Public Sans for paragraphs and
+     eyebrows/labels (everything already on --font-sans). --font-serif
+     stays for the few deliberate serif accents (thesis pull-quote,
+     italic Latin species names), not general body copy. */
+  --font-sans:"Public Sans",ui-sans-serif,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
   --font-serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --font-headline:"Stoke",Georgia,serif;
 
   /* layout */
   --tabbar-h:64px;
@@ -60,7 +94,7 @@
 html{-webkit-text-size-adjust:100%}
 body{
   margin:0;background:var(--bg);color:var(--ink);
-  font-family:var(--font-serif);font-size:1rem;line-height:1.55;
+  font-family:var(--font-sans);font-size:1rem;line-height:1.55;
   -webkit-font-smoothing:antialiased;
   padding-bottom:env(safe-area-inset-bottom);
   position:relative;
@@ -75,7 +109,7 @@ body::before{
   transform:translateY(var(--bg-parallax, 0px));
   will-change:transform;
 }
-h1,h2{font-family:var(--font-sans);letter-spacing:-.01em;text-wrap:balance}
+h1,h2{font-family:var(--font-headline);font-weight:400;letter-spacing:-.01em;text-wrap:balance}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:var(--r-s)}
 
 /* ============================================================
@@ -91,7 +125,7 @@ h1,h2{font-family:var(--font-sans);letter-spacing:-.01em;text-wrap:balance}
 .brand{display:flex;align-items:center;gap:.55rem}
 .brand-mark{width:16px;height:16px;border-radius:4px;
   background:linear-gradient(135deg,var(--accent),var(--neo) 60%,var(--pine));box-shadow:var(--shadow)}
-.brand-name{font-family:var(--font-sans);font-weight:800;letter-spacing:-.02em;font-size:1.15rem}
+.brand-name{font-family:var(--font-sans);font-weight:700;letter-spacing:-.02em;font-size:1.15rem}
 .appbar-end{display:flex;align-items:center;gap:var(--sp-2);min-width:0}
 .appbar-site{font-family:var(--font-sans);font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;white-space:nowrap}
 
@@ -112,11 +146,11 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 .view{animation:fade .35s ease}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.view{animation:none}}
-.view-title{font-size:clamp(1.5rem,1.2rem + 3vw,2rem);font-weight:800;margin:.2rem 0 .3rem}
+.view-title{font-size:clamp(1.5rem,1.2rem + 3vw,2rem);font-weight:400;margin:.2rem 0 .3rem}
 .view-sub{color:var(--muted);margin:0 0 var(--sp-3);font-size:.98rem}
 .lede{margin:0 0 var(--sp-3);line-height:1.55}
-.kicker{font-family:var(--font-sans);font-size:.68rem;text-transform:uppercase;letter-spacing:.13em;font-weight:650;color:var(--accent)}
-.h-sec{font-size:1.05rem;font-weight:750;margin:var(--sp-4) 0 0}
+.kicker{font-family:var(--font-sans);font-size:.68rem;text-transform:uppercase;letter-spacing:.13em;font-weight:700;color:var(--accent)}
+.h-sec{font-size:1.05rem;font-weight:700;margin:var(--sp-4) 0 0}
 .note{font-family:var(--font-sans);font-size:.82rem;color:var(--muted);margin-top:var(--sp-3)}
 
 /* ============================================================
@@ -141,7 +175,7 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 /* ============================================================
    SCORECARD
    ============================================================ */
-.cols-key{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:var(--sp-3);font-family:var(--font-sans);font-size:.74rem;font-weight:650}
+.cols-key{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:var(--sp-3);font-family:var(--font-sans);font-size:.74rem;font-weight:700}
 .tag-pine,.tag-neo,.tag-archaeo{padding:.28rem .6rem;border-radius:var(--r-pill);border:1px solid}
 .tag-pine{color:var(--pine);background:var(--pine-wash);border-color:var(--pine)}
 .tag-neo{color:var(--neo);background:var(--neo-wash);border-color:var(--neo)}
@@ -149,7 +183,7 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 .scorelist{list-style:none;margin:0;padding:0;display:grid;gap:var(--sp-2)}
 .scard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:var(--sp-3);box-shadow:var(--shadow)}
 .scard-top{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-2);margin-bottom:.5rem}
-.scard-axis{font-family:var(--font-sans);font-weight:750;font-size:1rem}
+.scard-axis{font-family:var(--font-sans);font-weight:700;font-size:1rem}
 .verdict{font-family:var(--font-sans);font-size:.68rem;font-weight:700;letter-spacing:.02em;padding:.26rem .55rem;
   border-radius:var(--r-pill);border:1px solid;white-space:nowrap}
 .v-neo{color:var(--neo);background:var(--neo-wash);border-color:var(--neo)}
@@ -178,7 +212,7 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
    MEASURES
    ============================================================ */
 .segmented{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:var(--sp-3)}
-.seg-btn{font-family:var(--font-sans);font-size:.8rem;font-weight:650;color:var(--muted);
+.seg-btn{font-family:var(--font-sans);font-size:.8rem;font-weight:700;color:var(--muted);
   background:var(--surface);border:1px solid var(--line);border-radius:var(--r-pill);padding:.4rem .8rem;cursor:pointer;min-height:36px}
 .seg-btn.is-on{color:var(--bg);background:var(--accent);border-color:var(--accent)}
 .measures{list-style:none;margin:0;padding:0;display:grid;gap:var(--sp-2)}
@@ -207,7 +241,7 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 .sp-credit a:hover{text-decoration:underline}
 .sp-body{min-width:0;flex:1}
 .sp-head{display:flex;align-items:baseline;gap:.4rem;flex-wrap:wrap;margin-bottom:.3rem}
-.sp-name{font-family:var(--font-sans);font-weight:750;font-size:1rem}
+.sp-name{font-family:var(--font-sans);font-weight:700;font-size:1rem}
 .sp-latin{font-family:var(--font-serif);font-style:italic;font-size:.82rem;color:var(--muted)}
 .spcard p{margin:.3rem 0 .55rem;font-size:.95rem;line-height:1.42}
 .excluded{border-left:2px solid var(--muted);padding-left:var(--sp-2)}
@@ -227,7 +261,7 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 .rad-box p:last-child{margin-bottom:0}
 .hypo{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);
   border-radius:var(--r-m);padding:var(--sp-3);margin:var(--sp-4) 0 0;box-shadow:var(--shadow)}
-.hypo-title{font-size:1.05rem;font-weight:750;margin:.2rem 0 var(--sp-2)}
+.hypo-title{font-size:1.05rem;font-weight:700;margin:.2rem 0 var(--sp-2)}
 .hypo p{font-size:.95rem;line-height:1.5;margin:0 0 var(--sp-2)}
 .hypo p:last-child{margin-bottom:0}
 .species-map{position:relative;margin:var(--sp-3) 0 0;border:1px solid var(--line);border-radius:var(--r-m);
@@ -254,8 +288,8 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 
 .scenario-readout{display:flex;flex-wrap:wrap;gap:.5rem var(--sp-3);margin:.5rem 0 0;
   font-family:var(--font-sans);font-size:.78rem;color:var(--muted)}
-.scenario-readout .ro-year{font-weight:750;color:var(--ink)}
-.scenario-readout .ro-item b{font-weight:650}
+.scenario-readout .ro-year{font-weight:700;color:var(--ink)}
+.scenario-readout .ro-item b{font-weight:700}
 .scenario-readout .ro-item i{font-style:normal;color:var(--ink);font-variant-numeric:tabular-nums}
 
 .scrub{display:flex;align-items:center;gap:var(--sp-2);margin-top:var(--sp-3)}
@@ -272,7 +306,7 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 .legal a{color:var(--accent)}
 .legal code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85em;
   background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-s);padding:.05rem .3rem}
-.legal-h3{font-family:var(--font-sans);font-size:.95rem;font-weight:750;margin:var(--sp-4) 0 .4rem}
+.legal-h3{font-family:var(--font-sans);font-size:.95rem;font-weight:700;margin:var(--sp-4) 0 .4rem}
 .legal-rule{border:0;border-top:1px solid var(--line);margin:var(--sp-5) 0 var(--sp-4)}
 
 /* ============================================================
@@ -295,7 +329,7 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 .tab{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;
   background:none;border:0;color:var(--muted);font-family:var(--font-sans);cursor:pointer;padding:.4rem .1rem;min-height:44px}
 .tab-ico{font-size:1.1rem;line-height:1}
-.tab-lbl{font-size:.62rem;font-weight:650;letter-spacing:.005em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.tab-lbl{font-size:.62rem;font-weight:700;letter-spacing:.005em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .tab.is-active{color:var(--accent)}
 .tab.is-active .tab-ico{transform:translateY(-1px)}
 
