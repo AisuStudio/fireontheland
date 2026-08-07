@@ -136,6 +136,7 @@
 
       'app.kicker': 'Adoption Scenarios',
       'app.sub': 'Reale Post-Fire-Flächen, an denen die Fragen aus Fire on the Land an echten Daten geprüft werden — angefangen mit Jüterbog, Brandenburg.',
+      'app.scale': 'Die Größenordnungen unterscheiden sich drastisch: Jüterbog 2019 rund 800 Hektar, allein die Northwest Territories 2023 über 4 Millionen — das 5.000-Fache. Vergleichbar ist die Fläche nicht, wohl aber die Fragestellung.',
 
       'tab.composite': 'Komposit',
       'tab.scorecard': 'Scorecard',
@@ -244,6 +245,7 @@
       'target.forest': 'Ziel: geschlossener Wald',
       'target.open': 'Ziel: offene Sandheide',
       'target.forestNote': 'Gemessen wird gegen den unverbrannten Kiefernforst nebenan: 80 % Kronendeckung, rund 20 m Höhe. Beides muss stimmen — hohe Einzelbäume ohne Deckung sind kein Wald, dichter Niederwuchs ohne Höhe auch nicht.',
+      'scenarios.carbonNote': 'Was dieser Chart nicht zeigt: Kohlenstoff-Erholung. Kronendeckung und Höhe sind auf Brandenburgs Sand ein brauchbarer Näherungswert, weil der meiste Kohlenstoff hier oberirdisch in Biomasse steckt. Auf borealem Moor wäre das irreführend — dort steckt der Großteil des freigesetzten Kohlenstoffs im Boden selbst und baut sich nicht im Takt der sichtbaren Vegetation wieder auf (kanadaweit rund drei Viertel der Brandemissionen 2023). Ein Standort wie Dehcho/NWT bräuchte deshalb eine <strong>eigene Kurve</strong>, keine umbenannte Kopie dieser hier.',
       'target.openNote': 'Für die geschützten Lebensraumtypen des Gebiets — Silbergrasfluren auf Binnendünen, Sandheiden — ist Offenheit das Ziel. Gemessen wird deshalb die <strong>Freiheit von Gehölzen</strong>: Managementpläne stufen solche Flächen ab etwa 30 % Verbuschung als verschlechtert ein. Dieselben Daten, dieselbe Fläche, umgekehrtes Urteil — der Brand hat hier nicht zerstört, sondern zurückgesetzt. <em>Einschränkung:</em> Erfasst ist nur die Verbuschung, nicht das Vorhandensein der kennzeichnenden Arten — die brauchen Jahre und sind hier nicht modelliert. Das gemessene Unsicherheitsband gilt nur fürs Waldziel und wird deshalb ausgeblendet.',
       'scenarios.note': 'Bis Jahr 3–4 aus den PYROPHOB-Messungen in Jüterbog, danach modelliert (Höhen nach den Ertragstafeln für Sand-Birke und Kiefer). Keine Live-Simulation. Die tatsächliche Entwicklung hängt von Samenbäumen, Wild, Witterung und Wiederholungsbränden ab.',
       'scenarios.csvDownload': 'Szenario-Daten als CSV herunterladen',
@@ -323,6 +325,7 @@
 
       'app.kicker': 'Adoption Scenarios',
       'app.sub': 'Real post-fire sites where the questions from Fire on the Land get tested against actual data — starting with Jüterbog, Brandenburg.',
+      'app.scale': 'The scales are dramatically different: Jüterbog’s 2019 fire burned around 800 hectares; the Northwest Territories alone burned over 4 million in 2023 — 5,000 times more. The area isn’t comparable, but the underlying question is.',
 
       'tab.composite': 'Composite',
       'tab.scorecard': 'Scorecard',
@@ -431,6 +434,7 @@
       'target.forest': 'Target: closed forest',
       'target.open': 'Target: open sand heath',
       'target.forestNote': 'Measured against the unburned pine forest next door: 80% canopy cover, about 20 m height. Both have to hold — tall single trees without cover are not a forest, and dense low growth without height is not either.',
+      'scenarios.carbonNote': 'What this chart doesn’t show: carbon recovery. Canopy cover and height are a reasonable proxy on Brandenburg’s sand, because most of the carbon here sits aboveground in biomass. On boreal peat that would be misleading — most of the released carbon sits in the soil itself and doesn’t rebuild on the timescale of visible vegetation (roughly three-quarters of Canada’s 2023 fire emissions nationwide). A site like Dehcho/NWT would need its <strong>own curve</strong>, not a relabelled copy of this one.',
       'target.openNote': 'For the site’s protected habitat types — silver-grass swards on inland dunes, sand heaths — openness is the goal. What is measured is therefore <strong>freedom from woody encroachment</strong>: management plans rate such areas as degraded from roughly 30% shrub cover. Same data, same site, opposite verdict — here the fire did not destroy, it reset. <em>Caveat:</em> only encroachment is captured, not the presence of the characteristic species, which take years and are not modelled here. The measured uncertainty band applies to the forest target only and is therefore hidden.',
       'scenarios.note': 'Measured by PYROPHOB at Jüterbog to year 3–4, modelled after that (heights following the yield tables for silver birch and Scots pine). Not a live simulation. Real recovery depends on seed trees, browsing, weather and repeat fires.',
       'scenarios.csvDownload': 'Download scenario data as CSV',
