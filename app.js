@@ -100,6 +100,40 @@
     de: {
       'lang.aria': 'Sprache',
       'nav.aria': 'Ansichten',
+      'mainnav.aria': 'Bereiche',
+
+      'section.novel': 'Graphic Novel',
+      'section.font': 'Font',
+      'section.app': 'Adoption Scenarios',
+      'loc.novel': 'Northwest Territories · Kanada',
+      'loc.font': 'AS Dehcho',
+      'loc.app': 'Jüterbog · Brandenburg',
+
+      'novel.kicker': 'Work in Progress · Graphic Novel',
+      'novel.title': 'Fire on the Land',
+      'novel.sub': 'Der Wissenschaftler Oliver Sonnentag verlor 2022 durch einen Waldbrand seinen Messturm an der Scotty-Creek-Forschungsstation — Kanadas erster indigen geführter Forschungsstation. Die Graphic Novel begleitet den Wiederaufbau vor der Schneeschmelze, mit Dieter Cazon von der Liidlii Kue First Nation als Begleiter und Ko-Autor.',
+      'novel.status': 'Character Studies · 170/180 Skriptseiten (v.2) · 70 Storyboard-Seiten',
+      'novel.teamTitle': 'Team',
+      'novel.team.oliver.role': 'Wissenschaftlicher Berater, Protagonist',
+      'novel.team.dom.role': 'Illustrator',
+      'novel.team.dieter.role': 'Traditioneller Wissenshüter, Liidlii Kue First Nation',
+      'novel.sampleTitle': 'Leseprobe — Kapitel 01',
+      'novel.cta': 'Konzept + Leseprobe lesen (PDF)',
+      'novel.notify': 'Bescheid sagen, wenn es fertig ist',
+      'novel.photosTitle': 'Von der Forschungsreise, 2023',
+      'novel.pressTitle': 'In der Presse',
+      'novel.press.cabin': 'Über den Einstieg ins Wiederaufbau-Team',
+      'novel.press.cbcArticle': 'Das Wer, Wie und Warum des Turm-Wiederaufbaus',
+      'novel.press.cbcRadio': 'Interview zum Comic-Projekt',
+      'novel.press.nasa': 'Erwähnt im ABoVE-Monatsbrief',
+
+      'font.kicker': 'Font · früher Testbuild',
+      'font.title': 'AS Dehcho',
+      'font.sub': 'Ein handgezeichneter Comic-Display-Font für dieses Projekt — trägt sowohl die Dene-Orthografie der Dehcho-Region als auch Sprechblasen-Lettering in einer Familie. Aktuell nicht in aktiver Arbeit, aber schon nutzbar.',
+      'font.linkSpecimen': 'Vollständiges Specimen — Diakritika, Alternates, Grawlixes',
+
+      'app.kicker': 'Adoption Scenarios',
+      'app.sub': 'Reale Post-Fire-Flächen, an denen die Fragen aus Fire on the Land an echten Daten geprüft werden — angefangen mit Jüterbog, Brandenburg.',
 
       'tab.composite': 'Komposit',
       'tab.scorecard': 'Scorecard',
@@ -257,6 +291,40 @@
     en: {
       'lang.aria': 'Language',
       'nav.aria': 'Views',
+      'mainnav.aria': 'Sections',
+
+      'section.novel': 'Graphic Novel',
+      'section.font': 'Font',
+      'section.app': 'Adoption Scenarios',
+      'loc.novel': 'Northwest Territories · Canada',
+      'loc.font': 'AS Dehcho',
+      'loc.app': 'Jüterbog · Brandenburg',
+
+      'novel.kicker': 'Work in progress · Graphic novel',
+      'novel.title': 'Fire on the Land',
+      'novel.sub': 'Scientist Oliver Sonnentag lost his research tower to a 2022 wildfire at Scotty Creek — Canada’s first Indigenous-led research station. This graphic novel follows the race to rebuild it before snowmelt, with Dieter Cazon of the Liidlii Kue First Nation as guide and co-author.',
+      'novel.status': 'Character studies · 170/180 script pages (v.2) · 70 storyboard pages',
+      'novel.teamTitle': 'Team',
+      'novel.team.oliver.role': 'Scientific advisor, protagonist',
+      'novel.team.dom.role': 'Artist & illustrator',
+      'novel.team.dieter.role': 'Traditional knowledge holder, Liidlii Kue First Nation',
+      'novel.sampleTitle': 'Reading sample — Chapter 01',
+      'novel.cta': 'Read the concept + sample chapter (PDF)',
+      'novel.notify': 'Get notified when it’s out',
+      'novel.photosTitle': 'From the research trip, 2023',
+      'novel.pressTitle': 'In the press',
+      'novel.press.cabin': 'On joining the team rebuilding the NWT research station',
+      'novel.press.cbcArticle': 'The who, how and why of the tower rebuild',
+      'novel.press.cbcRadio': 'Interview on the comic project',
+      'novel.press.nasa': 'Featured in the ABoVE monthly newsletter',
+
+      'font.kicker': 'Font · early test build',
+      'font.title': 'AS Dehcho',
+      'font.sub': 'A hand-lettered comic display face built for this project — carrying both Dehcho-region Dene orthography and speech-bubble lettering in one family. Not in active development right now, but already usable.',
+      'font.linkSpecimen': 'Full specimen — diacritics, alternates, grawlixes',
+
+      'app.kicker': 'Adoption Scenarios',
+      'app.sub': 'Real post-fire sites where the questions from Fire on the Land get tested against actual data — starting with Jüterbog, Brandenburg.',
 
       'tab.composite': 'Composite',
       'tab.scorecard': 'Scorecard',
@@ -485,6 +553,7 @@
     renderSpeciesMix();
     renderSpeciesMap();
     renderScenarios();
+    if (appbarSite) appbarSite.textContent = t(LOC_KEY[curSection]);
   }
 
   /* ---------------------------------------------------------
@@ -517,6 +586,38 @@
 
   tabs.forEach(function (t2) {
     t2.addEventListener('click', function () { show(t2.dataset.target); });
+  });
+
+  /* ---------------------------------------------------------
+     Navigation (main sections: Graphic Novel / Font / Adoption Scenarios)
+     --------------------------------------------------------- */
+  var mainnavBtns = slice(document.querySelectorAll('.mainnav-btn'));
+  var mainSections = {
+    novel: document.getElementById('view-novel'),
+    font: document.getElementById('view-font'),
+    app: document.getElementById('view-app')
+  };
+  var subtabbar = document.getElementById('subtabbar');
+  var appbarSite = document.getElementById('appbar-site');
+  var LOC_KEY = { novel: 'loc.novel', font: 'loc.font', app: 'loc.app' };
+  var curSection = 'novel';
+
+  function showSection(target) {
+    curSection = target;
+    Object.keys(mainSections).forEach(function (k) {
+      mainSections[k].hidden = (k !== target);
+    });
+    mainnavBtns.forEach(function (b) {
+      var on = b.dataset.section === target;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    if (subtabbar) subtabbar.hidden = (target !== 'app');
+    if (appbarSite) appbarSite.textContent = t(LOC_KEY[target]);
+  }
+
+  mainnavBtns.forEach(function (b) {
+    b.addEventListener('click', function () { showSection(b.dataset.section); });
   });
 
   /* ---------------------------------------------------------

@@ -35,18 +35,43 @@
   src:url("fonts/PublicSans/PublicSans-Italic.woff2") format("woff2");
   font-weight:400; font-style:italic; font-display:swap;
 }
+@font-face{
+  font-family:"Dehcho";
+  src:url("fonts/Dehcho/ASDehchoTestAg01-Regular.woff2") format("woff2");
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Dehcho";
+  src:url("fonts/Dehcho/ASDehchoTestAg01-Bold.woff2") format("woff2");
+  font-weight:700; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Dehcho Megular";
+  src:url("fonts/Dehcho/ASDehchoTestAg01-Megular.woff2") format("woff2");
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Dehcho Rough";
+  src:url("fonts/Dehcho/ASDehchoTestAg01-MediumRough.woff2") format("woff2");
+  font-weight:400; font-style:normal; font-display:swap;
+}
 :root{
-  /* color — light */
-  --bg:#e7e1d4;
-  --surface:#f2ece0;
-  --surface-2:#eae3d5;
-  --ink:#211d18;
-  --muted:#6c6356;
-  --line:#cdc3b1;
-  --accent:#a9432a;      /* ember */
+  /* color — light — waffle primary tier (blueberry/grape/lemon + vanilla/cappuccino
+     surfaces), ported 2026-08-07. --pine/--neo stay Fire on the Land's own: they're
+     functional (scenario lines, native/neophyte origin tags), not brand color. */
+  --bg:#eae8e0;          /* vanilla */
+  --surface:#d9d7ce;     /* cappuccino */
+  --surface-2:#f2f1eb;
+  --ink:#1f1934;         /* blueberry */
+  --muted:#66655f;
+  --line:rgba(31,25,52,.14);
+  --accent:#5100ff;      /* grape */
+  --highlight:#d8ff01;   /* lemon */
+  --on-accent:#1f1934;         /* text on a --highlight fill */
+  --on-accent-solid:#eae8e0;   /* text on a solid --accent fill */
   --pine:#42605a;
   --neo:#77853f;
-  --accent-wash:#a9432a14;
+  --accent-wash:#5100ff14;
   --pine-wash:#42605a1a;
   --neo-wash:#77853f1f;
 
@@ -73,18 +98,30 @@
 }
 @media (prefers-color-scheme:dark){
   :root{
-    --bg:#161209; --surface:#1e1910; --surface-2:#241e14; --ink:#ece5d6; --muted:#a79c88;
-    --line:#382f22; --accent:#d77049; --pine:#7fa098; --neo:#a9b96c;
-    --accent-wash:#d7704918; --pine-wash:#7fa09818; --neo-wash:#a9b96c1c;
+    --bg:#14101f; --surface:#221c33; --surface-2:#1b1628; --ink:#f1efe8; --muted:#b3aec4;
+    --line:rgba(241,239,232,.14); --accent:#b298ff; --highlight:#d8ff01;
+    --on-accent:#1f1934; --on-accent-solid:#1f1934;
+    --pine:#7fa098; --neo:#a9b96c;
+    --accent-wash:#b298ff1e; --pine-wash:#7fa09818; --neo-wash:#a9b96c1c;
     --shadow:0 1px 0 #ffffff08, 0 16px 36px -24px #000000cc;
   }
 }
-:root[data-theme="light"]{color-scheme:light}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --bg:#eae8e0; --surface:#d9d7ce; --surface-2:#f2f1eb; --ink:#1f1934; --muted:#66655f;
+  --line:rgba(31,25,52,.14); --accent:#5100ff; --highlight:#d8ff01;
+  --on-accent:#1f1934; --on-accent-solid:#eae8e0;
+  --pine:#42605a; --neo:#77853f;
+  --accent-wash:#5100ff14; --pine-wash:#42605a1a; --neo-wash:#77853f1f;
+  --shadow:0 1px 0 #ffffff40, 0 12px 30px -22px #21201a66;
+}
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --bg:#161209; --surface:#1e1910; --surface-2:#241e14; --ink:#ece5d6; --muted:#a79c88;
-  --line:#382f22; --accent:#d77049; --pine:#7fa098; --neo:#a9b96c;
-  --accent-wash:#d7704918; --pine-wash:#7fa09818; --neo-wash:#a9b96c1c;
+  --bg:#14101f; --surface:#221c33; --surface-2:#1b1628; --ink:#f1efe8; --muted:#b3aec4;
+  --line:rgba(241,239,232,.14); --accent:#b298ff; --highlight:#d8ff01;
+  --on-accent:#1f1934; --on-accent-solid:#1f1934;
+  --pine:#7fa098; --neo:#a9b96c;
+  --accent-wash:#b298ff1e; --pine-wash:#7fa09818; --neo-wash:#a9b96c1c;
 }
 
 /* ============================================================
@@ -135,7 +172,7 @@ h1,h2{font-family:var(--font-headline);font-weight:400;letter-spacing:-.01em;tex
 .lang-btn{font-family:var(--font-sans);font-size:.7rem;font-weight:700;letter-spacing:.04em;
   color:var(--muted);background:transparent;border:0;border-radius:var(--r-pill);
   padding:.24rem .5rem;min-height:28px;cursor:pointer}
-.lang-btn.is-on{color:var(--bg);background:var(--accent)}
+.lang-btn.is-on{color:var(--on-accent-solid);background:var(--accent)}
 @media (max-width:420px){.appbar-site{display:none}}
 
 /* ============================================================
@@ -214,7 +251,7 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 .segmented{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:var(--sp-3)}
 .seg-btn{font-family:var(--font-sans);font-size:.8rem;font-weight:700;color:var(--muted);
   background:var(--surface);border:1px solid var(--line);border-radius:var(--r-pill);padding:.4rem .8rem;cursor:pointer;min-height:36px}
-.seg-btn.is-on{color:var(--bg);background:var(--accent);border-color:var(--accent)}
+.seg-btn.is-on{color:var(--on-accent-solid);background:var(--accent);border-color:var(--accent)}
 .measures{list-style:none;margin:0;padding:0;display:grid;gap:var(--sp-2)}
 .measure{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:var(--sp-3);box-shadow:var(--shadow)}
 .measure .m-actor{font-family:var(--font-sans);font-size:.64rem;text-transform:uppercase;letter-spacing:.1em;font-weight:700;color:var(--muted)}
@@ -319,6 +356,62 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 .site-foot a:hover{color:var(--accent)}
 
 /* ============================================================
+   MAIN NAV (Graphic Novel / Font / Adoption Scenarios)
+   ============================================================ */
+.mainnav{
+  display:flex;height:52px;
+  background:color-mix(in srgb,var(--bg) 90%, transparent);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.mainnav-btn{
+  flex:1;min-width:0;display:flex;align-items:center;justify-content:center;
+  background:none;border:0;color:var(--muted);font-family:var(--font-sans);
+  font-size:.82rem;font-weight:700;letter-spacing:.01em;cursor:pointer;min-height:44px;padding:.3rem .4rem;
+  box-shadow:inset 0 -2px 0 transparent;
+}
+.mainnav-btn.is-active{color:var(--accent);box-shadow:inset 0 -2px 0 var(--accent)}
+
+/* ============================================================
+   GRAPHIC NOVEL
+   ============================================================ */
+.novel-hero{margin:var(--sp-2) 0 0;border-radius:var(--r-m);overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow)}
+.novel-hero img{width:100%;height:auto;display:block;background:var(--surface-2)}
+.novel-status{font-family:var(--font-sans);font-size:.78rem;color:var(--muted);margin:var(--sp-2) 0 0}
+.novel-team{list-style:none;margin:var(--sp-2) 0 0;padding:0;display:grid;gap:var(--sp-2);grid-template-columns:repeat(3,1fr)}
+.novel-team li{text-align:center}
+.novel-team img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:var(--r-s);border:1px solid var(--line);display:block;background:var(--surface-2)}
+.novel-team .n{font-family:var(--font-sans);font-weight:700;font-size:.76rem;margin-top:.4rem;line-height:1.25}
+.novel-team .r{font-size:.68rem;color:var(--muted);line-height:1.3;margin-top:.1rem}
+.novel-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem;margin:var(--sp-2) 0 0}
+.novel-gallery img{width:100%;aspect-ratio:18/25;object-fit:cover;border-radius:var(--r-s);border:1px solid var(--line);background:var(--surface-2)}
+.novel-photos{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem;margin:var(--sp-2) 0 0}
+.novel-photos img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:var(--r-s);border:1px solid var(--line);background:var(--surface-2)}
+.novel-press{list-style:none;margin:var(--sp-2) 0 0;padding:0;display:grid;gap:.6rem}
+.novel-press a{font-family:var(--font-sans);font-weight:700;font-size:.9rem;color:var(--accent);text-decoration:none}
+.novel-press a:hover{text-decoration:underline}
+.novel-press span{display:block;font-size:.78rem;color:var(--muted);margin-top:.1rem}
+.novel-cta{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--font-sans);font-weight:700;font-size:.85rem;
+  color:var(--on-accent);background:var(--highlight);padding:.6rem 1rem;border-radius:var(--r-pill);text-decoration:none;
+  margin:var(--sp-3) .5rem 0 0}
+.novel-cta:hover{filter:brightness(.95)}
+.novel-cta.ghost{color:var(--ink);background:var(--surface);border:1px solid var(--line)}
+
+/* ============================================================
+   FONT
+   ============================================================ */
+.font-sample{font-family:"Dehcho Megular";font-size:clamp(2.6rem,11vw,4.2rem);line-height:.95;margin:var(--sp-4) 0 0;text-wrap:balance}
+.font-line{font-family:"Dehcho";font-size:clamp(1.15rem,4.5vw,1.6rem);border-top:1px solid var(--line);padding-top:var(--sp-2);margin-top:var(--sp-3)}
+.font-line.rough{font-family:"Dehcho Rough"}
+.font-glyphrow{font-family:"Dehcho";font-size:1.8rem;letter-spacing:.15em;color:var(--accent);
+  border-top:1px solid var(--line);padding-top:var(--sp-2);margin-top:var(--sp-3)}
+
+/* ============================================================
+   ADOPTION SCENARIOS — intro above the existing sub-app
+   ============================================================ */
+.app-intro{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3) var(--sp-3) 0}
+.app-intro p{color:var(--muted);font-size:.92rem;margin:.3rem 0 0}
+
+/* ============================================================
    TAB BAR
    ============================================================ */
 .tabbar{
@@ -326,6 +419,7 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
   background:color-mix(in srgb,var(--surface) 92%, transparent);backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);
 }
+.tabbar[hidden]{display:none}
 .tab{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;
   background:none;border:0;color:var(--muted);font-family:var(--font-sans);cursor:pointer;padding:.4rem .1rem;min-height:44px}
 .tab-ico{font-size:1.1rem;line-height:1}

@@ -15,12 +15,24 @@
         <span class="brand-name">Fire on the Land</span>
       </div>
       <div class="appbar-end">
-        <span class="appbar-site">Jüterbog · Brandenburg</span>
+        <span class="appbar-site" id="appbar-site">Northwest Territories · Kanada</span>
         <div id="langsw" class="langsw" role="group" data-i18n-aria="lang.aria" aria-label="Sprache"></div>
       </div>
     </header>
 
-    <nav class="tabbar" role="tablist" aria-label="Ansichten" data-i18n-aria="nav.aria">
+    <nav class="mainnav" role="tablist" aria-label="Bereiche" data-i18n-aria="mainnav.aria">
+      <button class="mainnav-btn is-active" role="tab" aria-selected="true" aria-controls="view-novel" data-section="novel">
+        <span data-i18n="section.novel">Graphic Novel</span>
+      </button>
+      <button class="mainnav-btn" role="tab" aria-selected="false" aria-controls="view-font" data-section="font">
+        <span data-i18n="section.font">Font</span>
+      </button>
+      <button class="mainnav-btn" role="tab" aria-selected="false" aria-controls="view-app" data-section="app">
+        <span data-i18n="section.app">Adoption Scenarios</span>
+      </button>
+    </nav>
+
+    <nav class="tabbar" id="subtabbar" role="tablist" aria-label="Ansichten" data-i18n-aria="nav.aria" hidden>
       <button class="tab is-active" role="tab" aria-selected="true" aria-controls="view-composite" data-target="composite">
         <span class="tab-ico" aria-hidden="true">▚</span><span class="tab-lbl" data-i18n="tab.composite">Komposit</span>
       </button>
@@ -43,6 +55,81 @@
   </div>
 
   <main id="main">
+    <!-- VIEW: Graphic Novel -->
+    <section id="view-novel" class="view" data-view="novel" aria-labelledby="t-novel">
+      <span class="kicker" data-i18n="novel.kicker">Work in Progress · Graphic Novel</span>
+      <h1 id="t-novel" class="view-title" data-i18n="novel.title">Fire on the Land</h1>
+      <p class="view-sub" data-i18n="novel.sub">Der Wissenschaftler Oliver Sonnentag verlor 2022 durch einen Waldbrand seinen Messturm an der Scotty-Creek-Forschungsstation — Kanadas erster indigen geführter Forschungsstation. Die Graphic Novel begleitet den Wiederaufbau vor der Schneeschmelze, mit Dieter Cazon von der Liidlii Kue First Nation als Begleiter und Ko-Autor.</p>
+
+      <figure class="novel-hero">
+        <img src="https://images.squarespace-cdn.com/content/v1/628e30083ca26249d99bde84/1724694964421-YWI8O9A1LPGBSKCWZCNN/_BT_FOTL_Cover_MU_teal.png?format=1500w" alt="Fire on the Land — cover artwork" loading="lazy">
+      </figure>
+      <p class="novel-status" data-i18n="novel.status">Character Studies · 170/180 Skriptseiten (v.2) · 70 Storyboard-Seiten</p>
+
+      <h2 class="h-sec" data-i18n="novel.teamTitle">Team</h2>
+      <ul class="novel-team">
+        <li>
+          <img src="https://images.squarespace-cdn.com/content/v1/628e30083ca26249d99bde84/bebc30c3-521c-4411-b2e3-7f76b94cb007/oliver.jpg?format=500w" alt="Oliver Sonnentag" loading="lazy">
+          <div class="n">Oliver Sonnentag</div>
+          <div class="r" data-i18n="novel.team.oliver.role">Wissenschaftlicher Berater, Protagonist</div>
+        </li>
+        <li>
+          <img src="https://images.squarespace-cdn.com/content/v1/628e30083ca26249d99bde84/4c884d03-42e4-4c5a-9665-5a36a507d3d1/Dom_2.jpg?format=500w" alt="Dominik Heilig" loading="lazy">
+          <div class="n">Dominik Heilig</div>
+          <div class="r" data-i18n="novel.team.dom.role">Illustrator</div>
+        </li>
+        <li>
+          <img src="https://images.squarespace-cdn.com/content/v1/628e30083ca26249d99bde84/4fdd3bc3-7548-4d83-a717-c4b473abf8b6/BT-Dieter-Study-4.jpg?format=500w" alt="Dieter Cazon" loading="lazy">
+          <div class="n">Dieter Cazon</div>
+          <div class="r" data-i18n="novel.team.dieter.role">Traditioneller Wissenshüter, Liidlii Kue First Nation</div>
+        </li>
+      </ul>
+
+      <h2 class="h-sec" data-i18n="novel.sampleTitle">Leseprobe — Kapitel 01</h2>
+      <div class="novel-gallery">
+        <img src="https://images.squarespace-cdn.com/content/v1/628e30083ca26249d99bde84/1724694578914-GXF58R170KWK9V2TPSWF/BT_Storyboard_03_18x25_2.jpg?format=500w" alt="Storyboard panel" loading="lazy">
+        <img src="https://images.squarespace-cdn.com/content/v1/628e30083ca26249d99bde84/1724694581517-CVKW5FPGBNBS19EZSD1N/BT_Storyboard_03_18x25_23.jpg?format=500w" alt="Storyboard panel" loading="lazy">
+        <img src="https://images.squarespace-cdn.com/content/v1/628e30083ca26249d99bde84/1724694581887-X8NOQU464LILBXMDZDS9/BT_Storyboard_03_18x25_24.jpg?format=500w" alt="Storyboard panel" loading="lazy">
+        <img src="https://images.squarespace-cdn.com/content/v1/628e30083ca26249d99bde84/1724694584902-PTN5DGNGXRR6O80PQ49S/BT_Storyboard_03_18x25_25.jpg?format=500w" alt="Storyboard panel" loading="lazy">
+      </div>
+      <a class="novel-cta" href="https://www.aisu.studio/s/BT_FotL_Treatment_EN_0824_06_DH.pdf" target="_blank" rel="noopener" data-i18n="novel.cta">Konzept + Leseprobe lesen (PDF)</a>
+      <a class="novel-cta ghost" href="mailto:aisustudio.berlin@gmail.com?subject=Fire%20on%20the%20Land%20%E2%80%94%20Updates" data-i18n="novel.notify">Bescheid sagen, wenn es fertig ist</a>
+
+      <h2 class="h-sec" data-i18n="novel.photosTitle">Von der Forschungsreise, 2023</h2>
+      <div class="novel-photos">
+        <img src="https://images.squarespace-cdn.com/content/v1/628e30083ca26249d99bde84/1723641892532-DBH86270PRO990PNRJYI/SAM_3458.JPG?format=500w" alt="Scotty Creek Research Station, 2023" loading="lazy">
+        <img src="https://images.squarespace-cdn.com/content/v1/628e30083ca26249d99bde84/1723641970116-PR2ZO2XHI2J5RRBLYG8O/SAM_3635.JPG?format=500w" alt="Scotty Creek Research Station, 2023" loading="lazy">
+        <img src="https://images.squarespace-cdn.com/content/v1/628e30083ca26249d99bde84/1723642168982-GGJDNE52DLOIG0HXHPCE/SAM_3774.JPG?format=500w" alt="Scotty Creek Research Station, 2023" loading="lazy">
+        <img src="https://images.squarespace-cdn.com/content/v1/628e30083ca26249d99bde84/214662b4-9380-4e33-b488-9b408bf7bd86/Canada-Fires-9980.jpg?format=500w" alt="Northwest Territories wildfire aftermath" loading="lazy">
+      </div>
+
+      <h2 class="h-sec" data-i18n="novel.pressTitle">In der Presse</h2>
+      <ul class="novel-press">
+        <li><a href="https://cabinradio.ca/123421/news/environment/wildfires/illustrator-joins-team-rebuilding-nwt-research-station/" target="_blank" rel="noopener">Cabin Radio</a><span data-i18n="novel.press.cabin">Über den Einstieg ins Wiederaufbau-Team</span></li>
+        <li><a href="https://www.cbc.ca/news/canada/north/scotty-creek-research-station-rebuild-1.6784623" target="_blank" rel="noopener">CBC North</a><span data-i18n="novel.press.cbcArticle">Das Wer, Wie und Warum des Turm-Wiederaufbaus</span></li>
+        <li><a href="https://www.cbc.ca/listen/live-radio/1-129-the-trailbreaker/clip/15974685-interview-berlin-based-illustrator-domink-heilig-friend-oliver-sonnentag." target="_blank" rel="noopener">CBC North Radio</a><span data-i18n="novel.press.cbcRadio">Interview zum Comic-Projekt</span></li>
+        <li><a href="https://above.nasa.gov/files/monthlies/2023_4.html" target="_blank" rel="noopener">NASA ABoVE</a><span data-i18n="novel.press.nasa">Erwähnt im ABoVE-Monatsbrief</span></li>
+      </ul>
+    </section>
+
+    <!-- VIEW: Font -->
+    <section id="view-font" class="view" data-view="font" aria-labelledby="t-font" hidden>
+      <span class="kicker" data-i18n="font.kicker">Font · früher Testbuild</span>
+      <h1 id="t-font" class="view-title" data-i18n="font.title">AS Dehcho</h1>
+      <p class="view-sub" data-i18n="font.sub">Ein handgezeichneter Comic-Display-Font für dieses Projekt — trägt sowohl die Dene-Orthografie der Dehcho-Region als auch Sprechblasen-Lettering in einer Familie. Aktuell nicht in aktiver Arbeit, aber schon nutzbar.</p>
+      <div class="font-sample">Dehcho</div>
+      <div class="font-line">Fire on the Land — Dehcho, NWT</div>
+      <div class="font-line rough">Fire on the Land — Dehcho, NWT</div>
+      <div class="font-glyphrow" aria-hidden="true">ą́ ę́ ł ʔ ǫ́ ų́</div>
+      <a class="novel-cta" href="https://claude.ai/code/artifact/e5214fd9-b5b0-45b9-8dcb-acd254598f7c" target="_blank" rel="noopener" data-i18n="font.linkSpecimen">Vollständiges Specimen — Diakritika, Alternates, Grawlixes</a>
+    </section>
+
+    <div id="view-app" hidden>
+      <div class="app-intro">
+        <span class="kicker" data-i18n="app.kicker">Adoption Scenarios</span>
+        <p data-i18n="app.sub">Reale Post-Fire-Flächen, an denen die Fragen aus Fire on the Land an echten Daten geprüft werden — angefangen mit Jüterbog, Brandenburg.</p>
+      </div>
+
     <!-- VIEW: Komposit -->
     <section id="view-composite" class="view" data-view="composite" aria-labelledby="t-composite">
       <span class="kicker" data-i18n="composite.kicker">Was Fire on the Land ist</span>
@@ -223,6 +310,7 @@
         <li data-i18n-html="concept.canon.4"><strong>Bewerten, nicht entscheiden.</strong> Das Werkzeug zeigt den Zielkonflikt; entscheiden Mensch und Fläche.</li>
       </ul>
     </section>
+    </div>
   </main>
 
   <footer class="site-foot">
