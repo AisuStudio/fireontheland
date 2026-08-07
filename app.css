@@ -173,7 +173,7 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 .lede{margin:0 0 var(--sp-3);line-height:1.55}
 .kicker{font-family:var(--font-sans);font-size:.68rem;text-transform:uppercase;letter-spacing:.13em;font-weight:700;color:var(--accent)}
 .h-sec{font-size:1.05rem;font-weight:700;margin:var(--sp-4) 0 0}
-.note{font-family:var(--font-sans);font-size:.9rem;line-height:1.5;color:var(--muted);margin-top:var(--sp-3)}
+.note{font-family:var(--font-sans);font-size:16px;line-height:1.5;color:var(--muted);margin-top:var(--sp-3)}
 
 /* ============================================================
    COMPOSITE
@@ -303,7 +303,7 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 .scenario-item{display:flex;align-items:flex-start;gap:.6rem}
 .scenario-dot{width:.7rem;height:.7rem;border-radius:50%;flex:0 0 auto;margin-top:.3rem}
 .scenario-name{display:block;font-family:var(--font-sans);font-weight:700;font-size:.92rem}
-.scenario-note{margin:.15rem 0 0;font-size:.9rem;color:var(--muted);line-height:1.45}
+.scenario-note{margin:.15rem 0 0;font-size:16px;color:var(--muted);line-height:1.45}
 
 .scenario-readout{display:flex;flex-wrap:wrap;gap:.5rem var(--sp-3);margin:.5rem 0 0;
   font-family:var(--font-sans);font-size:.78rem;color:var(--muted)}
