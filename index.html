@@ -168,22 +168,15 @@
         <figcaption class="badge-placeholder" data-i18n="composite.badge">Sentinel-2 L2A · NBR · Copernicus Data Space Ecosystem</figcaption>
       </figure>
 
-      <div class="channels" role="group" data-i18n-aria="composite.channelsAria" aria-label="Jahre den Farbkanälen zuordnen">
-        <label class="channel c-r">
-          <span class="channel-key" data-i18n="channel.r">Rot</span>
-          <select id="year-r" class="channel-select"></select>
-        </label>
-        <label class="channel c-g">
-          <span class="channel-key" data-i18n="channel.g">Grün</span>
-          <select id="year-g" class="channel-select"></select>
-        </label>
-        <label class="channel c-b">
-          <span class="channel-key" data-i18n="channel.b">Blau</span>
-          <select id="year-b" class="channel-select"></select>
+      <div class="channels" role="group" data-i18n-aria="composite.channelsAria" aria-label="Jahr auswählen">
+        <label class="channel c-year">
+          <span class="channel-key" data-i18n="channel.year">Jahr</span>
+          <span class="channel-year" id="year-out">2020</span>
+          <input type="range" id="year-slider" class="channel-slider" min="2020" max="2024" step="2" value="2020">
         </label>
       </div>
 
-      <ul class="readout" data-i18n-aria="legend.aria" aria-label="Legende">
+      <ul class="readout readout-h" data-i18n-aria="legend.aria" aria-label="Legende">
         <li><span class="swatch" style="background:#8d8d86"></span> <span data-i18n="legend.grey">Grau — unverändert / unverbrannt</span></li>
         <li><span class="swatch" style="background:var(--accent)"></span> <span data-i18n="legend.warm">Warm — frühe Erholung</span></li>
         <li><span class="swatch" style="background:var(--neo)"></span> <span data-i18n="legend.green">Grün — mittlere Erholung</span></li>

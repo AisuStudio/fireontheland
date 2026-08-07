@@ -150,10 +150,8 @@
       'composite.sub': 'Ein offenes Werkzeug für die Post-Fire Recovery: Es macht sichtbar, welche Wiederbewaldung auf einer Brandfläche <strong>klimaangepasst, wirtschaftlich zukunftsfähig und kohlenstoffwirksam</strong> ist. Los geht’s mit der Erholung selbst — drei Jahre nach dem Brand auf Rot · Grün · Blau gelegt: grau = unverändert, Farbe = zeitversetztes Ergrünen.',
       'composite.canvasAria': 'Sentinel-2-NBR-Erholungskomposit der Brandfläche Jüterbog',
       'composite.badge': 'Sentinel-2 L2A · NBR · Copernicus Data Space Ecosystem',
-      'composite.channelsAria': 'Jahre den Farbkanälen zuordnen',
-      'channel.r': 'Rot',
-      'channel.g': 'Grün',
-      'channel.b': 'Blau',
+      'composite.channelsAria': 'Jahr auswählen',
+      'channel.year': 'Jahr',
       'legend.aria': 'Legende',
       'legend.grey': 'Grau — unverändert / unverbrannt',
       'legend.warm': 'Warm — frühe Erholung',
@@ -339,10 +337,8 @@
       'composite.sub': 'An open tool for post-fire recovery: it shows which reforestation strategy on a burn scar is <strong>climate-adapted, economically future-proof and carbon-effective</strong>. It starts with recovery itself — three years after the fire, mapped onto Red · Green · Blue: grey = unchanged, colour = greening offset in time.',
       'composite.canvasAria': 'Sentinel-2 NBR recovery composite of the Jüterbog burn area',
       'composite.badge': 'Sentinel-2 L2A · NBR · Copernicus Data Space Ecosystem',
-      'composite.channelsAria': 'Assign years to colour channels',
-      'channel.r': 'Red',
-      'channel.g': 'Green',
-      'channel.b': 'Blue',
+      'composite.channelsAria': 'Select year',
+      'channel.year': 'Year',
       'legend.aria': 'Legend',
       'legend.grey': 'Grey — unchanged / unburned',
       'legend.warm': 'Warm — early recovery',
@@ -773,22 +769,13 @@
      only years with an actual tile in assets/ are selectable.
      --------------------------------------------------------- */
   var TILE_YEARS = [2020, 2022, 2024];
-  var selR = document.getElementById('year-r');
-  var selG = document.getElementById('year-g');
-  var selB = document.getElementById('year-b');
+  var selYear = document.getElementById('year-slider');
+  var yearOut = document.getElementById('year-out');
 
-  function fillYears(sel, val) {
-    TILE_YEARS.forEach(function (y) {
-      var o = document.createElement('option');
-      o.value = String(y); o.textContent = String(y);
-      if (y === val) o.selected = true;
-      sel.appendChild(o);
-    });
-    sel.addEventListener('change', renderComposite);
-  }
-  fillYears(selR, 2020);
-  fillYears(selG, 2022);
-  fillYears(selB, 2024);
+  selYear.addEventListener('input', function () {
+    if (yearOut) yearOut.textContent = selYear.value;
+    renderComposite();
+  });
 
   var canvas = document.getElementById('composite-canvas');
   var tileCache = {};   // year -> ImageData (grayscale NBR, canvas-sized)
@@ -828,7 +815,15 @@
 
   function renderComposite() {
     if (!canvas || views.composite.hidden) return;
-    drawCompositeOn(canvas, +selR.value, +selG.value, +selB.value);
+    var idx = TILE_YEARS.indexOf(+selYear.value);
+    if (idx < 0) idx = TILE_YEARS.length - 1;
+    // Baseline (earliest tile) always holds red; green/blue phase in as the
+    // slider advances, so recovery colour reveals progressively over time —
+    // matches composite.sub's "grau = unverändert, Farbe = zeitversetztes Ergrünen".
+    var yr = TILE_YEARS[0];
+    var yg = TILE_YEARS[idx >= 1 ? 1 : 0];
+    var yb = TILE_YEARS[idx >= 2 ? 2 : 0];
+    drawCompositeOn(canvas, yr, yg, yb);
   }
 
   Promise.all(TILE_YEARS.map(loadTile)).then(function () {
