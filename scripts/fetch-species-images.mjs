@@ -11,7 +11,7 @@ import { dirname, join } from 'node:path';
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const OUT_DIR = join(ROOT, 'assets', 'species');
-const UA = 'NovecoSpeciesImages/1.0 (https://aisustudio.github.io/Noveco/; aisustudio.berlin@gmail.com)';
+const UA = 'FireOnTheLandSpeciesImages/1.0 (https://fireontheland.org/; aisustudio.berlin@gmail.com)';
 
 // pull the SPECIES array straight out of app.js so the two can't drift apart
 function loadSpecies() {
