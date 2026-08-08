@@ -159,7 +159,7 @@
     <section id="view-composite" class="view" data-view="composite" aria-labelledby="t-composite">
       <span class="kicker" data-i18n="composite.kicker">Was Fire on the Land ist</span>
       <h1 id="t-composite" class="view-title" data-i18n="composite.title">Erholung in einem Bild</h1>
-      <p class="view-sub" data-i18n-html="composite.sub">Ein offenes Werkzeug, das eine Waldbrandfläche danach lesbar macht, welche Wiederbewaldung dort <strong>klimaangepasst, wirtschaftlich zukunftsfähig und kohlenstoffwirksam</strong> ist. Los geht's mit der Erholung selbst: drei Jahre nach dem Brand auf Rot · Grün · Blau gelegt — grau = unverändert, Farbe = zeitversetztes Ergrünen.</p>
+      <p class="view-sub" data-i18n-html="composite.sub">Ein offenes Werkzeug, das eine Waldbrandfläche danach lesbar macht, welche Wiederbewaldung dort <strong>klimaangepasst, wirtschaftlich zukunftsfähig und kohlenstoffwirksam</strong> sein kann. Los geht's mit der Erholung selbst: drei Jahre nach dem Brand auf Rot · Grün · Blau gelegt — grau = unverändert, Farbe = zeitversetztes Ergrünen.</p>
 
       <figure class="composite">
         <canvas id="composite-canvas" width="640" height="440" role="img"
@@ -182,6 +182,7 @@
         <li><span class="swatch" style="background:var(--neo)"></span> <span data-i18n="legend.green">Grün — mittlere Erholung</span></li>
         <li><span class="swatch" style="background:var(--pine)"></span> <span data-i18n="legend.cool">Kühl — späte Erholung</span></li>
       </ul>
+      <p class="note" data-i18n="composite.greenNote">Ergrünen heißt hier nicht automatisch Wald: Der NBR-Index unterscheidet nicht zwischen Gras und Baum, und auf diesen Sanden gehören die ersten Farbjahre vor allem der Gras- und Krautschicht — Silbergras, Drahtschmiele, erst dann Birke und Aspe. Welche Gehölze wirklich kommen, zeigen die Szenarien und Arten.</p>
 
       <h2 class="h-sec" data-i18n="scorecard.title">Kiefern-Kulturwald oder Neophyten?</h2>
       <p class="view-sub" data-i18n="scorecard.sub">Zwei neue Ökosysteme im Vergleich</p>
@@ -222,7 +223,7 @@
         <figcaption id="chart-caption" class="chart-caption" data-i18n="scenarios.caption.forest">Bewaldungsgrad (%) über Jahre seit dem Brand</figcaption>
       </figure>
       <p id="target-note" class="note" data-i18n-html="target.forestNote">Gemessen wird gegen den unverbrannten Kiefernforst nebenan: 80 % Kronendeckung, rund 20 m Höhe. Beides muss stimmen — hohe Einzelbäume ohne Deckung sind kein Wald, dichter Niederwuchs ohne Höhe auch nicht.</p>
-      <p class="note" data-i18n-html="scenarios.carbonNote">Was dieser Chart nicht zeigt: Kohlenstoff-Erholung. Kronendeckung und Höhe sind auf Brandenburgs Sand ein brauchbarer Näherungswert, weil der meiste Kohlenstoff hier oberirdisch in Biomasse steckt. Auf borealem Moor wäre das irreführend — dort steckt der Großteil des freigesetzten Kohlenstoffs im Boden selbst und baut sich nicht im Takt der sichtbaren Vegetation wieder auf (kanadaweit rund drei Viertel der Brandemissionen 2023). Ein Standort wie Dehcho/NWT bräuchte deshalb eine <strong>eigene Kurve</strong>, keine umbenannte Kopie dieser hier.</p>
+      <p class="note" data-i18n-html="scenarios.carbonNote">Was dieser Chart nicht zeigt: Kohlenstoff-Erholung. Kronendeckung und Höhe sind auf Brandenburgs Sand ein brauchbarer Näherungswert, weil der meiste Kohlenstoff hier oberirdisch in Biomasse steckt. Auf borealem Moor wäre das irreführend — dort steckt der Großteil des freigesetzten Kohlenstoffs im Boden selbst und baut sich nicht im Takt der sichtbaren Vegetation wieder auf (kanadaweit rund drei Viertel der Brandemissionen 2023). Zwei Unterschiede kommen dazu: Auf Permafrost-Torf kann ein Brand den Boden auftauen und die Fläche dauerhaft in ein Feuchtgebiet kippen — ein Systemwechsel, den keine dieser Kurvenformen abbilden kann (Gibson u.&nbsp;a. 2018, <em>Nature Communications</em>). Und boreale Nadelbäume tragen ihre Samenbank serotin in den Kronen, während die Waldkiefer hier auf überlebende Samenbäume angewiesen ist — schon der passive Weg funktioniert dort mechanisch anders. Ein Standort wie Dehcho/NWT bräuchte deshalb eine <strong>eigene Kurve</strong>, keine umbenannte Kopie dieser hier.</p>
 
       <ul id="scenario-legend" class="scenario-legend"></ul>
 
@@ -254,7 +255,7 @@
           data-i18n-aria="scenarios.sliderAria" aria-label="Jahre seit dem Brand">
       </div>
 
-      <p class="note" data-i18n="scenarios.note">Illustrative Modellierung auf Basis bekannter Sukzessionsmuster — keine Live-Simulation und keine GUS-Engine-Ausgabe. Die tatsächliche Entwicklung hängt von Standort, Witterung und Pflege ab.</p>
+      <p class="note" data-i18n="scenarios.note">Bis Jahr 3–4 aus den PYROPHOB-Messungen in Jüterbog, danach modelliert (Höhen nach den Ertragstafeln für Sand-Birke und Kiefer). Keine Live-Simulation. Die tatsächliche Entwicklung hängt von Samenbäumen, Wild, Witterung und Wiederholungsbränden ab. Zwei Annahmen sollte man kennen: Alle drei Kurven rechnen ohne zweiten Brand innerhalb der 30 Jahre — Treuenbrietzen brannte nach vier Jahren erneut, und gerade dichte junge Kiefernbestände gelten als vollfeuerfähig (s. Scorecard). Und die Messbasis 2019–2024 fällt komplett in die Ausnahme-Trockenjahre: Die Kurven sind eher ein Trocken-Szenario als ein Mittelwert.</p>
 
       <button type="button" id="scenario-csv-download" class="novel-cta ghost" data-i18n="scenarios.csvDownload">Szenario-Daten als CSV herunterladen</button>
     </section>

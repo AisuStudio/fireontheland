@@ -147,7 +147,7 @@
 
       'composite.kicker': 'Was Fire on the Land ist',
       'composite.title': 'Post-Fire Recovery in einem Bild',
-      'composite.sub': 'Ein offenes Werkzeug für die Post-Fire Recovery: Es macht sichtbar, welche Wiederbewaldung auf einer Brandfläche <strong>klimaangepasst, wirtschaftlich zukunftsfähig und kohlenstoffwirksam</strong> ist. Los geht’s mit der Erholung selbst — drei Jahre nach dem Brand auf Rot · Grün · Blau gelegt: grau = unverändert, Farbe = zeitversetztes Ergrünen.',
+      'composite.sub': 'Ein offenes Werkzeug für die Post-Fire Recovery: Es macht sichtbar, welche Wiederbewaldung auf einer Brandfläche <strong>klimaangepasst, wirtschaftlich zukunftsfähig und kohlenstoffwirksam</strong> sein kann. Los geht’s mit der Erholung selbst — drei Jahre nach dem Brand auf Rot · Grün · Blau gelegt: grau = unverändert, Farbe = zeitversetztes Ergrünen.',
       'composite.canvasAria': 'Sentinel-2-NBR-Erholungskomposit der Brandfläche Jüterbog',
       'composite.badge': 'Sentinel-2 L2A · NBR · Copernicus Data Space Ecosystem',
       'composite.channelsAria': 'Jahr auswählen',
@@ -157,6 +157,7 @@
       'legend.warm': 'Warm — frühe Erholung',
       'legend.green': 'Grün — mittlere Erholung',
       'legend.cool': 'Kühl — späte Erholung',
+      'composite.greenNote': 'Ergrünen heißt hier nicht automatisch Wald: Der NBR-Index unterscheidet nicht zwischen Gras und Baum, und auf diesen Sanden gehören die ersten Farbjahre vor allem der Gras- und Krautschicht — Silbergras, Drahtschmiele, erst dann Birke und Aspe. Welche Gehölze wirklich kommen, zeigen die Szenarien und Arten.',
 
       'scorecard.title': 'Kiefern-Kulturwald oder Neophyten?',
       'scorecard.sub': 'Zwei neue Ökosysteme im Vergleich',
@@ -210,7 +211,7 @@
       'hypo.kicker': 'Hypothese, nicht Befund',
       'hypo.title': 'Können Neophyten Teil der Klimaanpassung sein?',
       'hypo.body': 'Die Robinie liefert das dauerhafteste Holz Europas, wurzelt tief, erträgt Hitze und Trockenheit und fixiert Stickstoff — als Anpassungskandidat auf armem Sand ist sie ernstzunehmen. <strong>Belegt ist das hier aber nicht.</strong> Die zugrunde liegenden Messungen vergleichen Behandlungs<em>verfahren</em> — räumen, pflügen, pflanzen, nichts tun — und nicht Herkünfte. Kein einziger Messwert dieser Flächen testet, ob gebietsfremde Arten die bessere Klimaanpassung liefern.',
-      'hypo.counter': 'Dagegen steht: Auf nährstoffarmen Schutzflächen ist genau die Stickstofffixierung das Problem, weil sie den Lebensraum beseitigt, der geschützt werden soll. Und die anerkannte Route der forstlichen Klimaanpassung führt nicht über fremde Arten, sondern über die <strong>Herkunftswahl innerhalb heimischer Arten</strong> — trockenheitserprobte Provenienzen etwa von Traubeneiche oder Kiefer. Das ist auch keine rein deutsche Rechtsfrage: Der gezielte Einsatz gebietsfremder Arten als Anpassungsstrategie („assisted migration", „novel ecosystems") ist in der Resilienzökologie selbst ein offener, kontrovers geführter Streitpunkt — unabhängig vom § 40 BNatSchG.',
+      'hypo.counter': 'Dagegen steht: Auf nährstoffarmen Schutzflächen ist genau die Stickstofffixierung das Problem, weil sie den Lebensraum beseitigt, der geschützt werden soll. Und die anerkannte Route der forstlichen Klimaanpassung führt nicht über fremde Arten, sondern über die <strong>Herkunftswahl innerhalb heimischer Arten</strong> — trockenheitserprobte Provenienzen etwa von Traubeneiche oder Kiefer. Das ist auch keine rein deutsche Rechtsfrage: Der gezielte Einsatz gebietsfremder Arten als Anpassungsstrategie („assisted migration“, „novel ecosystems“) ist in der Resilienzökologie selbst ein offener, kontrovers geführter Streitpunkt — unabhängig vom § 40 BNatSchG.',
       'hypo.quantifiable': 'Ein Punkt spricht dafür, ausgerechnet die Robinie zu prüfen: Sie ist die einzige der Kandidatinnen, für die eine <strong>Ertragstafel für Brandenburg existiert</strong> — Lockow &amp; Lockow (2015), ausdrücklich bis zur Nährkraftstufe „ziemlich arm“, mit Kulmination des Zuwachses um das 35. Jahr. Ihr Ertrag wäre also prüfbar, während er für die spontan dominierende Zitterpappel mangels Datengrundlage gar nicht berechenbar ist.',
       'hypo.test': 'Prüfbar wäre die These auf einer Fläche ohne Schutzstatus, mit Robinie gegen heimische Vergleichsvariante, über mindestens zehn Jahre. Diesen Versuch gibt es nach derzeitigem Stand nicht.',
       'foot.credit': 'Sentinel-2 · Copernicus · PYROPHOB',
@@ -243,9 +244,9 @@
       'target.forest': 'Ziel: geschlossener Wald',
       'target.open': 'Ziel: offene Sandheide',
       'target.forestNote': 'Gemessen wird gegen den unverbrannten Kiefernforst nebenan: 80 % Kronendeckung, rund 20 m Höhe. Beides muss stimmen — hohe Einzelbäume ohne Deckung sind kein Wald, dichter Niederwuchs ohne Höhe auch nicht.',
-      'scenarios.carbonNote': 'Was dieser Chart nicht zeigt: Kohlenstoff-Erholung. Kronendeckung und Höhe sind auf Brandenburgs Sand ein brauchbarer Näherungswert, weil der meiste Kohlenstoff hier oberirdisch in Biomasse steckt. Auf borealem Moor wäre das irreführend — dort steckt der Großteil des freigesetzten Kohlenstoffs im Boden selbst und baut sich nicht im Takt der sichtbaren Vegetation wieder auf (kanadaweit rund drei Viertel der Brandemissionen 2023). Ein Standort wie Dehcho/NWT bräuchte deshalb eine <strong>eigene Kurve</strong>, keine umbenannte Kopie dieser hier.',
+      'scenarios.carbonNote': 'Was dieser Chart nicht zeigt: Kohlenstoff-Erholung. Kronendeckung und Höhe sind auf Brandenburgs Sand ein brauchbarer Näherungswert, weil der meiste Kohlenstoff hier oberirdisch in Biomasse steckt. Auf borealem Moor wäre das irreführend — dort steckt der Großteil des freigesetzten Kohlenstoffs im Boden selbst und baut sich nicht im Takt der sichtbaren Vegetation wieder auf (kanadaweit rund drei Viertel der Brandemissionen 2023). Zwei Unterschiede kommen dazu: Auf Permafrost-Torf kann ein Brand den Boden auftauen und die Fläche dauerhaft in ein Feuchtgebiet kippen — ein Systemwechsel, den keine dieser Kurvenformen abbilden kann (Gibson u.&nbsp;a. 2018, <em>Nature Communications</em>). Und boreale Nadelbäume tragen ihre Samenbank serotin in den Kronen, während die Waldkiefer hier auf überlebende Samenbäume angewiesen ist — schon der passive Weg funktioniert dort mechanisch anders. Ein Standort wie Dehcho/NWT bräuchte deshalb eine <strong>eigene Kurve</strong>, keine umbenannte Kopie dieser hier.',
       'target.openNote': 'Für die geschützten Lebensraumtypen des Gebiets — Silbergrasfluren auf Binnendünen, Sandheiden — ist Offenheit das Ziel. Gemessen wird deshalb die <strong>Freiheit von Gehölzen</strong>: Managementpläne stufen solche Flächen ab etwa 30 % Verbuschung als verschlechtert ein. Dieselben Daten, dieselbe Fläche, umgekehrtes Urteil — der Brand hat hier nicht zerstört, sondern zurückgesetzt. <em>Einschränkung:</em> Erfasst ist nur die Verbuschung, nicht das Vorhandensein der kennzeichnenden Arten — die brauchen Jahre und sind hier nicht modelliert. Das gemessene Unsicherheitsband gilt nur fürs Waldziel und wird deshalb ausgeblendet.',
-      'scenarios.note': 'Bis Jahr 3–4 aus den PYROPHOB-Messungen in Jüterbog, danach modelliert (Höhen nach den Ertragstafeln für Sand-Birke und Kiefer). Keine Live-Simulation. Die tatsächliche Entwicklung hängt von Samenbäumen, Wild, Witterung und Wiederholungsbränden ab.',
+      'scenarios.note': 'Bis Jahr 3–4 aus den PYROPHOB-Messungen in Jüterbog, danach modelliert (Höhen nach den Ertragstafeln für Sand-Birke und Kiefer). Keine Live-Simulation. Die tatsächliche Entwicklung hängt von Samenbäumen, Wild, Witterung und Wiederholungsbränden ab. Zwei Annahmen sollte man kennen: Alle drei Kurven rechnen ohne zweiten Brand innerhalb der 30 Jahre — Treuenbrietzen brannte nach vier Jahren erneut, und gerade dichte junge Kiefernbestände gelten als vollfeuerfähig (s. Scorecard). Und die Messbasis 2019–2024 fällt komplett in die Ausnahme-Trockenjahre: Die Kurven sind eher ein Trocken-Szenario als ein Mittelwert.',
       'scenarios.csvDownload': 'Szenario-Daten als CSV herunterladen',
       'scenarios.csvCaveat': 'Standortspezifische Daten (Jüterbog, Brandenburg — Kiefern-Ökologie auf nährstoffarmem Sand). Kurvenform und Werte sind nicht direkt auf andere Standorte/Arten übertragbar; übertragbar ist nur der Resist-Accept-Direct-Entscheidungsrahmen selbst.',
       'scenario.pine': 'Kiefern nachpflanzen',
@@ -334,7 +335,7 @@
 
       'composite.kicker': 'What Fire on the Land is',
       'composite.title': 'Post-Fire Recovery in a single image',
-      'composite.sub': 'An open tool for post-fire recovery: it shows which reforestation strategy on a burn scar is <strong>climate-adapted, economically future-proof and carbon-effective</strong>. It starts with recovery itself — three years after the fire, mapped onto Red · Green · Blue: grey = unchanged, colour = greening offset in time.',
+      'composite.sub': 'An open tool for post-fire recovery: it shows which reforestation strategy on a burn scar <strong>can be climate-adapted, economically future-proof and carbon-effective</strong>. It starts with recovery itself — three years after the fire, mapped onto Red · Green · Blue: grey = unchanged, colour = greening offset in time.',
       'composite.canvasAria': 'Sentinel-2 NBR recovery composite of the Jüterbog burn area',
       'composite.badge': 'Sentinel-2 L2A · NBR · Copernicus Data Space Ecosystem',
       'composite.channelsAria': 'Select year',
@@ -344,6 +345,7 @@
       'legend.warm': 'Warm — early recovery',
       'legend.green': 'Green — mid recovery',
       'legend.cool': 'Cool — late recovery',
+      'composite.greenNote': 'Greening here does not automatically mean forest: the NBR index can’t tell grass from tree, and on these sands the first years of colour belong mostly to the grass and herb layer — grey hair-grass, wavy hair-grass, only then birch and aspen. Which woody species actually arrive is what the Scenarios and Species views show.',
 
       'scorecard.title': 'Cultivated pine forest or neophytes?',
       'scorecard.sub': 'Two novel ecosystems compared',
@@ -397,7 +399,7 @@
       'hypo.kicker': 'Hypothesis, not finding',
       'hypo.title': 'Can neophytes be part of climate adaptation?',
       'hypo.body': 'Black locust yields Europe’s most durable timber, roots deeply, tolerates heat and drought and fixes nitrogen — as an adaptation candidate on poor sand it deserves to be taken seriously. <strong>But nothing here proves it.</strong> The underlying measurements compare treatment <em>methods</em> — clearing, ploughing, planting, doing nothing — not origins. Not one measurement from these sites tests whether non-native species deliver better climate adaptation.',
-      'hypo.counter': 'Against it: on nutrient-poor protected land, nitrogen fixation is precisely the problem, because it removes the habitat that is meant to be protected. And the accepted route of forestry climate adaptation does not run through foreign species but through <strong>provenance selection within native species</strong> — drought-tested origins of sessile oak or Scots pine, for instance. This isn’t only a German legal question either: deliberately introducing non-native species as an adaptation strategy ("assisted migration", "novel ecosystems") is itself an open, contested question within resilience ecology, independent of § 40 BNatSchG.',
+      'hypo.counter': 'Against it: on nutrient-poor protected land, nitrogen fixation is precisely the problem, because it removes the habitat that is meant to be protected. And the accepted route of forestry climate adaptation does not run through foreign species but through <strong>provenance selection within native species</strong> — drought-tested origins of sessile oak or Scots pine, for instance. This isn’t only a German legal question either: deliberately introducing non-native species as an adaptation strategy (“assisted migration”, “novel ecosystems”) is itself an open, contested question within resilience ecology, independent of § 40 BNatSchG.',
       'hypo.quantifiable': 'One point argues for testing black locust in particular: it is the only candidate for which a <strong>yield table for Brandenburg exists</strong> — Lockow &amp; Lockow (2015), explicitly down to the “rather poor” nutrient class, with increment culminating around year 35. Its yield would therefore be checkable, whereas for the spontaneously dominant aspen it cannot be calculated at all for lack of data.',
       'hypo.test': 'The thesis would be testable on a site without protected status, black locust against a native control, over at least ten years. No such trial exists as things stand.',
       'foot.credit': 'Sentinel-2 · Copernicus · PYROPHOB',
@@ -430,9 +432,9 @@
       'target.forest': 'Target: closed forest',
       'target.open': 'Target: open sand heath',
       'target.forestNote': 'Measured against the unburned pine forest next door: 80% canopy cover, about 20 m height. Both have to hold — tall single trees without cover are not a forest, and dense low growth without height is not either.',
-      'scenarios.carbonNote': 'What this chart doesn’t show: carbon recovery. Canopy cover and height are a reasonable proxy on Brandenburg’s sand, because most of the carbon here sits aboveground in biomass. On boreal peat that would be misleading — most of the released carbon sits in the soil itself and doesn’t rebuild on the timescale of visible vegetation (roughly three-quarters of Canada’s 2023 fire emissions nationwide). A site like Dehcho/NWT would need its <strong>own curve</strong>, not a relabelled copy of this one.',
+      'scenarios.carbonNote': 'What this chart doesn’t show: carbon recovery. Canopy cover and height are a reasonable proxy on Brandenburg’s sand, because most of the carbon here sits aboveground in biomass. On boreal peat that would be misleading — most of the released carbon sits in the soil itself and doesn’t rebuild on the timescale of visible vegetation (roughly three-quarters of Canada’s 2023 fire emissions nationwide). Two more differences: on permafrost peat, a fire can thaw the ground and tip the site permanently into a wetland — a regime shift none of these curve shapes can represent (Gibson et&nbsp;al. 2018, <em>Nature Communications</em>). And boreal conifers carry their seed bank serotinously in the canopy, while Scots pine here depends on surviving seed trees — even the passive pathway works differently there. A site like Dehcho/NWT would need its <strong>own curve</strong>, not a relabelled copy of this one.',
       'target.openNote': 'For the site’s protected habitat types — silver-grass swards on inland dunes, sand heaths — openness is the goal. What is measured is therefore <strong>freedom from woody encroachment</strong>: management plans rate such areas as degraded from roughly 30% shrub cover. Same data, same site, opposite verdict — here the fire did not destroy, it reset. <em>Caveat:</em> only encroachment is captured, not the presence of the characteristic species, which take years and are not modelled here. The measured uncertainty band applies to the forest target only and is therefore hidden.',
-      'scenarios.note': 'Measured by PYROPHOB at Jüterbog to year 3–4, modelled after that (heights following the yield tables for silver birch and Scots pine). Not a live simulation. Real recovery depends on seed trees, browsing, weather and repeat fires.',
+      'scenarios.note': 'Measured by PYROPHOB at Jüterbog to year 3–4, modelled after that (heights following the yield tables for silver birch and Scots pine). Not a live simulation. Real recovery depends on seed trees, browsing, weather and repeat fires. Two assumptions worth knowing: all three curves assume no second fire within the 30 years — Treuenbrietzen reburned after four, and dense young pine stands are rated fully fire-capable (see Scorecard). And the measured base years 2019–2024 fall entirely within the record drought run: read the curves as a dry scenario, not an average.',
       'scenarios.csvDownload': 'Download scenario data as CSV',
       'scenarios.csvCaveat': 'Site-specific data (Jüterbog, Brandenburg — Scots pine ecology on nutrient-poor sand). Curve shapes and values are not directly transferable to other sites/species; only the Resist-Accept-Direct decision framework itself is meant to travel.',
       'scenario.pine': 'Replant pine',
@@ -702,8 +704,8 @@
              en: 'Pioneer: cover, cooling and nitrogen within just a few years.' } },
     { v: 'neo',
       axis: { de: 'Trocken- & Klimastress', en: 'Drought & climate stress' },
-      pine: { de: 'Flachwurzler, auf Sand zunehmend hitzegestresst.',
-              en: 'Shallow-rooted, increasingly heat-stressed on sand.' },
+      pine: { de: 'Trotz Pfahlwurzel auf armem Sand zunehmend trocken- und hitzegestresst.',
+              en: 'Despite its taproot, increasingly drought- and heat-stressed on poor sand.' },
       neo: { de: 'Robinie: tiefwurzelnd, stickstofffixierend, hitzetolerant.',
              en: 'Black locust: deep-rooted, nitrogen-fixing, heat-tolerant.' } },
     { v: 'ctx',
@@ -1394,9 +1396,14 @@
 
     // Das Band ist als gemessene Spannweite gegen das Waldziel hinterlegt —
     // fürs Offenlandziel gibt es dafür keine Entsprechung, also nicht umdeuten.
+    // band.lo/hi sind Kronendeckungs-Anteile (so auch im CSV-Export) und müssen
+    // durch recoveryOf() in den Achsen-Maßstab „Bewaldungsgrad" — sonst stünden
+    // Deckung und Index gemischt auf einer Achse. Höhe: mangels eigener
+    // Höhenspannweite die zentrale Höhenkurve für beide Ränder (konservativ
+    // fürs untere Band — Flächen ohne Samenbäume wären real auch niedriger).
     var bands = (curTarget !== 'forest' ? [] : SCENARIOS.filter(function (s) { return s.band; })).map(function (s) {
-      var up = s.band.hi.map(function (v, i) { return xAt(i).toFixed(1) + ',' + yAt(v).toFixed(1); });
-      var dn = s.band.lo.map(function (v, i) { return xAt(i).toFixed(1) + ',' + yAt(v).toFixed(1); }).reverse();
+      var up = s.band.hi.map(function (v, i) { return xAt(i).toFixed(1) + ',' + yAt(recoveryOf(v, s.hgt[i])).toFixed(1); });
+      var dn = s.band.lo.map(function (v, i) { return xAt(i).toFixed(1) + ',' + yAt(recoveryOf(v, s.hgt[i])).toFixed(1); }).reverse();
       return '<polygon points="' + up.concat(dn).join(' ') + '" fill="' + s.color + '" opacity="0.13"/>';
     }).join('');
 
@@ -1591,10 +1598,22 @@
       'canopy_cover_fraction_no_followup_replant', 'height_m_no_followup_replant',
       'canopy_cover_band_low_fraction', 'canopy_cover_band_high_fraction', 'uncertainty_driver'
     ];
+    // Jede Kurve hat einen benannten Haupt-Unsicherheitstreiber — nur beim Band
+    // einen zu nennen würde implizieren, die anderen beiden seien sicher.
+    var UNCERTAINTY = {
+      passive: 'seed_tree_survival_proximity',
+      pine: 'planting_survival_followup_replanting',
+      assisted: 'synthesis_no_direct_plot_analog'
+    };
     // '#'-prefixed so spreadsheet/pandas readers can skip it (comment='#') — flags that the
     // curve shapes/values are Brandenburg Scots-pine-on-sand ecology, not portable as numbers
     // to another site; only the Resist-Accept-Direct decision framework itself travels.
-    var rows = ['# ' + t('scenarios.csvCaveat'), fields.join(',')];
+    // Second comment line makes the chart's derived index reproducible from raw columns.
+    var rows = [
+      '# ' + t('scenarios.csvCaveat'),
+      '# recovery_index = sqrt(min(1, canopy_cover_fraction/0.80) * min(1, height_m/20))',
+      fields.join(',')
+    ];
 
     SCENARIOS.forEach(function (s) {
       SCENARIO_YEARS.forEach(function (yr, i) {
@@ -1603,7 +1622,7 @@
           s.canopy[i], s.hgt[i], s.dens[i], s.dom[i], speciesName[s.dom[i]] || '',
           s.altCanopy ? s.altCanopy[i] : '', s.altHgt ? s.altHgt[i] : '',
           s.band ? s.band.lo[i] : '', s.band ? s.band.hi[i] : '',
-          s.band ? 'seed_tree_survival_proximity' : ''
+          UNCERTAINTY[s.id] || ''
         ];
         rows.push(row.map(csvCell).join(','));
       });
