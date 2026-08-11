@@ -268,7 +268,11 @@
       'rad.body': 'Diese drei Wege sind keine Erfindung dieser App. Sie entsprechen dem <strong>Resist–Accept–Direct</strong>-Rahmen, mit dem der US-amerikanische National Park Service Ökosysteme im Klimawandel steuert. Sein Bild dafür ist ein Segelboot: <em>Resist</em> heißt Motor an und gegen den Wind zurück in den Heimathafen. <em>Accept</em> heißt Segel runter und treiben lassen. <em>Direct</em> heißt den Wind nutzen, um einen neuen, besseren Zielort anzusteuern.',
       'rad.body2': 'Der entscheidende Punkt: <em>Direct</em> zielt ausdrücklich auf „bevorzugte <strong>neue</strong> Zustände“ — nicht auf historische. Genau dort liegt die Anpassungshypothese dieses Projekts, und genau dort liegt der Unterschied zwischen konservativem und progressivem Walddenken: Der eine Weg misst Erfolg am Vorzustand, der andere an der Überlebensfähigkeit unter künftigen Bedingungen.',
       'rad.source': 'Schuurman u.&nbsp;a. (2022): <em>Navigating Ecological Transformation: Resist–Accept–Direct as a Path to a New Resource Management Paradigm</em>, BioScience 72(1) — sowie das RAD-Entscheidungsrahmenwerk des National Park Service.',
-      'scenarios.mapTitle': 'Szenario durchspielen',
+      'scenarios.compareTitle': 'Szenarien vergleichen',
+      'scenarios.leader': 'vorn',
+      'scenarios.metric.forest': 'Bewaldungsgrad',
+      'scenarios.metric.open': 'Erhaltungsgrad Offenland',
+      'scenarios.compareNote': 'Verglichen wird der Zielwert von oben — beim Waldziel Kronendeckung <em>und</em> Höhe, beim Offenlandziel die Freiheit von Gehölzen. <strong>Der Umschalter kehrt die Rangfolge um:</strong> Was den Wald am schnellsten zurückbringt, räumt das geschützte Offenland am schnellsten weg. Dieselben Daten, dieselbe Fläche, umgekehrtes Urteil.',
       'scenarios.scenAria': 'Szenario wählen',
       'scenarios.mapAria': 'Modellierter Bestand auf der Brandfläche',
       'scenarios.sliderAria': 'Jahre seit dem Brand',
@@ -462,7 +466,11 @@
       'rad.body': 'These three paths are not this app’s invention. They match the <strong>Resist–Accept–Direct</strong> framework the US National Park Service uses to steward ecosystems under climate change. Its own image for it is a sailboat: <em>Resist</em> means running the engine against the wind to get back to the home port. <em>Accept</em> means dropping the sails and going where the wind takes you. <em>Direct</em> means using the wind to steer for a new, better destination.',
       'rad.body2': 'The decisive point: <em>Direct</em> explicitly aims at “preferred <strong>new</strong> conditions” — not historical ones. That is exactly where this project’s adaptation hypothesis sits, and exactly where conservative and progressive forest thinking part ways: one measures success against the previous state, the other against survivability under future conditions.',
       'rad.source': 'Schuurman et al. (2022): <em>Navigating Ecological Transformation: Resist–Accept–Direct as a Path to a New Resource Management Paradigm</em>, BioScience 72(1) — together with the National Park Service RAD decision framework.',
-      'scenarios.mapTitle': 'Play a scenario',
+      'scenarios.compareTitle': 'Compare scenarios',
+      'scenarios.leader': 'ahead',
+      'scenarios.metric.forest': 'Reforestation level',
+      'scenarios.metric.open': 'Open-land retention',
+      'scenarios.compareNote': 'What is compared is the target metric chosen above — for the forest target canopy cover <em>and</em> height, for the open-land target freedom from woody growth. <strong>The toggle reverses the ranking:</strong> whatever brings the forest back fastest clears the protected open land fastest. Same data, same site, opposite verdict.',
       'scenarios.scenAria': 'Choose a scenario',
       'scenarios.mapAria': 'Modelled stand on the burn scar',
       'scenarios.sliderAria': 'Years since the fire',
@@ -854,6 +862,7 @@
   var burnMask = null;     // Uint8Array (W*H), 1 = verbrannt
   var burnPixels = null;   // Pixelindizes innerhalb der Maske
   var MASK_W = 0, MASK_H = 0;
+  var BURN_BOX = null;     // Bounding-Box der Narbe, für den Zoom der Vergleichspanels
 
   function buildBurnMask() {
     var t0 = tileCache[2020], tm = tileCache[2022], t1 = tileCache[2024];
@@ -918,8 +927,34 @@
     // Schutzgeländer: entgleist die Heuristik (<1 % oder >30 % der Kachel),
     // lieber ohne Maske streuen als eine falsche Kontur behaupten.
     var frac = px.length / N;
-    if (frac < 0.01 || frac > 0.30) { burnMask = null; burnPixels = null; return; }
+    if (frac < 0.01 || frac > 0.30) { burnMask = null; burnPixels = null; BURN_BOX = null; return; }
     burnMask = mask; burnPixels = px; MASK_W = W; MASK_H = H;
+
+    // Die Narbe füllt nur einen Bruchteil der Kachel. In den kleinen
+    // Vergleichspanels wäre sie sonst ein Fleck — deshalb ihre Bounding-Box
+    // merken und dort hineinzoomen.
+    var x0 = W, y0 = H, x1 = 0, y1 = 0;
+    for (var b = 0; b < px.length; b++) {
+      var bx = px[b] % W, by = (px[b] - bx) / W;
+      if (bx < x0) x0 = bx; if (bx > x1) x1 = bx;
+      if (by < y0) y0 = by; if (by > y1) y1 = by;
+    }
+    BURN_BOX = { x0: x0, y0: y0, x1: x1 + 1, y1: y1 + 1 };
+  }
+
+  /* Schnittfenster für ein Panel: Narben-Box plus Rand, auf das Seitenverhältnis
+     des Panels aufgezogen und in der Kachel gehalten — sonst würde verzerrt. */
+  function scarWindow(aspect) {
+    if (!BURN_BOX) return { x: 0, y: 0, w: MASK_W || 640, h: MASK_H || 440 };
+    var pad = 0.18;
+    var w = (BURN_BOX.x1 - BURN_BOX.x0) * (1 + pad * 2);
+    var h = (BURN_BOX.y1 - BURN_BOX.y0) * (1 + pad * 2);
+    if (w / h < aspect) w = h * aspect; else h = w / aspect;
+    var cx = (BURN_BOX.x0 + BURN_BOX.x1) / 2, cy = (BURN_BOX.y0 + BURN_BOX.y1) / 2;
+    w = Math.min(w, MASK_W); h = Math.min(h, MASK_H);
+    var x = Math.max(0, Math.min(MASK_W - w, cx - w / 2));
+    var y = Math.max(0, Math.min(MASK_H - h, cy - h / 2));
+    return { x: x, y: y, w: w, h: h };
   }
 
   Promise.all(TILE_YEARS.map(loadTile)).then(function () {
@@ -928,7 +963,7 @@
     rebuildDotPositions();
     renderComposite();
     renderSpeciesMap();
-    renderScenarioMap();
+    renderCompare();
   }).catch(function (err) {
     console.error('Sentinel-Kacheln konnten nicht geladen werden', err);
   });
@@ -1585,7 +1620,7 @@
   }
 
   /* --- interactive scenario map: one scenario, scrubbed through time --- */
-  var curScenario = 'passive', curYear = 0, playTimer = null;
+  var curYear = 0, playTimer = null;
   var MAX_YEAR = SCENARIO_YEARS[SCENARIO_YEARS.length - 1];
   var DOT_MAX = 340;
 
@@ -1649,85 +1684,153 @@
     return getComputedStyle(document.documentElement).getPropertyValue(name[1]).trim() || '#888';
   }
 
-  function renderScenarioMap() {
-    var canvas = document.getElementById('scenario-map-canvas');
-    if (!canvas) return;
-    var sc = scenarioById(curScenario);
+  /* ---------------------------------------------------------
+     Szenarien-Vergleich — drei Panels nebeneinander auf demselben
+     Zeitstand. Nur nebeneinanderstellen reicht nicht: Die Punktwolken
+     unterscheiden sich zu wenig, um daraus Wirksamkeit abzulesen.
+     Deshalb trägt jedes Panel den Zielwert der App als Kennzahl —
+     Bewaldungsgrad bzw. Erhaltungsgrad des Offenlands — als Zahl und
+     Balken, und das führende Szenario wird markiert. Beim Umschalten
+     des Zielzustands kehrt sich die Rangfolge um; genau das ist der
+     Leitsatz der App, hier zum Anfassen.
+     --------------------------------------------------------- */
+  var CMP_W = 420, CMP_H = 250;
+  var cmpBase = null;   // ein gemeinsamer Offscreen-Composite für alle Panels
 
-    drawCompositeOn(canvas, 2020, 2022, 2024);
-    var ctx = canvas.getContext('2d');
-
-    // dim the satellite base so the modelled stand reads clearly on top
-    ctx.fillStyle = 'rgba(12,9,5,0.55)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
+  function stateOf(sc, year) {
     // Wo eine gemessene Alternative existiert, zeigt die Karte SIE — nicht die
     // modellierte Hauptkurve. Bei „Kiefern nachpflanzen" ist das der Verlauf
     // ohne Nachbesserung: der Fall, den PYROPHOB tatsächlich gemessen hat.
     // Man soll sehen, dass dort eben keine Kiefern hochkommen. Das Chart
     // darüber zeigt weiterhin beide Linien.
     var measured = !!sc.altCanopy;
-    var hgt = atYear(measured ? sc.altHgt : sc.hgt, curYear);
-    var canopy = atYear(measured ? sc.altCanopy : sc.canopy, curYear);
-    var dens = measured ? null : atYear(sc.dens, curYear);
-    var domId = measured
-      ? sc.altDom[Math.min(sc.altDom.length - 1, Math.round((curYear / MAX_YEAR) * (SCENARIO_YEARS.length - 1)))]
-      : domAtYear(sc, curYear);
-    // Punktzahl folgt der Kronendeckung, nicht der Stammzahl: die Stammzahl
-    // sinkt im älteren Bestand durch Selbstdurchforstung (wenige dicke statt
-    // vieler dünner Bäume) — als schrumpfende Punktwolke gelesen wäre das
-    // das Gegenteil dessen, was passiert. Punktgröße folgt der Höhe.
-    var count = Math.round(Math.min(1, canopy / REF_CANOPY) * DOT_MAX);
-    // kleine Punkte, viele: liest sich als Dichte-Textur, nicht als
-    // Einzelbaum-Behauptung; Größe wächst nur leicht mit der Höhe
-    var r = 1.4 + Math.min(1, hgt / REF_HEIGHT) * 1.4;
+    var n = SCENARIO_YEARS.length - 1;
+    return {
+      measured: measured,
+      canopy: atYear(measured ? sc.altCanopy : sc.canopy, year),
+      hgt: atYear(measured ? sc.altHgt : sc.hgt, year),
+      dens: measured ? null : atYear(sc.dens, year),
+      domId: measured
+        ? sc.altDom[Math.min(sc.altDom.length - 1, Math.round((year / MAX_YEAR) * n))]
+        : domAtYear(sc, year)
+    };
+  }
 
-    ctx.fillStyle = cssColor(SP_COLOR[domId] || 'var(--neo)');
-    ctx.globalAlpha = 0.8;
-    for (var i = 0; i < count; i++) {
-      var p = DOT_POS[i];
-      ctx.beginPath();
-      ctx.arc(p.x / 100 * canvas.width, p.y / 100 * canvas.height, r, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-
-    var readout = document.getElementById('scenario-readout');
-    if (readout) {
-      var domSp = null;
-      for (var j = 0; j < SPECIES.length; j++) if (SPECIES[j].id === domId) domSp = SPECIES[j];
-      readout.innerHTML =
-        '<span class="ro-year"></span>' +
-        '<span class="ro-item"><b></b> <i></i></span>' +
-        '<span class="ro-item"><b></b> <i></i></span>' +
-        '<span class="ro-item"><b></b> <i></i></span>' +
-        '<span class="ro-item"><b></b> <i></i></span>';
-      readout.querySelector('.ro-year').textContent =
-        t('scenarios.yearLabel').replace('{y}', String(Math.round(curYear)));
-      if (measured) {
-        var badge = document.createElement('span');
-        badge.className = 'ro-measured';
-        badge.textContent = t('scenarios.measuredCase');
-        readout.insertBefore(badge, readout.children[1]);
-      }
-      var items = readout.querySelectorAll('.ro-item');
-      items[0].querySelector('b').textContent = t('scenarios.canopy');
-      items[0].querySelector('i').textContent = Math.round(canopy * 100) + ' %';
-      items[1].querySelector('b').textContent = t('scenarios.height');
-      items[1].querySelector('i').textContent =
-        (LANG === 'de' ? hgt.toFixed(1).replace('.', ',') : hgt.toFixed(1)) + ' m';
-      items[2].querySelector('b').textContent = t('scenarios.density');
-      items[2].querySelector('i').textContent =
-        dens === null ? '—' : Math.round(dens / 100) * 100 + ' /ha';
-      items[3].querySelector('b').textContent = t('scenarios.dominant');
-      items[3].querySelector('i').textContent = domSp ? pick(domSp.name) : '—';
-    }
-
-    slice(document.querySelectorAll('.scen-btn')).forEach(function (b) {
-      var on = b.dataset.scenario === curScenario;
-      b.classList.toggle('is-on', on);
-      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  function buildComparePanels() {
+    var host = document.getElementById('scen-compare');
+    if (!host) return null;
+    host.textContent = '';
+    var panels = SCENARIOS.map(function (sc) {
+      var el = document.createElement('article');
+      el.className = 'cmp-panel';
+      el.innerHTML =
+        '<div class="cmp-head"><span class="cmp-name"></span>' +
+        '<span class="rad-badge"></span><span class="cmp-lead"></span></div>' +
+        '<div class="cmp-map"><canvas width="' + CMP_W + '" height="' + CMP_H + '" role="img"></canvas></div>' +
+        '<div class="cmp-eff"><span class="cmp-eff-val"></span><span class="cmp-eff-lbl"></span>' +
+        '<div class="cmp-bar"><i></i></div></div>' +
+        '<ul class="cmp-facts"></ul>';
+      el.querySelector('.cmp-name').textContent = t('scenario.' + sc.id);
+      el.querySelector('.rad-badge').textContent = t('rad.' + sc.rad);
+      el.querySelector('.cmp-bar i').style.background = sc.color;
+      el.querySelector('canvas').setAttribute('aria-label',
+        t('scenario.' + sc.id) + ' — ' + t('scenarios.mapAria'));
+      host.appendChild(el);
+      return { sc: sc, el: el, canvas: el.querySelector('canvas') };
     });
+    return panels;
+  }
+
+  var cmpPanels = null;
+
+  function renderCompare() {
+    var host = document.getElementById('scen-compare');
+    if (!host) return;
+    if (!cmpPanels || cmpPanels.length !== SCENARIOS.length || !host.firstChild) {
+      cmpPanels = buildComparePanels();
+    }
+    if (!cmpPanels) return;
+
+    // Composite einmal in voller Kachelgröße zeichnen, dann in jedes Panel
+    // den Narben-Ausschnitt kopieren — spart drei volle Neuberechnungen.
+    if (!cmpBase) {
+      cmpBase = document.createElement('canvas');
+      cmpBase.width = canvas ? canvas.width : 640;
+      cmpBase.height = canvas ? canvas.height : 440;
+    }
+    var haveBase = drawCompositeOn(cmpBase, 2020, 2022, 2024);
+    var win = scarWindow(CMP_W / CMP_H);
+
+    var states = cmpPanels.map(function (p) { return stateOf(p.sc, curYear); });
+    var effs = states.map(function (s) { return recoveryOf(s.canopy, s.hgt); });
+    var best = effs.indexOf(Math.max.apply(null, effs));
+
+    cmpPanels.forEach(function (p, i) {
+      var st = states[i], ctx = p.canvas.getContext('2d');
+      ctx.clearRect(0, 0, CMP_W, CMP_H);
+      if (haveBase) {
+        ctx.drawImage(cmpBase, win.x, win.y, win.w, win.h, 0, 0, CMP_W, CMP_H);
+      } else {
+        ctx.fillStyle = cssColor('var(--surface-2)');
+        ctx.fillRect(0, 0, CMP_W, CMP_H);
+      }
+      ctx.fillStyle = 'rgba(12,9,5,0.55)';
+      ctx.fillRect(0, 0, CMP_W, CMP_H);
+
+      // Punktzahl folgt der Kronendeckung, nicht der Stammzahl: die Stammzahl
+      // sinkt im älteren Bestand durch Selbstdurchforstung (wenige dicke statt
+      // vieler dünner Bäume) — als schrumpfende Punktwolke gelesen wäre das
+      // das Gegenteil dessen, was passiert. Punktgröße folgt der Höhe.
+      var count = Math.round(Math.min(1, st.canopy / REF_CANOPY) * DOT_MAX);
+      var r = 1.3 + Math.min(1, st.hgt / REF_HEIGHT) * 1.9;
+      var sx = CMP_W / win.w, sy = CMP_H / win.h;
+      ctx.fillStyle = cssColor(SP_COLOR[st.domId] || 'var(--neo)');
+      ctx.globalAlpha = 0.85;
+      for (var k = 0; k < count; k++) {
+        var d = DOT_POS[k];
+        var px = (d.x / 100 * cmpBase.width - win.x) * sx;
+        var py = (d.y / 100 * cmpBase.height - win.y) * sy;
+        if (px < -4 || py < -4 || px > CMP_W + 4 || py > CMP_H + 4) continue;
+        ctx.beginPath();
+        ctx.arc(px, py, r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+
+      var eff = effs[i];
+      p.el.classList.toggle('is-lead', i === best && eff > 0);
+      p.el.querySelector('.cmp-lead').textContent = (i === best && eff > 0) ? t('scenarios.leader') : '';
+      p.el.querySelector('.cmp-eff-val').textContent = Math.round(eff * 100) + ' %';
+      p.el.querySelector('.cmp-eff-lbl').textContent = t('scenarios.metric.' + curTarget);
+      p.el.querySelector('.cmp-bar i').style.width = (eff * 100).toFixed(1) + '%';
+
+      var domSp = null;
+      for (var j = 0; j < SPECIES.length; j++) if (SPECIES[j].id === st.domId) domSp = SPECIES[j];
+      var facts = [
+        [t('scenarios.canopy'), Math.round(st.canopy * 100) + ' %'],
+        [t('scenarios.height'), (LANG === 'de' ? st.hgt.toFixed(1).replace('.', ',') : st.hgt.toFixed(1)) + ' m'],
+        [t('scenarios.density'), st.dens === null ? '—' : Math.round(st.dens / 100) * 100 + ' /ha'],
+        [t('scenarios.dominant'), domSp ? pick(domSp.name) : '—']
+      ];
+      var ul = p.el.querySelector('.cmp-facts');
+      ul.textContent = '';
+      if (st.measured) {
+        var li0 = document.createElement('li');
+        li0.className = 'cmp-measured';
+        li0.textContent = t('scenarios.measuredCase');
+        ul.appendChild(li0);
+      }
+      facts.forEach(function (f) {
+        var li = document.createElement('li');
+        var b = document.createElement('b'); b.textContent = f[0];
+        var v = document.createElement('i'); v.textContent = f[1];
+        li.appendChild(b); li.appendChild(document.createTextNode(' ')); li.appendChild(v);
+        ul.appendChild(li);
+      });
+    });
+
+    var yl = document.getElementById('scenario-yearlabel');
+    if (yl) yl.textContent = t('scenarios.yearLabel').replace('{y}', String(Math.round(curYear)));
     var slider = document.getElementById('scenario-slider');
     if (slider && +slider.value !== curYear) slider.value = String(curYear);
   }
@@ -1744,24 +1847,18 @@
     if (pb) { pb.textContent = t('scenarios.pause'); pb.setAttribute('aria-pressed', 'true'); }
     playTimer = setInterval(function () {
       curYear += 1;
-      if (curYear >= MAX_YEAR) { curYear = MAX_YEAR; renderScenarioMap(); stopPlay(); return; }
-      renderScenarioMap();
+      if (curYear >= MAX_YEAR) { curYear = MAX_YEAR; renderCompare(); stopPlay(); return; }
+      renderCompare();
     }, 220);
   }
 
-  slice(document.querySelectorAll('.scen-btn')).forEach(function (b) {
-    b.addEventListener('click', function () {
-      curScenario = b.dataset.scenario;
-      renderScenarioMap();
-    });
-  });
   (function () {
     var slider = document.getElementById('scenario-slider');
     if (slider) {
       slider.addEventListener('input', function () {
         stopPlay();
         curYear = +slider.value;
-        renderScenarioMap();
+        renderCompare();
       });
     }
     var pb = document.getElementById('scenario-play');
@@ -1855,7 +1952,7 @@
     var tn = document.getElementById('target-note');
     if (tn) tn.innerHTML = t('target.' + curTarget + 'Note');
 
-    renderScenarioMap();
+    renderCompare();
 
     var legend = document.getElementById('scenario-legend');
     if (!legend) return;
