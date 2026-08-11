@@ -329,9 +329,7 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 /* Szenarien-Vergleich: drei Panels auf demselben Zeitstand */
 .scen-compare{display:grid;grid-template-columns:1fr;gap:var(--sp-3);margin-top:var(--sp-3)}
 .cmp-panel{position:relative;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-m);
-  padding:var(--sp-2);display:flex;flex-direction:column;gap:.5rem;
-  transition:border-color .18s ease, box-shadow .18s ease}
-.cmp-panel.is-lead{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+  padding:var(--sp-2);display:flex;flex-direction:column;gap:.5rem}
 .cmp-head{display:flex;align-items:flex-start;gap:.4rem;flex-wrap:wrap;min-height:2.7rem}
 .cmp-name{font-family:var(--font-sans);font-weight:700;font-size:.95rem;color:var(--ink)}
 .cmp-lead:empty{display:none}
@@ -355,7 +353,7 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 .cmp-facts .cmp-measured{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
   color:var(--pine);border:1px solid var(--pine);border-radius:var(--r-pill);
   padding:.1rem .45rem;justify-self:start;margin-bottom:.15rem}
-@media (prefers-reduced-motion:reduce){ .cmp-bar i,.cmp-panel{transition:none} }
+@media (prefers-reduced-motion:reduce){ .cmp-bar i{transition:none} }
 #scenario-play{white-space:nowrap;min-width:6.5em}
 
 /* ============================================================

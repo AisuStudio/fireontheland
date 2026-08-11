@@ -1800,7 +1800,6 @@
       ctx.globalAlpha = 1;
 
       var eff = effs[i];
-      p.el.classList.toggle('is-lead', i === best && eff > 0);
       p.el.querySelector('.cmp-lead').textContent = (i === best && eff > 0) ? t('scenarios.leader') : '';
       p.el.querySelector('.cmp-eff-val').textContent = Math.round(eff * 100) + ' %';
       p.el.querySelector('.cmp-eff-lbl').textContent = t('scenarios.metric.' + curTarget);
