@@ -234,7 +234,7 @@
       'unit.archaeo.one': 'Archäophyt',
       'unit.archaeo.many': 'Archäophyten',
       'speciesMap.aria': 'Generierte Mischung illustrativ auf dem Sentinel-Komposit platziert',
-      'speciesMap.caption': 'Illustrative Platzierung — keine realen Standortdaten.',
+      'speciesMap.caption': 'Illustrative Platzierung im verbrannten Kern der Fläche — keine realen Standortdaten.',
       'list.allTitle': 'Alle Arten',
 
       'scenarios.kicker': 'Illustratives Modell',
@@ -279,7 +279,7 @@
       'scenarios.density': 'Stammzahl',
       'scenarios.height': 'Höhe',
       'scenarios.dominant': 'Dominant',
-      'scenarios.mapNote': 'Jeder Punkt steht für ein Stück Kronendach, nicht für einen Baum — deshalb wächst die Punktwolke stetig, während die Stammzahl im älteren Bestand sinkt: Aus vielen dünnen Bäumen werden wenige dicke.',
+      'scenarios.mapNote': 'Jeder Punkt steht für ein Stück Kronendach, nicht für einen Baum — deshalb wächst die Punktwolke stetig, während die Stammzahl im älteren Bestand sinkt: Aus vielen dünnen Bäumen werden wenige dicke. Die Wolke liegt im aus den Satellitendaten abgeleiteten, stark verbrannten Kern der Fläche; die Verteilung innerhalb bleibt schematisch.',
 
       'concept.thesis': 'Der Wert einer Sukzession ist keine Eigenschaft der <em>Pflanze</em> — sondern der <em>Fläche</em>.',
       'concept.hsec3': 'Nicht wiederherstellen — weiterdenken',
@@ -427,7 +427,7 @@
       'unit.archaeo.one': 'archaeophyte',
       'unit.archaeo.many': 'archaeophytes',
       'speciesMap.aria': 'Generated mix illustratively placed on the Sentinel composite',
-      'speciesMap.caption': 'Illustrative placement — not real site data.',
+      'speciesMap.caption': 'Illustrative placement in the burned core of the site — not real site data.',
       'list.allTitle': 'All species',
 
       'scenarios.kicker': 'Illustrative model',
@@ -472,7 +472,7 @@
       'scenarios.density': 'Stems',
       'scenarios.height': 'Height',
       'scenarios.dominant': 'Dominant',
-      'scenarios.mapNote': 'Each dot stands for a piece of canopy, not for a single tree — which is why the dots keep filling in while the stem count falls in the older stand: many thin trees become a few thick ones.',
+      'scenarios.mapNote': 'Each dot stands for a piece of canopy, not for a single tree — which is why the dots keep filling in while the stem count falls in the older stand: many thin trees become a few thick ones. The cloud sits in the severely burned core derived from the satellite data; the distribution within it remains schematic.',
 
       'concept.thesis': 'The value of a succession is not a property of the <em>plant</em> — but of the <em>site</em>.',
       'concept.hsec3': 'Not restoration — rethinking',
@@ -838,8 +838,92 @@
     drawCompositeOn(canvas, yr, yg, yb);
   }
 
+  /* ---------------------------------------------------------
+     Brandflächen-Maske aus den vorhandenen NBR-Kacheln.
+     verbrannt ≈ 2020 dunkel (NBR deutlich unter 0) UND gerichtete
+     Aufhellung über 2022 nach 2024 (Erholungssignal). Äcker sind mal
+     hell, mal dunkel, aber ohne gerichteten Anstieg; unverbrannter
+     Forst ist 2020 schon hell. Danach 3×3-Mehrheits-Erosion gegen
+     Einzelpixel-Rauschen und Reduktion auf die größte zusammenhängende
+     Komponente — die Narbe ist EIN großes Gebilde, Acker-Fehltreffer
+     sind viele kleine. Heuristik, keine amtliche Kontur; die echte
+     dNBR-Maske käme mit der Vorbrand-Kachel (Backlog).
+     --------------------------------------------------------- */
+  var burnMask = null;     // Uint8Array (W*H), 1 = verbrannt
+  var burnPixels = null;   // Pixelindizes innerhalb der Maske
+  var MASK_W = 0, MASK_H = 0;
+
+  function buildBurnMask() {
+    var t0 = tileCache[2020], tm = tileCache[2022], t1 = tileCache[2024];
+    if (!t0 || !tm || !t1) return;
+    var W = t0.width, H = t0.height, N = W * H;
+    var d0 = t0.data, dm = tm.data, d1 = t1.data;
+    var raw = new Uint8Array(N);
+    for (var i = 0; i < N; i++) {
+      var v0 = d0[i * 4], vm = dm[i * 4], v1 = d1[i * 4];
+      if (v0 < 115 && v1 - v0 > 20 && vm - v0 > -5 && v1 - vm > -10) raw[i] = 1;
+    }
+    // Die Narbe ist ein Mosaik aus Teilflächen, getrennt durch 1–2 px schmale
+    // Schneisen/Wege. Closing: 2× dilatieren überbrückt die Schneisen, dann
+    // größte 8er-Komponente auf dem dilatierten Bild suchen und auf die
+    // Original-Pixel zurückschneiden — Acker-Fehltreffer bleiben eigene
+    // kleine Komponenten und fallen weg.
+    function dilate(src) {
+      var out = new Uint8Array(N);
+      for (var y = 0; y < H; y++) {
+        for (var x = 0; x < W; x++) {
+          var idx = y * W + x, hit = 0;
+          for (var dy = -1; dy <= 1 && !hit; dy++) {
+            var ny = y + dy; if (ny < 0 || ny >= H) continue;
+            for (var dx = -1; dx <= 1; dx++) {
+              var nx = x + dx; if (nx < 0 || nx >= W) continue;
+              if (src[ny * W + nx]) { hit = 1; break; }
+            }
+          }
+          out[idx] = hit;
+        }
+      }
+      return out;
+    }
+    var dil = dilate(dilate(raw));
+    var label = new Int32Array(N), next = 1, bestLabel = 0, bestSize = 0;
+    var queue = new Int32Array(N);
+    for (var s = 0; s < N; s++) {
+      if (!dil[s] || label[s]) continue;
+      var head = 0, tail = 0, size = 0;
+      queue[tail++] = s; label[s] = next;
+      while (head < tail) {
+        var p = queue[head++]; size++;
+        var cx = p % W, cy = (p - cx) / W;
+        for (var dy2 = -1; dy2 <= 1; dy2++) {
+          var ny2 = cy + dy2; if (ny2 < 0 || ny2 >= H) continue;
+          for (var dx2 = -1; dx2 <= 1; dx2++) {
+            if (!dx2 && !dy2) continue;
+            var nx2 = cx + dx2; if (nx2 < 0 || nx2 >= W) continue;
+            var q = ny2 * W + nx2;
+            if (dil[q] && !label[q]) { label[q] = next; queue[tail++] = q; }
+          }
+        }
+      }
+      if (size > bestSize) { bestSize = size; bestLabel = next; }
+      next++;
+    }
+    var px = [];
+    var mask = new Uint8Array(N);
+    for (var k = 0; k < N; k++) {
+      if (raw[k] && label[k] === bestLabel && bestLabel) { mask[k] = 1; px.push(k); }
+    }
+    // Schutzgeländer: entgleist die Heuristik (<1 % oder >30 % der Kachel),
+    // lieber ohne Maske streuen als eine falsche Kontur behaupten.
+    var frac = px.length / N;
+    if (frac < 0.01 || frac > 0.30) { burnMask = null; burnPixels = null; return; }
+    burnMask = mask; burnPixels = px; MASK_W = W; MASK_H = H;
+  }
+
   Promise.all(TILE_YEARS.map(loadTile)).then(function () {
     tilesReady = true;
+    buildBurnMask();
+    rebuildDotPositions();
     renderComposite();
     renderSpeciesMap();
     renderScenarioMap();
@@ -1281,7 +1365,8 @@
      Species map — the generated mix placed illustratively on
      the real Sentinel composite. Positions are a deterministic
      hash of each species id (never Math.random — reproducible,
-     screenshot-stable) and are NOT real planting coordinates;
+     screenshot-stable), seit der Brandmaske innerhalb der realen
+     Narbenkontur, aber weiterhin KEINE realen Pflanzkoordinaten;
      labelled as such (speciesMap.caption) per "ehrlich über
      Grenzen".
      --------------------------------------------------------- */
@@ -1290,6 +1375,15 @@
   function hashPos(id) {
     var h = 0;
     for (var i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
+    // mit Brandmaske: Hash wählt einen Pixel innerhalb der Narbe,
+    // sonst Fallback auf die alte Vollflächen-Streuung
+    if (burnPixels && burnPixels.length) {
+      var idx = burnPixels[h % burnPixels.length];
+      return {
+        x: ((idx % MASK_W) + 0.5) / MASK_W * 100,
+        y: (Math.floor(idx / MASK_W) + 0.5) / MASK_H * 100
+      };
+    }
     return {
       x: 10 + (h % 1000) / 1000 * 80,
       y: 12 + (Math.floor(h / 256) % 1000) / 1000 * 74
@@ -1485,10 +1579,12 @@
   var DOT_MAX = 340;
 
   // fixed, deterministic scatter — same seed every render, so scrubbing the
-  // slider grows the existing stand instead of reshuffling it
-  var DOT_POS = (function () {
+  // slider grows the existing stand instead of reshuffling it. Solange keine
+  // Maske existiert (Kacheln nicht geladen), Streuung über die volle Fläche;
+  // rebuildDotPositions() ersetzt beides, sobald die Brandmaske steht.
+  function fullCanvasDots(n) {
     var out = [], h = 2166136261;
-    for (var i = 0; i < DOT_MAX; i++) {
+    for (var i = 0; i < n; i++) {
       h = (h ^ (i + 1)) >>> 0; h = (h * 16777619) >>> 0;
       var x = (h % 10000) / 10000;
       h = (h * 16777619) >>> 0;
@@ -1496,7 +1592,25 @@
       out.push({ x: 3 + x * 94, y: 6 + y * 88 });
     }
     return out;
-  })();
+  }
+  var DOT_POS = fullCanvasDots(DOT_MAX);
+
+  function rebuildDotPositions() {
+    if (!burnPixels || !burnPixels.length) return;
+    // Punktbudget an die reale Narbengröße koppeln: bei vollem Kronenschluss
+    // soll die Wolke die Kontur füllen, ohne zum Klumpen zu werden.
+    DOT_MAX = Math.max(400, Math.round(burnPixels.length / 14));
+    var out = [], h = 2166136261;
+    for (var i = 0; i < DOT_MAX; i++) {
+      h = (h ^ (i + 1)) >>> 0; h = (h * 16777619) >>> 0;
+      var idx = burnPixels[h % burnPixels.length];
+      out.push({
+        x: ((idx % MASK_W) + 0.5) / MASK_W * 100,
+        y: (Math.floor(idx / MASK_W) + 0.5) / MASK_H * 100
+      });
+    }
+    DOT_POS = out;
+  }
 
   function scenarioById(id) {
     for (var i = 0; i < SCENARIOS.length; i++) if (SCENARIOS[i].id === id) return SCENARIOS[i];
@@ -1545,10 +1659,12 @@
     // vieler dünner Bäume) — als schrumpfende Punktwolke gelesen wäre das
     // das Gegenteil dessen, was passiert. Punktgröße folgt der Höhe.
     var count = Math.round(Math.min(1, canopy / REF_CANOPY) * DOT_MAX);
-    var r = 1.5 + Math.min(1, hgt / REF_HEIGHT) * 7;
+    // kleine Punkte, viele: liest sich als Dichte-Textur, nicht als
+    // Einzelbaum-Behauptung; Größe wächst nur leicht mit der Höhe
+    var r = 1.4 + Math.min(1, hgt / REF_HEIGHT) * 1.4;
 
     ctx.fillStyle = cssColor(SP_COLOR[domId] || 'var(--neo)');
-    ctx.globalAlpha = 0.85;
+    ctx.globalAlpha = 0.8;
     for (var i = 0; i < count; i++) {
       var p = DOT_POS[i];
       ctx.beginPath();
