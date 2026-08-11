@@ -326,6 +326,32 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 .scrub-year{font-family:var(--font-sans);font-weight:700;font-variant-numeric:tabular-nums;
   white-space:nowrap;color:var(--ink)}
 
+/* Zeichenerklärung direkt am Chart — Linie, Band und Strichlinie so
+   dargestellt, wie sie im Chart aussehen. */
+.chart-key{list-style:none;margin:.5rem 0 0;padding:0;display:flex;flex-wrap:wrap;
+  gap:.35rem var(--sp-3);font-family:var(--font-sans);font-size:.8rem;color:var(--muted)}
+.chart-key li{display:flex;align-items:center;gap:.45rem}
+.key-line{width:20px;height:3px;border-radius:2px;flex:0 0 auto}
+.key-band{width:20px;height:11px;border-radius:2px;opacity:.28;flex:0 0 auto}
+.key-dash{width:20px;height:0;border-top:2px dashed currentColor;flex:0 0 auto}
+.key-lbl{color:var(--ink)}
+
+/* Vorbehalte: eine Zeile sichtbar, der Rest auf Wunsch. Nichts ist gelöscht —
+   die Sorgfalt bleibt prüfbar, erschlägt aber nicht den ersten Blick. */
+.disclosure{margin-top:var(--sp-3);border-top:1px solid var(--line)}
+.disclosure > summary{cursor:pointer;list-style:none;padding:.55rem 0;
+  font-family:var(--font-sans);font-size:.85rem;color:var(--muted);
+  display:flex;align-items:center;gap:.5rem}
+.disclosure > summary::-webkit-details-marker{display:none}
+.disclosure > summary::before{content:"";width:0;height:0;flex:0 0 auto;
+  border-left:5px solid currentColor;border-top:4px solid transparent;
+  border-bottom:4px solid transparent;transition:transform .15s ease}
+.disclosure[open] > summary::before{transform:rotate(90deg)}
+.disclosure > summary:hover{color:var(--ink)}
+.disclosure > *:not(summary){margin-bottom:var(--sp-3)}
+.disclosure .rad-box{margin-top:0}
+@media (prefers-reduced-motion:reduce){ .disclosure > summary::before{transition:none} }
+
 /* Kohlenstoff: zwei Balken auf einer Skala. Der Aufwuchs-Balken ist fast
    unsichtbar — das ist die Aussage, nicht ein Darstellungsfehler. */
 .c-compare{margin:var(--sp-3) 0 0;display:grid;gap:.6rem}

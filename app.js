@@ -138,11 +138,11 @@
       'app.sub': 'Reale Post-Fire-Flächen, an denen die Fragen aus Fire on the Land an echten Daten geprüft werden — angefangen mit Jüterbog, Brandenburg.',
       'app.scale': 'Die Größenordnungen unterscheiden sich drastisch: Jüterbog 2019 rund 800 Hektar, allein die Northwest Territories 2023 über 4 Millionen — das 5.000-Fache. Vergleichbar ist die Fläche nicht, wohl aber die Fragestellung.',
 
-      'tab.composite': 'Komposit',
+      'tab.composite': 'Die Fläche',
       'tab.scorecard': 'Scorecard',
-      'tab.measures': 'Maßnahmen',
-      'tab.species': 'Arten',
-      'tab.scenarios': 'Szenarien',
+      'tab.measures': 'Was hilft',
+      'tab.species': 'Was wächst',
+      'tab.scenarios': 'Drei Wege',
       'tab.concept': 'Konzept',
 
       'composite.kicker': 'Was Fire on the Land ist',
@@ -268,6 +268,12 @@
       'rad.body': 'Diese drei Wege sind keine Erfindung dieser App. Sie entsprechen dem <strong>Resist–Accept–Direct</strong>-Rahmen, mit dem der US-amerikanische National Park Service Ökosysteme im Klimawandel steuert. Sein Bild dafür ist ein Segelboot: <em>Resist</em> heißt Motor an und gegen den Wind zurück in den Heimathafen. <em>Accept</em> heißt Segel runter und treiben lassen. <em>Direct</em> heißt den Wind nutzen, um einen neuen, besseren Zielort anzusteuern.',
       'rad.body2': 'Der entscheidende Punkt: <em>Direct</em> zielt ausdrücklich auf „bevorzugte <strong>neue</strong> Zustände“ — nicht auf historische. Genau dort liegt die Anpassungshypothese dieses Projekts, und genau dort liegt der Unterschied zwischen konservativem und progressivem Walddenken: Der eine Weg misst Erfolg am Vorzustand, der andere an der Überlebensfähigkeit unter künftigen Bedingungen.',
       'rad.source': 'Schuurman u.&nbsp;a. (2022): <em>Navigating Ecological Transformation: Resist–Accept–Direct as a Path to a New Resource Management Paradigm</em>, BioScience 72(1) — sowie das RAD-Entscheidungsrahmenwerk des National Park Service.',
+      'legend.band': 'Gemessene Spannweite (Samenbäume ja/nein)',
+      'legend.dashed': 'Gemessen, ohne Nachbesserung',
+      'scenarios.pathsSummary': 'Was die drei Wege bedeuten',
+      'scenarios.readSummary': 'Wie die Panels zu lesen sind',
+      'carbon.chartSummary': 'Was dieser Chart nicht zeigt: Kohlenstoff-Erholung',
+      'rad.summary': 'Der Rahmen dahinter: Resist · Accept · Direct',
       'scenarios.compareTitle': 'Szenarien vergleichen',
       'carbon.title': 'Kohlenstoff',
       'carbon.lede': 'Was der Chart oben nicht zeigt, lässt sich wenigstens einordnen. PYROPHOB hat drei Jahre nach dem Brand die Gehölz-Biomasse gemessen, ober- und unterirdisch: an den stärksten Flächen 2.765&nbsp;kg/ha Aspe, an der Jüterboger Fläche&nbsp;U dagegen <strong>3&nbsp;kg/ha</strong>. Sand-Birke kam auf höchstens 138&nbsp;kg/ha, Kiefer auf 36.',
@@ -344,11 +350,11 @@
       'app.sub': 'Real post-fire sites where the questions from Fire on the Land get tested against actual data — starting with Jüterbog, Brandenburg.',
       'app.scale': 'The scales are dramatically different: Jüterbog’s 2019 fire burned around 800 hectares; the Northwest Territories alone burned over 4 million in 2023 — 5,000 times more. The area isn’t comparable, but the underlying question is.',
 
-      'tab.composite': 'Composite',
+      'tab.composite': 'The site',
       'tab.scorecard': 'Scorecard',
-      'tab.measures': 'Measures',
-      'tab.species': 'Species',
-      'tab.scenarios': 'Scenarios',
+      'tab.measures': 'What helps',
+      'tab.species': 'What grows',
+      'tab.scenarios': 'Three routes',
       'tab.concept': 'Concept',
 
       'composite.kicker': 'What Fire on the Land is',
@@ -474,6 +480,12 @@
       'rad.body': 'These three paths are not this app’s invention. They match the <strong>Resist–Accept–Direct</strong> framework the US National Park Service uses to steward ecosystems under climate change. Its own image for it is a sailboat: <em>Resist</em> means running the engine against the wind to get back to the home port. <em>Accept</em> means dropping the sails and going where the wind takes you. <em>Direct</em> means using the wind to steer for a new, better destination.',
       'rad.body2': 'The decisive point: <em>Direct</em> explicitly aims at “preferred <strong>new</strong> conditions” — not historical ones. That is exactly where this project’s adaptation hypothesis sits, and exactly where conservative and progressive forest thinking part ways: one measures success against the previous state, the other against survivability under future conditions.',
       'rad.source': 'Schuurman et al. (2022): <em>Navigating Ecological Transformation: Resist–Accept–Direct as a Path to a New Resource Management Paradigm</em>, BioScience 72(1) — together with the National Park Service RAD decision framework.',
+      'legend.band': 'Measured range (seed trees or none)',
+      'legend.dashed': 'Measured, without replanting',
+      'scenarios.pathsSummary': 'What the three routes mean',
+      'scenarios.readSummary': 'How to read the panels',
+      'carbon.chartSummary': 'What this chart doesn\u2019t show: carbon recovery',
+      'rad.summary': 'The framework behind it: Resist · Accept · Direct',
       'scenarios.compareTitle': 'Compare scenarios',
       'carbon.title': 'Carbon',
       'carbon.lede': 'What the chart above can\u2019t show can at least be put in proportion. Three years after the fire PYROPHOB measured woody biomass, above and below ground: 2,765&nbsp;kg/ha of aspen on the strongest plots, but <strong>3&nbsp;kg/ha</strong> on Jüterbog plot&nbsp;U. Silver birch reached at most 138&nbsp;kg/ha, Scots pine 36.',
@@ -1969,9 +1981,39 @@
 
     renderCompare();
 
+    // Kompakte Zeichenerklärung direkt unter dem Chart — inklusive Band und
+    // gestrichelter Linie, die man sonst nirgends erklärt bekommt. Die
+    // ausführlichen Szenario-Texte stehen aufklappbar darunter.
     var legend = document.getElementById('scenario-legend');
-    if (!legend) return;
-    legend.textContent = '';
+    if (legend) {
+      legend.textContent = '';
+      SCENARIOS.forEach(function (s) {
+        var li = document.createElement('li');
+        li.innerHTML = '<span class="key-line" style="background:' + s.color + '"></span>' +
+          '<span class="key-lbl"></span> <span class="rad-badge"></span>';
+        li.querySelector('.key-lbl').textContent = t('scenario.' + s.id);
+        li.querySelector('.rad-badge').textContent = t('rad.' + s.rad);
+        legend.appendChild(li);
+      });
+      var band = SCENARIOS.filter(function (s) { return s.band; })[0];
+      if (band && curTarget === 'forest') {
+        var lb = document.createElement('li');
+        lb.innerHTML = '<span class="key-band" style="background:' + band.color + '"></span><span class="key-lbl"></span>';
+        lb.querySelector('.key-lbl').textContent = t('legend.band');
+        legend.appendChild(lb);
+      }
+      var alt = SCENARIOS.filter(function (s) { return s.altCanopy; })[0];
+      if (alt) {
+        var ld = document.createElement('li');
+        ld.innerHTML = '<span class="key-dash" style="border-color:' + alt.color + '"></span><span class="key-lbl"></span>';
+        ld.querySelector('.key-lbl').textContent = t('legend.dashed');
+        legend.appendChild(ld);
+      }
+    }
+
+    var paths = document.getElementById('scenario-paths');
+    if (!paths) return;
+    paths.textContent = '';
     SCENARIOS.forEach(function (s) {
       var li = document.createElement('li');
       li.className = 'scenario-item';
@@ -1981,7 +2023,7 @@
       li.querySelector('.scenario-name').textContent = t('scenario.' + s.id);
       li.querySelector('.rad-badge').textContent = t('rad.' + s.rad);
       li.querySelector('.scenario-note').textContent = t('scenario.' + s.id + '.note');
-      legend.appendChild(li);
+      paths.appendChild(li);
     });
   }
 

@@ -151,6 +151,7 @@
     <div id="view-app" hidden>
       <div class="app-intro">
         <span class="kicker" data-i18n="app.kicker">Adoption Scenarios</span><span class="beta-badge">Beta</span>
+        <p class="thesis-line" data-i18n-html="concept.thesis">Der Wert einer Sukzession ist keine Eigenschaft der <em>Pflanze</em> — sondern der <em>Fläche</em>.</p>
         <p data-i18n="app.sub">Reale Post-Fire-Flächen, an denen die Fragen aus Fire on the Land an echten Daten geprüft werden — angefangen mit Jüterbog, Brandenburg.</p>
         <p class="note" data-i18n="app.scale">Die Größenordnungen unterscheiden sich drastisch: Jüterbog 2019 rund 800 Hektar, allein die Northwest Territories 2023 über 4 Millionen — das 5.000-Fache. Vergleichbar ist die Fläche nicht, wohl aber die Fragestellung. Auch die Kohlenstoff-Bilanz ist qualitativ verschieden: Kanadas Brände setzten 2023 landesweit rund 647 Teragramm Kohlenstoff frei, knapp drei Viertel davon aus der Verbrennung von Boden- und Moorkohlenstoff — jahrtausendealtem Kohlenstoff, der beim Wiederaufwuchs nicht zurückkommt. Brandenburgs nährstoffarmer Sand hat davon vergleichsweise wenig zu verlieren; hier entscheidet vor allem, wie schnell die oberirdische Biomasse nachwächst.</p>
       </div>
@@ -195,7 +196,6 @@
       <p class="note" data-i18n-html="scorecard.note">Die Achse <strong>Biodiversität</strong> kippt je nach Fläche — der Angelpunkt, den das Werkzeug sichtbar macht.</p>
 
       <h2 class="h-sec" data-i18n="concept.hsec3">Nicht wiederherstellen — weiterdenken</h2>
-      <p class="thesis-line" data-i18n-html="concept.thesis">Der Wert einer Sukzession ist keine Eigenschaft der <em>Pflanze</em> — sondern der <em>Fläche</em>.</p>
       <p data-i18n-html="concept.compressed">Wiederherstellung fragt, wie wir zurückbekommen, was vorher da war — auf einer Fläche, deren Vorzustand ein brandanfälliger Kiefernacker war, die falsche Frage. Die Zahlen zeigen das deutlich: Für die Kiefer stützt sich die Ertragstafel auf rund 1.500 Probeflächen, für die Sand-Birke auf 192, für die nach dem Brand tatsächlich dominierende Zitterpappel auf keine einzige — die Forstwissenschaft hat 250 Jahre lang vermessen, was gepflanzt wurde, nicht, was von selbst kam. Das gilt für den gewöhnlichen Wirtschaftswald; auf Schutzflächen wie dieser hier ist Aufwuchs nicht Ertrag, sondern Verlust.</p>
 
       <h2 class="h-sec" data-i18n="concept.hsec2">Wertekanon</h2>
@@ -222,18 +222,27 @@
         <div id="scenario-chart"></div>
         <figcaption id="chart-caption" class="chart-caption" data-i18n="scenarios.caption.forest">Bewaldungsgrad (%) über Jahre seit dem Brand</figcaption>
       </figure>
+      <ul id="scenario-legend" class="chart-key"></ul>
       <p id="target-note" class="note" data-i18n-html="target.forestNote">Gemessen wird gegen den unverbrannten Kiefernforst nebenan: 80 % Kronendeckung, rund 20 m Höhe. Beides muss stimmen — hohe Einzelbäume ohne Deckung sind kein Wald, dichter Niederwuchs ohne Höhe auch nicht.</p>
-      <p class="note" data-i18n-html="scenarios.carbonNote">Was dieser Chart nicht zeigt: Kohlenstoff-Erholung. Kronendeckung und Höhe sind auf Brandenburgs Sand ein brauchbarer Näherungswert, weil der meiste Kohlenstoff hier oberirdisch in Biomasse steckt. Auf borealem Moor wäre das irreführend — dort steckt der Großteil des freigesetzten Kohlenstoffs im Boden selbst und baut sich nicht im Takt der sichtbaren Vegetation wieder auf (kanadaweit rund drei Viertel der Brandemissionen 2023). Zwei Unterschiede kommen dazu: Auf Permafrost-Torf kann ein Brand den Boden auftauen und die Fläche dauerhaft in ein Feuchtgebiet kippen — ein Systemwechsel, den keine dieser Kurvenformen abbilden kann (Gibson u.&nbsp;a. 2018, <em>Nature Communications</em>). Und boreale Nadelbäume tragen ihre Samenbank serotin in den Kronen, während die Waldkiefer hier auf überlebende Samenbäume angewiesen ist — schon der passive Weg funktioniert dort mechanisch anders. Ein Standort wie Dehcho/NWT bräuchte deshalb eine <strong>eigene Kurve</strong>, keine umbenannte Kopie dieser hier.</p>
 
-      <ul id="scenario-legend" class="scenario-legend"></ul>
+      <details class="disclosure">
+        <summary data-i18n="scenarios.pathsSummary">Was die drei Wege bedeuten</summary>
+        <ul id="scenario-paths" class="scenario-legend"></ul>
+      </details>
 
-      <div class="rad-box">
-        <span class="kicker" data-i18n="rad.kicker">Der Rahmen dahinter</span>
-        <h2 class="hypo-title" data-i18n="rad.title">Resist · Accept · Direct</h2>
-        <p data-i18n-html="rad.body">Diese drei Wege sind keine Erfindung dieser App. Sie entsprechen dem <strong>Resist–Accept–Direct</strong>-Rahmen, mit dem der US-amerikanische National Park Service Ökosysteme im Klimawandel steuert. Sein Bild dafür ist ein Segelboot: <em>Resist</em> heißt Motor an und gegen den Wind zurück in den Heimathafen. <em>Accept</em> heißt Segel runter und treiben lassen. <em>Direct</em> heißt den Wind nutzen, um einen neuen, besseren Zielort anzusteuern.</p>
-        <p data-i18n-html="rad.body2">Der entscheidende Punkt: <em>Direct</em> zielt ausdrücklich auf „bevorzugte <strong>neue</strong> Zustände" — nicht auf historische. Genau dort liegt die Anpassungshypothese dieses Projekts, und genau dort liegt der Unterschied zwischen konservativem und progressivem Walddenken: Der eine Weg misst Erfolg am Vorzustand, der andere an der Überlebensfähigkeit unter künftigen Bedingungen.</p>
-        <p class="note" data-i18n-html="rad.source">Schuurman u.&nbsp;a. (2022): <em>Navigating Ecological Transformation: Resist–Accept–Direct as a Path to a New Resource Management Paradigm</em>, BioScience 72(1) — sowie das RAD-Entscheidungsrahmenwerk des National Park Service.</p>
-      </div>
+      <details class="disclosure">
+        <summary data-i18n="carbon.chartSummary">Was dieser Chart nicht zeigt: Kohlenstoff-Erholung</summary>
+        <p class="note" data-i18n-html="scenarios.carbonNote"></p>
+      </details>
+
+      <details class="disclosure">
+        <summary data-i18n="rad.summary">Der Rahmen dahinter: Resist · Accept · Direct</summary>
+        <div class="rad-box">
+          <p data-i18n-html="rad.body"></p>
+          <p data-i18n-html="rad.body2"></p>
+          <p class="note" data-i18n-html="rad.source"></p>
+        </div>
+      </details>
 
       <h2 class="h-sec" data-i18n="scenarios.compareTitle">Szenarien vergleichen</h2>
 
@@ -245,8 +254,11 @@
       </div>
 
       <div class="scen-compare" id="scen-compare"></div>
-      <p class="note" data-i18n-html="scenarios.compareNote">Verglichen wird der Zielwert oben — beim Waldziel zählt Kronendeckung mit Höhe, beim Offenlandziel die Freiheit von Gehölzen. <strong>Der Umschalter kehrt die Rangfolge um:</strong> Was den Wald am schnellsten zurückbringt, zerstört das geschützte Offenland am schnellsten. Dieselben Daten, dieselbe Fläche, umgekehrtes Urteil.</p>
-      <p class="note" data-i18n="scenarios.mapNote">Jeder Punkt steht für ein Stück Kronendach, nicht für einen Baum — deshalb wächst die Punktwolke stetig, während die Stammzahl im älteren Bestand sinkt: Aus vielen dünnen Bäumen werden wenige dicke. Die Wolke liegt im aus den Satellitendaten abgeleiteten, stark verbrannten Kern der Fläche; die Verteilung innerhalb bleibt schematisch.</p>
+      <details class="disclosure">
+        <summary data-i18n="scenarios.readSummary">Wie die Panels zu lesen sind</summary>
+        <p class="note" data-i18n-html="scenarios.compareNote"></p>
+        <p class="note" data-i18n-html="scenarios.mapNote"></p>
+      </details>
 
       <h2 class="h-sec" data-i18n="carbon.title">Kohlenstoff</h2>
       <p class="note" data-i18n-html="carbon.lede">Was der Chart oben nicht zeigt, lässt sich wenigstens einordnen. PYROPHOB hat drei Jahre nach dem Brand die Gehölz-Biomasse gemessen, ober- und unterirdisch: an den stärksten Flächen 2.765&nbsp;kg/ha Aspe, an der Jüterboger Fläche&nbsp;U dagegen <strong>3&nbsp;kg/ha</strong>. Sand-Birke kam auf höchstens 138&nbsp;kg/ha, Kiefer auf 36.</p>
