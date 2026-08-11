@@ -35,6 +35,12 @@
   src:url("fonts/PublicSans/PublicSans-Italic.woff2") format("woff2");
   font-weight:400; font-style:italic; font-display:swap;
 }
+/* AS Data — variable "data font" whose glyphs are trees, not letters. A and B
+   are two tree silhouettes; the axes carry meaning instead of style:
+   wght = fire impact, YTAS = growth (ascender height), slnt = ground
+   instability (reserved for permafrost sites, held at 0 here). */
+@font-face{ font-family:"AS Data"; src:url("fonts/ASData/ASDataVF.woff2") format("woff2-variations");
+  font-weight:100 900; font-display:block; }
 @font-face{ font-family:"Dehcho Regular"; src:url("fonts/Dehcho/ASDehchoTestAg01-Regular.woff2") format("woff2"); font-display:swap; }
 @font-face{ font-family:"Dehcho RegularSlanted"; src:url("fonts/Dehcho/ASDehchoTestAg01-RegularSlanted.woff2") format("woff2"); font-display:swap; }
 @font-face{ font-family:"Dehcho Medium"; src:url("fonts/Dehcho/ASDehchoTestAg01-Medium.woff2") format("woff2"); font-display:swap; }
@@ -291,9 +297,18 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 .hypo p{font-size:1.0625rem;line-height:1.5;margin:0 0 var(--sp-2)}
 .hypo p:last-child{margin-bottom:0}
 .species-map{position:relative;margin:var(--sp-3) 0 0;border:1px solid var(--line);border-radius:var(--r-m);
-  overflow:hidden;box-shadow:var(--shadow);background:var(--surface-2)}
+  overflow:hidden;box-shadow:var(--shadow);background:var(--surface-2);container-type:inline-size}
 .species-map canvas{width:100%;height:auto;display:block}
 .species-map-pins{position:absolute;inset:0}
+
+/* Glyph stand — one AS Data tree glyph per modelled patch of canopy, placed
+   inside the burn mask. Sized in cqw so it scales with the map, not the text. */
+.tree-layer{position:absolute;inset:0;font-family:"AS Data";font-size:4.4cqw;line-height:1;
+  color:var(--highlight);pointer-events:none}
+.tree-layer span{position:absolute;display:block;transform:translate(-50%,-78%);
+  transition:font-variation-settings .18s linear, opacity .18s linear;
+  text-shadow:0 1px 3px rgba(8,6,3,.75)}
+@media (prefers-reduced-motion:reduce){ .tree-layer span{transition:none} }
 .sp-pin{position:absolute;width:13px;height:13px;border-radius:50%;border:2px solid var(--surface);
   transform:translate(-50%,-50%);box-shadow:0 1px 3px #00000066}
 
