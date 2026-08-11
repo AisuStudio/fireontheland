@@ -275,6 +275,7 @@
       'scenarios.play': 'Abspielen',
       'scenarios.pause': 'Pause',
       'scenarios.yearLabel': 'Jahr {y}',
+      'scenarios.measuredCase': 'gemessen · ohne Nachbesserung',
       'scenarios.canopy': 'Kronendeckung',
       'scenarios.density': 'Stammzahl',
       'scenarios.height': 'Höhe',
@@ -468,6 +469,7 @@
       'scenarios.play': 'Play',
       'scenarios.pause': 'Pause',
       'scenarios.yearLabel': 'Year {y}',
+      'scenarios.measuredCase': 'measured · no replanting',
       'scenarios.canopy': 'Canopy cover',
       'scenarios.density': 'Stems',
       'scenarios.height': 'Height',
@@ -1491,9 +1493,18 @@
       dens:   [0, 3000, 1300, 6500, 6200, 5900, 5600, 5400, 5200, 5000, 4800],
       dom: ['waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer',
             'waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer', 'waldkiefer'],
-      // ohne Nachbesserungspflanzung — das ist der real gemessene Fall
+      // ohne Nachbesserungspflanzung — das ist der real gemessene Fall, und
+      // deshalb zeigt die Karte ihn: Von den gepflanzten Kiefern lebten nach
+      // fünf Jahren 14,7 %, die Biomasse kam zu 99 % aus spontaner Aspe.
+      // Dominant ist hier folglich nicht die Kiefer (s. scenario.pine.note).
+      // Für die Stammzahl gibt es im gemessenen Fall keine belastbare Zahl:
+      // die Treuenbrietzener Aspendichten (13.590 bzw. 6.289/ha) gelten für eine
+      // andere Fläche, und genau dieser Unterschied trennt beide Standorte.
+      // Die Karte zeigt dort deshalb „—" statt einer erfundenen Zahl.
       altCanopy: [0, .006, .012, .025, .06, .10, .15, .21, .28, .33, .385],
-      altHgt:    [0, 0.2, 0.35, 0.6, 1.0, 1.5, 2.1, 2.7, 3.2, 3.6, 4.0] },
+      altHgt:    [0, 0.2, 0.35, 0.6, 1.0, 1.5, 2.1, 2.7, 3.2, 3.6, 4.0],
+      altDom: ['waldkiefer', 'waldkiefer', 'zitterpappel', 'zitterpappel', 'zitterpappel',
+               'zitterpappel', 'zitterpappel', 'zitterpappel', 'zitterpappel', 'zitterpappel', 'zitterpappel'] },
     { id: 'assisted', color: 'var(--accent)', rad: 'direct',
       canopy: [0, .05, .15, .28, .42, .51, .60, .67, .69, .72, .75],
       hgt:    [0, 1.2, 3.0, 4.2, 5.4, 6.4, 7.4, 8.3, 8.9, 9.9, 11.0],
@@ -1650,10 +1661,18 @@
     ctx.fillStyle = 'rgba(12,9,5,0.55)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    var dens = atYear(sc.dens, curYear);
-    var hgt = atYear(sc.hgt, curYear);
-    var canopy = atYear(sc.canopy, curYear);
-    var domId = domAtYear(sc, curYear);
+    // Wo eine gemessene Alternative existiert, zeigt die Karte SIE — nicht die
+    // modellierte Hauptkurve. Bei „Kiefern nachpflanzen" ist das der Verlauf
+    // ohne Nachbesserung: der Fall, den PYROPHOB tatsächlich gemessen hat.
+    // Man soll sehen, dass dort eben keine Kiefern hochkommen. Das Chart
+    // darüber zeigt weiterhin beide Linien.
+    var measured = !!sc.altCanopy;
+    var hgt = atYear(measured ? sc.altHgt : sc.hgt, curYear);
+    var canopy = atYear(measured ? sc.altCanopy : sc.canopy, curYear);
+    var dens = measured ? null : atYear(sc.dens, curYear);
+    var domId = measured
+      ? sc.altDom[Math.min(sc.altDom.length - 1, Math.round((curYear / MAX_YEAR) * (SCENARIO_YEARS.length - 1)))]
+      : domAtYear(sc, curYear);
     // Punktzahl folgt der Kronendeckung, nicht der Stammzahl: die Stammzahl
     // sinkt im älteren Bestand durch Selbstdurchforstung (wenige dicke statt
     // vieler dünner Bäume) — als schrumpfende Punktwolke gelesen wäre das
@@ -1685,6 +1704,12 @@
         '<span class="ro-item"><b></b> <i></i></span>';
       readout.querySelector('.ro-year').textContent =
         t('scenarios.yearLabel').replace('{y}', String(Math.round(curYear)));
+      if (measured) {
+        var badge = document.createElement('span');
+        badge.className = 'ro-measured';
+        badge.textContent = t('scenarios.measuredCase');
+        readout.insertBefore(badge, readout.children[1]);
+      }
       var items = readout.querySelectorAll('.ro-item');
       items[0].querySelector('b').textContent = t('scenarios.canopy');
       items[0].querySelector('i').textContent = Math.round(canopy * 100) + ' %';
@@ -1692,7 +1717,8 @@
       items[1].querySelector('i').textContent =
         (LANG === 'de' ? hgt.toFixed(1).replace('.', ',') : hgt.toFixed(1)) + ' m';
       items[2].querySelector('b').textContent = t('scenarios.density');
-      items[2].querySelector('i').textContent = Math.round(dens / 100) * 100 + ' /ha';
+      items[2].querySelector('i').textContent =
+        dens === null ? '—' : Math.round(dens / 100) * 100 + ' /ha';
       items[3].querySelector('b').textContent = t('scenarios.dominant');
       items[3].querySelector('i').textContent = domSp ? pick(domSp.name) : '—';
     }
@@ -1768,6 +1794,7 @@
       'site_id', 'scenario_id', 'rad_strategy', 'scenario_label', 'years_since_fire', 'data_status',
       'canopy_cover_fraction', 'height_m', 'stem_density_per_ha', 'dominant_species_id', 'dominant_species_name',
       'canopy_cover_fraction_no_followup_replant', 'height_m_no_followup_replant',
+      'dominant_species_id_no_followup_replant',
       'canopy_cover_band_low_fraction', 'canopy_cover_band_high_fraction', 'uncertainty_driver'
     ];
     // Jede Kurve hat einen benannten Haupt-Unsicherheitstreiber — nur beim Band
@@ -1793,6 +1820,7 @@
           'jueterbog', s.id, s.rad, t('scenario.' + s.id), yr, (yr <= MEASURED_UNTIL ? 'measured' : 'modeled'),
           s.canopy[i], s.hgt[i], s.dens[i], s.dom[i], speciesName[s.dom[i]] || '',
           s.altCanopy ? s.altCanopy[i] : '', s.altHgt ? s.altHgt[i] : '',
+          s.altDom ? s.altDom[i] : '',
           s.band ? s.band.lo[i] : '', s.band ? s.band.hi[i] : '',
           UNCERTAINTY[s.id] || ''
         ];

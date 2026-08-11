@@ -315,6 +315,9 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 .scenario-readout{display:flex;flex-wrap:wrap;gap:.5rem var(--sp-3);margin:.5rem 0 0;
   font-family:var(--font-sans);font-size:.78rem;color:var(--muted)}
 .scenario-readout .ro-year{font-weight:700;color:var(--ink)}
+.scenario-readout .ro-measured{font-family:var(--font-sans);font-size:.68rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.08em;color:var(--pine);
+  border:1px solid var(--pine);border-radius:var(--r-pill);padding:.1rem .5rem;white-space:nowrap}
 .scenario-readout .ro-item b{font-weight:700}
 .scenario-readout .ro-item i{font-style:normal;color:var(--ink);font-variant-numeric:tabular-nums}
 
