@@ -265,6 +265,8 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 .sp-name{font-family:var(--font-sans);font-weight:700;font-size:1rem}
 .sp-latin{font-family:var(--font-serif);font-style:italic;font-size:.82rem;color:var(--muted)}
 .spcard p{margin:.3rem 0 .55rem;font-size:1.0625rem;line-height:1.45}
+.spcard p.sp-carbon{margin:0 0 .55rem;font-family:var(--font-sans);font-size:.85rem;line-height:1.4;color:var(--muted)}
+.sp-carbon strong{color:var(--ink);font-weight:600}
 .excluded{border-left:2px solid var(--muted);padding-left:var(--sp-2)}
 .gloss{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;
   border-bottom:1px dotted var(--accent);line-height:inherit}

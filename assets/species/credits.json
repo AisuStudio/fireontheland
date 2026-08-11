@@ -173,5 +173,19 @@
     "license": "CC BY-SA 2.5",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
     "source": "https://commons.wikimedia.org/wiki/File:Edelkastanie_(Castanea_sativa)_1.jpg"
+  },
+  "brombeere": {
+    "file": "brombeere.jpg",
+    "artist": "Sven Teschke",
+    "license": "CC BY-SA 3.0 de",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Brombeere_0815-23.jpg"
+  },
+  "flieder": {
+    "file": "flieder.jpg",
+    "artist": "Magnus Manske",
+    "license": "CC BY 1.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/1.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Lilac_(2).jpg"
   }
 }
