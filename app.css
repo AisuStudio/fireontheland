@@ -326,6 +326,21 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 .scrub-year{font-family:var(--font-sans);font-weight:700;font-variant-numeric:tabular-nums;
   white-space:nowrap;color:var(--ink)}
 
+/* Kohlenstoff: zwei Balken auf einer Skala. Der Aufwuchs-Balken ist fast
+   unsichtbar — das ist die Aussage, nicht ein Darstellungsfehler. */
+.c-compare{margin:var(--sp-3) 0 0;display:grid;gap:.6rem}
+.c-row{display:grid;grid-template-columns:1fr;gap:.25rem}
+.c-lbl{font-family:var(--font-sans);font-size:.8rem;color:var(--muted)}
+.c-bar{height:14px;border-radius:var(--r-pill);background:var(--line);overflow:hidden}
+.c-bar i{display:block;height:100%;border-radius:var(--r-pill);background:var(--accent);min-width:2px}
+.c-bar.is-ref i{background:var(--pine)}
+.c-val{font-family:var(--font-sans);font-size:.85rem;font-weight:700;color:var(--ink);
+  font-variant-numeric:tabular-nums}
+@media (min-width:720px){
+  .c-row{grid-template-columns:15rem 1fr auto;align-items:center;gap:.75rem}
+  .c-lbl{text-align:right}
+}
+
 /* Szenarien-Vergleich: drei Panels auf demselben Zeitstand */
 .scen-compare{display:grid;grid-template-columns:1fr;gap:var(--sp-3);margin-top:var(--sp-3)}
 .cmp-panel{position:relative;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-m);
