@@ -279,7 +279,7 @@
       'scenarios.density': 'Stammzahl',
       'scenarios.height': 'Höhe',
       'scenarios.dominant': 'Dominant',
-      'scenarios.mapNote': 'Jeder Baum steht für ein Stück Kronendach, nicht für einen einzelnen Stamm. Er wächst mit der modellierten Höhe, und seine Stärke folgt der Höhe je Stammzahl: Aus vielen dünnen Bäumen werden wenige dicke. Gezeichnet wird mit <em>AS Data</em>, einer eigenen Variable-Font, deren Glyphen Bäume sind — die Achsen tragen die Daten. Der Hain steht im aus den Satellitendaten abgeleiteten, stark verbrannten Kern der Fläche; die Verteilung innerhalb bleibt schematisch.',
+      'scenarios.mapNote': 'Jeder Punkt steht für ein Stück Kronendach, nicht für einen Baum — deshalb wächst die Punktwolke stetig, während die Stammzahl im älteren Bestand sinkt: Aus vielen dünnen Bäumen werden wenige dicke. Die Wolke liegt im aus den Satellitendaten abgeleiteten, stark verbrannten Kern der Fläche; die Verteilung innerhalb bleibt schematisch.',
 
       'concept.thesis': 'Der Wert einer Sukzession ist keine Eigenschaft der <em>Pflanze</em> — sondern der <em>Fläche</em>.',
       'concept.hsec3': 'Nicht wiederherstellen — weiterdenken',
@@ -472,7 +472,7 @@
       'scenarios.density': 'Stems',
       'scenarios.height': 'Height',
       'scenarios.dominant': 'Dominant',
-      'scenarios.mapNote': 'Each tree stands for a piece of canopy, not for a single stem. It grows with the modelled height, and its thickness follows height per stem count: many thin trees become a few thick ones. Drawn in <em>AS Data</em>, a custom variable font whose glyphs are trees — the axes carry the data. The stand sits in the severely burned core derived from the satellite data; the distribution within it remains schematic.',
+      'scenarios.mapNote': 'Each dot stands for a piece of canopy, not for a single tree — which is why the dots keep filling in while the stem count falls in the older stand: many thin trees become a few thick ones. The cloud sits in the severely burned core derived from the satellite data; the distribution within it remains schematic.',
 
       'concept.thesis': 'The value of a succession is not a property of the <em>plant</em> — but of the <em>site</em>.',
       'concept.hsec3': 'Not restoration — rethinking',
@@ -924,24 +924,12 @@
     tilesReady = true;
     buildBurnMask();
     rebuildDotPositions();
-    buildTreePositions();
     renderComposite();
     renderSpeciesMap();
     renderScenarioMap();
   }).catch(function (err) {
     console.error('Sentinel-Kacheln konnten nicht geladen werden', err);
   });
-
-  // Die Baum-Glyphen brauchen die Schrift; ohne sie stünden dort Buchstaben.
-  // Erst wenn sie wirklich geladen ist, schaltet die Karte um — sonst bleibt
-  // es bei der Punkt-Textur.
-  if (document.fonts && document.fonts.load) {
-    document.fonts.load('400 16px "AS Data"', 'AB').then(function () {
-      if (!document.fonts.check('400 16px "AS Data"')) return;
-      treeFontReady = true;
-      renderScenarioMap();
-    }).catch(function () { /* Punkte bleiben */ });
-  }
 
   /* ---------------------------------------------------------
      Measures (Maßnahmen) — filterable by actor
@@ -1650,100 +1638,6 @@
     return getComputedStyle(document.documentElement).getPropertyValue(name[1]).trim() || '#888';
   }
 
-  /* ---------------------------------------------------------
-     Glyph stand — AS Data, ein Variable Font, dessen Glyphen Bäume sind
-     statt Buchstaben. Die Achsen tragen hier Bedeutung statt Stil:
-       YTAS 300–700  Wuchshöhe — direkt die modellierte Oberhöhe
-       wght 100–900  Stammstärke — als Höhe je Wurzel aus der Stammzahl
-                     (h/√n): bei gleicher Höhe ist ein dichter Bestand aus
-                     vielen dünnen Stämmen aufgebaut, ein lichter aus
-                     wenigen dicken. Genau die Aussage, die scenarios.mapNote
-                     ohnehin macht. Näherung, keine gemessene Stärke.
-       slnt          Bodeninstabilität → bleibt hier auf 0; die Achse ist
-                     für Permafrost-Standorte (Dehcho/NWT) reserviert.
-     Nur Glyph B wird verwendet: A reagiert nicht auf YTAS (feste Höhe von
-     800 Einheiten) und würde vom ersten Jahr an ausgewachsen dastehen.
-     Die Bäume stehen auf denselben Maskenpunkten wie zuvor die Punkte.
-     --------------------------------------------------------- */
-  var treeFontReady = false;
-  var TREE_POS = [];
-
-  // Spannweite von h/√n über alle Szenarien und Jahre — einmal aus den Daten
-  // bestimmt, damit die Stammstärken zwischen den Szenarien vergleichbar sind.
-  var THICK_RANGE = (function () {
-    var lo = Infinity, hi = -Infinity;
-    SCENARIOS.forEach(function (s) {
-      s.hgt.forEach(function (h, i) {
-        if (!s.dens[i]) return;
-        var v = h / Math.sqrt(s.dens[i]);
-        if (v < lo) lo = v;
-        if (v > hi) hi = v;
-      });
-    });
-    return { lo: lo, hi: hi };
-  })();
-
-  function trunkWeight(hgt, dens) {
-    if (!dens) return 100;
-    var v = hgt / Math.sqrt(dens);
-    var f = (v - THICK_RANGE.lo) / (THICK_RANGE.hi - THICK_RANGE.lo);
-    return 100 + Math.max(0, Math.min(1, f)) * 800;
-  }
-
-  function buildTreePositions() {
-    if (!burnPixels || !burnPixels.length) { TREE_POS = []; return; }
-    // Bäume sind Objekte, keine Textur — deutlich weniger als Punkte, sonst
-    // wird die kleine Narbe zum Klumpen.
-    var n = Math.max(40, Math.min(120, Math.round(burnPixels.length / 75)));
-    var out = [], h = 1099511627;
-    for (var i = 0; i < n; i++) {
-      h = (h ^ (i + 1)) >>> 0; h = (h * 16777619) >>> 0;
-      var idx = burnPixels[h % burnPixels.length];
-      h = (h * 16777619) >>> 0;
-      out.push({
-        x: ((idx % MASK_W) + 0.5) / MASK_W * 100,
-        y: (Math.floor(idx / MASK_W) + 0.5) / MASK_H * 100,
-        jitter: ((h >>> 8) % 100) / 100  // pro Baum leicht versetzte Reifung
-      });
-    }
-    // hintere (obere) Bäume zuerst zeichnen, damit vordere sie überlappen
-    out.sort(function (a, b) { return a.y - b.y; });
-    TREE_POS = out;
-  }
-
-  function renderTreeStand(canopy, hgt, dens) {
-    var layer = document.getElementById('scenario-trees');
-    if (!layer) return;
-    if (!TREE_POS.length) { layer.textContent = ''; return; }
-
-    var visible = Math.round(Math.min(1, canopy / REF_CANOPY) * TREE_POS.length);
-    if (layer.childElementCount !== TREE_POS.length) {
-      layer.textContent = '';
-      var frag = document.createDocumentFragment();
-      TREE_POS.forEach(function (p) {
-        var s = document.createElement('span');
-        s.textContent = 'B';
-        s.style.left = p.x + '%';
-        s.style.top = p.y + '%';
-        frag.appendChild(s);
-      });
-      layer.appendChild(frag);
-    }
-
-    var grown = Math.min(1, hgt / REF_HEIGHT);
-    var wght = trunkWeight(hgt, dens);
-    var kids = layer.children;
-    for (var i = 0; i < kids.length; i++) {
-      var p = TREE_POS[i], el = kids[i];
-      if (i >= visible) { el.style.opacity = '0'; continue; }
-      // ±15 % Streuung um die Bestandshöhe: ein Hain reift nicht im Gleichschritt
-      var g = Math.max(0, Math.min(1, grown * (0.85 + p.jitter * 0.3)));
-      el.style.opacity = '0.95';
-      el.style.fontVariationSettings =
-        '"YTAS" ' + (300 + g * 400).toFixed(0) + ', "wght" ' + wght.toFixed(0) + ', "slnt" 0';
-    }
-  }
-
   function renderScenarioMap() {
     var canvas = document.getElementById('scenario-map-canvas');
     if (!canvas) return;
@@ -1764,22 +1658,20 @@
     // sinkt im älteren Bestand durch Selbstdurchforstung (wenige dicke statt
     // vieler dünner Bäume) — als schrumpfende Punktwolke gelesen wäre das
     // das Gegenteil dessen, was passiert. Punktgröße folgt der Höhe.
-    if (treeFontReady) {
-      renderTreeStand(canopy, hgt, dens);
-    } else {
-      // Fallback ohne Schrift: die bisherige Dichte-Textur aus kleinen Punkten
-      var count = Math.round(Math.min(1, canopy / REF_CANOPY) * DOT_MAX);
-      var r = 1.4 + Math.min(1, hgt / REF_HEIGHT) * 1.4;
-      ctx.fillStyle = cssColor(SP_COLOR[domId] || 'var(--neo)');
-      ctx.globalAlpha = 0.8;
-      for (var i = 0; i < count; i++) {
-        var p = DOT_POS[i];
-        ctx.beginPath();
-        ctx.arc(p.x / 100 * canvas.width, p.y / 100 * canvas.height, r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      ctx.globalAlpha = 1;
+    var count = Math.round(Math.min(1, canopy / REF_CANOPY) * DOT_MAX);
+    // kleine Punkte, viele: liest sich als Dichte-Textur, nicht als
+    // Einzelbaum-Behauptung; Größe wächst nur leicht mit der Höhe
+    var r = 1.4 + Math.min(1, hgt / REF_HEIGHT) * 1.4;
+
+    ctx.fillStyle = cssColor(SP_COLOR[domId] || 'var(--neo)');
+    ctx.globalAlpha = 0.8;
+    for (var i = 0; i < count; i++) {
+      var p = DOT_POS[i];
+      ctx.beginPath();
+      ctx.arc(p.x / 100 * canvas.width, p.y / 100 * canvas.height, r, 0, Math.PI * 2);
+      ctx.fill();
     }
+    ctx.globalAlpha = 1;
 
     var readout = document.getElementById('scenario-readout');
     if (readout) {
