@@ -30,6 +30,10 @@
       de: 'Alles, was jungen Pflanzen Schutz gibt, ohne selbst Pflanze zu sein: liegendes Totholz, Reisig, Steine, Wurzelteller. Sie bremsen Wind, werfen Schatten, sammeln Tau und fangen Samen.',
       en: 'Anything that shelters young plants without being a plant itself: fallen deadwood, brush, stones, root plates. They slow the wind, cast shade, gather dew and catch seed.'
     },
+    gobi: {
+      de: 'Reisig oder Stroh im Schachbrettmuster auf offenen Sand gelegt — bremst Wind direkt über dem Boden, hält Feuchtigkeit und fängt Samen in den Feldern. Die Technik geht auf die Dünenstabilisierung in Chinas Wüsten zurück: An der Shapotou-Forschungsstation am Rand der Wüste Tengger/Gobi seit 1957 im großen Maßstab erprobt, senkt sie den Sandflug um bis zu 99,5 %.',
+      en: 'Brush or straw laid in a checkerboard on open sand — it slows wind right at ground level, holds moisture and catches seed in the squares. The technique traces back to dune stabilisation in China’s deserts: tested at scale since 1957 at the Shapotou research station on the edge of the Tengger/Gobi desert, it cuts sand drift by up to 99.5 %.'
+    },
     sukzession: {
       de: 'Die Abfolge, in der sich Pflanzengemeinschaften auf einer freien Fläche ablösen — von den schnellen Pionieren bis zu den langsamen, langlebigen Arten.',
       en: 'The sequence in which plant communities replace one another on open ground — from fast pioneers to slow, long-lived species.'
@@ -1012,8 +1016,8 @@
       t: { de: 'Steine und Stämme auf offenen Sand legen — Schatten- und Tau-Tropfkanten als Startpunkte.',
            en: 'Lay stones and logs on open sand — shade and dew-drip edges as starting points.' } },
     { a: 'ind', tags: ['Wind', 'Tau'],
-      t: { de: 'Kleine Reisig-/Stroh-Raster auf offenen Sandflecken (Gobi-Prinzip im Kleinen).',
-           en: 'Small brush/straw grids on open sand patches (the Gobi principle, scaled down).' } },
+      t: { de: 'Kleine Reisig-/Stroh-Raster auf offenen Sandflecken — das [[gobi|Gobi-Prinzip]] im Kleinen.',
+           en: 'Small brush/straw grids on open sand patches — the [[gobi|Gobi principle]], scaled down.' } },
     { a: 'ind', tags: ['Streu'],
       t: { de: 'Mulchen statt gießen; Freiwillige (Robinie, Eichhörnchen-Saat) kuratieren statt Exoten pflanzen.',
            en: 'Mulch instead of watering; curate volunteers (black locust, squirrel-sown seed) rather than planting exotics.' } },

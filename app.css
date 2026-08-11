@@ -69,6 +69,13 @@
   --accent-wash:#5100ff14;
   --pine-wash:#42605a1a;
   --neo-wash:#77853f1f;
+  --site:#57a03a;         /* waffle pistachio-4 — fixed across themes, like --highlight.
+                              Separates the site-status filter from the criteria filter
+                              above it; the two were both reading as one purple group. */
+  --site-wash:#57a03a1f;
+  --on-site:#1f1934;      /* ink on pistachio-4 measures 5.21:1 — vanilla/paper text only
+                              reaches ~2.7:1 on this green, so the accent's own on-color
+                              logic doesn't carry over here. */
 
   /* space */
   --sp-1:.35rem; --sp-2:.6rem; --sp-3:1rem; --sp-4:1.5rem; --sp-5:2.25rem;
@@ -236,6 +243,10 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 .seg-btn{font-family:var(--font-sans);font-size:.8rem;font-weight:700;color:var(--muted);
   background:var(--surface);border:1px solid var(--line);border-radius:var(--r-pill);padding:.4rem .8rem;cursor:pointer;min-height:36px}
 .seg-btn.is-on{color:var(--on-accent-solid);background:var(--accent);border-color:var(--accent)}
+/* Flächenstatus reads as its own decision, not a continuation of the
+   criteria filter above it — pistachio instead of the shared accent. */
+.site-btn{color:var(--site);background:var(--site-wash);border-color:var(--site)}
+.site-btn.is-on{color:var(--on-site);background:var(--site);border-color:var(--site)}
 .measures{list-style:none;margin:0;padding:0;display:grid;gap:var(--sp-2)}
 .measure{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:var(--sp-3);box-shadow:var(--shadow)}
 .measure .m-actor{font-family:var(--font-sans);font-size:.64rem;text-transform:uppercase;letter-spacing:.1em;font-weight:700;color:var(--muted)}
@@ -339,13 +350,13 @@ main{max-width:var(--maxw);margin:0 auto;padding:var(--sp-3)}
 /* Vorbehalte: eine Zeile sichtbar, der Rest auf Wunsch. Nichts ist gelöscht —
    die Sorgfalt bleibt prüfbar, erschlägt aber nicht den ersten Blick. */
 .disclosure{margin-top:var(--sp-3);border-top:1px solid var(--line)}
-.disclosure > summary{cursor:pointer;list-style:none;padding:.55rem 0;
-  font-family:var(--font-sans);font-size:.85rem;color:var(--muted);
-  display:flex;align-items:center;gap:.5rem}
+.disclosure > summary{cursor:pointer;list-style:none;padding:.85rem 0;
+  font-family:var(--font-sans);font-size:1rem;font-weight:600;color:var(--muted);
+  display:flex;align-items:center;gap:.6rem;min-height:44px}
 .disclosure > summary::-webkit-details-marker{display:none}
 .disclosure > summary::before{content:"";width:0;height:0;flex:0 0 auto;
-  border-left:5px solid currentColor;border-top:4px solid transparent;
-  border-bottom:4px solid transparent;transition:transform .15s ease}
+  border-left:6px solid currentColor;border-top:5px solid transparent;
+  border-bottom:5px solid transparent;transition:transform .15s ease}
 .disclosure[open] > summary::before{transform:rotate(90deg)}
 .disclosure > summary:hover{color:var(--ink)}
 .disclosure > *:not(summary){margin-bottom:var(--sp-3)}
